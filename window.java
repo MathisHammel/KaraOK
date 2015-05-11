@@ -23,7 +23,7 @@ import javax.swing.JLabel;
 
 public class window extends JFrame {
     
-    static String[][] files = {{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\Fun.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\queen.wav"},{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\fun-we-are-young.png","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATC.png"}};
+    static String[][] files = {{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\Fun.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\queen.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\beyonce.wav" },{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\fun-we-are-young.png","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATC.png", "C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATW.png"}};
     int song;
     Clip clip;
     Button next, prev, close, mini, minimize;
@@ -90,13 +90,13 @@ public class window extends JFrame {
         this.getContentPane().add(pict);
         
         nextpict=new Button(new ImageIcon(files[1][1]));
-        nextpict.setBounds(160,245,90,90);
+        nextpict.setBounds(450,245,90,90);
         nextpict.setOpaque(false);
         nextpict.setBorderPainted(false);
         this.getContentPane().add(nextpict);
         
         prevpict=new Button(new ImageIcon(files[1][files[0].length-1]));
-        prevpict.setBounds(450,245,90,90);
+        prevpict.setBounds(160,245,90,90);
         prevpict.setOpaque(false);
         prevpict.setBorderPainted(false);
         this.getContentPane().add(prevpict);
@@ -124,7 +124,10 @@ public class window extends JFrame {
                 }
             
             pict.setIcon(new ImageIcon(files[1][song]));
-            nextpict.setIcon(new ImageIcon(files[1][song+1]));
+            if(song == files[1].length-1)nextpict.setIcon(new ImageIcon(files[1][0]));
+            else nextpict.setIcon(new ImageIcon(files[1][song+1]));
+            if(song == 0)prevpict.setIcon(new ImageIcon(files[1][files[0].length-1]));
+            else prevpict.setIcon(new ImageIcon(files[1][song-1]));
             
         }
     }
@@ -145,6 +148,11 @@ public class window extends JFrame {
                         ex.printStackTrace();
                     }
                 pict.setIcon(new ImageIcon(files[1][song]));
+                if(song == files[1].length-1)prevpict.setIcon(new ImageIcon(files[1][0]));
+                else prevpict.setIcon(new ImageIcon(files[1][song+1]));
+                if(song == 0)nextpict.setIcon(new ImageIcon(files[1][files[0].length-1]));
+                else nextpict.setIcon(new ImageIcon(files[1][song-1]));
+                
             }
     }
         
