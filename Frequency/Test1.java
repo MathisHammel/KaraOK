@@ -47,7 +47,7 @@ public class Test1 {
 		in=getMainFreq(in);
 		String out="";
 		String[] notes = {"A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab","A"};
-		double[] freq = {440.0 , 466.16 , 493.88 , 523.25 , 554.37 , 587.33 , 622.25 , 659.25 , 698.46 , 739.99 , 783.99 , 830.61 , 880.0}; /* TODO : Add new freq for A5 for better Ab/A distinction */
+		double[] freq = {440.0 , 466.16 , 493.88 , 523.25 , 554.37 , 587.33 , 622.25 , 659.25 , 698.46 , 739.99 , 783.99 , 830.61 , 880.0};
 		for(i=0;i<notes.length;i++)
 		{
 			if(Math.abs(getMainFreq(in)-freq[i])<ecart)
@@ -60,6 +60,19 @@ public class Test1 {
 		return out;
 	}
 	
+	public static double getFreq(String in){
+		String[] notes = {"A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"};
+		double[] freq = {440.0 , 466.16 , 493.88 , 523.25 , 554.37 , 587.33 , 622.25 , 659.25 , 698.46 , 739.99 , 783.99 , 830.61};
+		int i;
+		double out=-1;
+		for(i=0;i<freq.length;i++)
+		{
+			if(in==notes[i]){
+				out=freq[i];
+			}
+		}
+		return(out);
+	}
 	
 	
     public static void main(String[] args){
@@ -138,7 +151,7 @@ public class Test1 {
     {
     	prev=mes;
     }
-     System.out.println("\n"+mes);
+     System.out.println("\n"+getNote(getMainFreq(mes))+" "+mes+" "+getMainFreq(mes)+" "+getFreq(getNote(getMainFreq(mes))));
 
   }
  }
