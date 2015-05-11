@@ -1,21 +1,20 @@
-import java.io.IOException;
-import java.io.File;
-
-import java.math.*;
-
-import java.io.*;
-
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.TargetDataLine;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.TargetDataLine;
 
 
-public class Test1 {
+public class FreqThread extends Thread {
+	
+	double freq;
+	double mainFreq;
+	String note;
 
+	  public FreqThread()
+	  {
+
+	  }
 
 	public static double getMainFreq(double in)
 	{
@@ -70,7 +69,7 @@ public class Test1 {
 	}
 	
 	
-    public static void main(String[] args){
+    public void run(){
     	float sampleRate = 44100;
     	int sampleSizeInBits = 8;
     	int channels = 1;
@@ -103,15 +102,12 @@ public class Test1 {
    	 }
    	 System.out.println("Line available");
 
-  int numBytesRead;
-
-
   byte[] data = new byte[1024];
   System.out.println("Src buffer size : "+target.getBufferSize());
 
   // Begin audio capture.
   target.start();
- int i=0,j=0;
+ int j=0;
  double avg;
  boolean stopped=false;
   // Here, stopped is a global boolean set by another thread.
@@ -119,10 +115,7 @@ public class Test1 {
 	  avg=0.0;
 	 //System.out.print("\n\n\n");
 
-	  // Read the next chunk of data from the TargetDataLine.
-     numBytesRead =  target.read(data, 0, data.length);
-
-     // Save this chunk of data.
+	  // Save this chunk of data.
      for(j=0;j<data.length;j++)
      {
     	 avg+=data[j];
@@ -146,8 +139,9 @@ public class Test1 {
     {
     	prev=mes;
     }
-     System.out.println("\n"+getNote(getMainFreq(mes))+" "+mes+" "+getMainFreq(mes)+" "+getFreq(getNote(getMainFreq(mes))));
-
+     this.freq=mes;
+     this.mainFreq=getMainFreq(mes);
+     this.note=getNote(this.mainFreq);
   }
  }
 }
