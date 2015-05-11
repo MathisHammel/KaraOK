@@ -43,21 +43,21 @@ public class Test1 {
 	
 	public static String getNote(double in){
 		int i;
-		int min=-1;
 		int ecart=50;
+		in=getMainFreq(in);
 		String out="";
-		String[] notes = {"A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"};
-		double[] freq = {440.0 , 466.16 , 493.88 , 523.25 , 554.37 , 587.33 , 622.25 , 659.25 , 698.46 , 739.99 , 783.99 , 830.61}; /* TODO : Add new freq for A5 for better Ab/A distinction */
+		String[] notes = {"A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab","A"};
+		double[] freq = {440.0 , 466.16 , 493.88 , 523.25 , 554.37 , 587.33 , 622.25 , 659.25 , 698.46 , 739.99 , 783.99 , 830.61 , 880.0}; /* TODO : Add new freq for A5 for better Ab/A distinction */
 		for(i=0;i<notes.length;i++)
 		{
 			if(Math.abs(getMainFreq(in)-freq[i])<ecart)
 			{
 				ecart=Math.abs((int)(getMainFreq(in)-freq[i]));
-				min=i;
+				out=notes[i];
 			}
 		}
 		
-		return notes[i];
+		return out;
 	}
 	
 	
