@@ -17,7 +17,7 @@ import javax.sound.sampled.AudioFileFormat;
 public class Test1 {
 
 	/*
-	 * TODO (maybe)
+	 * TODO (maybe) (non en fait)
 	 * Modifier le constructeur de target
 	 *
 	 */
@@ -63,12 +63,10 @@ public class Test1 {
 	
 	
     public static void main(String[] args){
-    	//AudioFormat.Encoding encoding = AudioFormat.Encoding.ALAW;
     	float sampleRate = 44100;
     	int sampleSizeInBits = 8;
     	int channels = 1;
     	boolean signed = true;
-    	//int framerate=1000;
     	boolean bigEndian = true;
     	AudioFormat format = new AudioFormat(
     			sampleRate,
@@ -97,14 +95,6 @@ public class Test1 {
    	 }
    	 System.out.println("Line available");
 
-
-
-  // Assume that the TargetDataLine, line, has already
-  // been obtained and opened.
-
-  /*
-  ByteArrayOutputStream out  = new ByteArrayOutputStream();
-  */
   int numBytesRead;
 
 
@@ -121,14 +111,6 @@ public class Test1 {
 	  avg=0.0;
 	 //System.out.print("\n\n\n");
 
-
-	  /*if(i==10){
-	  stopped=true;
-	 }
-	 i++;*/
-
-
-
 	  // Read the next chunk of data from the TargetDataLine.
      numBytesRead =  target.read(data, 0, data.length);
 
@@ -136,7 +118,6 @@ public class Test1 {
      for(j=0;j<data.length;j++)
      {
     	 avg+=data[j];
-    	// System.out.print(data[j]+";");
      }
 
 
@@ -148,35 +129,7 @@ public class Test1 {
     	 data[j]/=avg;
      }
 
-     //System.out.print(avg);
 
-     /*
-      * Here is a function displaying the volume of the sample
-      *
-     if(avg<=1)
-     {
-    	 System.out.println("[=     ]");
-     }
-     else if(avg<=2)
-     {
-    	 System.out.println("[==    ]");
-     }
-     else if(avg<=4)
-     {
-    	 System.out.println("[===   ]");
-     }
-     else if(avg<=6)
-     {
-    	 System.out.println("[====  ]");
-     }
-     else
-     {
-    	 System.out.println("[======]");
-     }
-  }
-  */
-
-  //CustomFFT.compute(data);
     mes=Autocorrelate.freq(data);
     if(mes==-44100.0){
     	mes=prev;
