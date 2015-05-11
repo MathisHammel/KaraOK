@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.io.File;
 
+import java.math.*;
+
 import java.io.*;
 
 import javax.sound.sampled.DataLine;
@@ -15,12 +17,51 @@ import javax.sound.sampled.AudioFileFormat;
 public class Test1 {
 
 	/*
-	 * TODO
+	 * TODO (maybe)
 	 * Modifier le constructeur de target
 	 *
 	 */
 
-
+	public static double getMainFreq(double in)
+	{
+		if(in < 440.0 && in > 0)
+		{
+			while(in<440.0)
+			{
+				in*=2;
+			}
+		}
+		if(in >= 880.0 && in > 0)
+		{
+			while(in>=880.0)
+			{
+				in/=2;
+			}
+		}
+		return(in);
+	}
+	
+	public static String getNote(double in){
+		int i;
+		int min=-1;
+		int ecart=50;
+		String out="";
+		String[] notes = {"A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"};
+		double[] freq = {440.0 , 466.16 , 493.88 , 523.25 , 554.37 , 587.33 , 622.25 , 659.25 , 698.46 , 739.99 , 783.99 , 830.61}; /* TODO : Add new freq for A5 for better Ab/A distinction */
+		for(i=0;i<notes.length;i++)
+		{
+			if(Math.abs(getMainFreq(in)-freq[i])<ecart)
+			{
+				ecart=Math.abs((int)(getMainFreq(in)-freq[i]));
+				min=i;
+			}
+		}
+		
+		return notes[i];
+	}
+	
+	
+	
     public static void main(String[] args){
     	//AudioFormat.Encoding encoding = AudioFormat.Encoding.ALAW;
     	float sampleRate = 44100;
@@ -137,10 +178,10 @@ public class Test1 {
 
   //CustomFFT.compute(data);
     mes=Autocorrelate.freq(data);
-    /*if(mes==-44100.0){
+    if(mes==-44100.0){
     	mes=prev;
     }
-    else*/
+    else
     {
     	prev=mes;
     }
