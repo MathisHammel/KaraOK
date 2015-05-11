@@ -16,6 +16,11 @@ import javax.sound.sampled.AudioFileFormat;
 
 public class Test1 {
 
+	/*
+	 * TODO (maybe) (non en fait)
+	 * Modifier le constructeur de target
+	 *
+	 */
 
 	public static double getMainFreq(double in)
 	{
