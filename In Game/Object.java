@@ -13,6 +13,7 @@ public abstract class Object {
     Image pict;
     Rectangle edges, frameEdges;
     String objectName;
+    
     public Object(int ax, int ay, float adx, float ady, float aspeed ,String pictName, Rectangle aframe, String name) {
         x=ax; y=ay;
         dx=adx; dy=ady; speed=aspeed;
@@ -37,5 +38,6 @@ public abstract class Object {
     }
     
     abstract void move(long t);
+    abstract void move(long t, double frquency);
     
 }
