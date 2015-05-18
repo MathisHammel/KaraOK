@@ -3,63 +3,63 @@ public class WeAreTheWorld extends Lyric {
     public WeAreTheWorld() {
         super();
         
-        root = new Text (0.37 , "There comes a time") ;                                         
-        add(new Text (0.41 , "when we heed a certain call")) ;
-        add(new Text (0.43 , "When the world")) ;
-        add(new Text (0.45 , "must come together as one")) ;
-        add(new Text (0.49 , "There are people dying")) ;
-        add(new Text (0.53 , "And it's time to lend a hand to life")) ;
-        add(new Text (0.58, "The greatest gift of all")) ;
-        add(new Text (1.03 , "We can't go on")) ;
-        add(new Text (1.06 , "Pretending day by day")) ;
-        add(new Text (1.09 , "That someone somewhere will soon make a change")) ;
-        add(new Text (1.16 , "We are all a part of ")) ;
-        add(new Text (1.20 , "God's great big family")) ;
-        add(new Text (1.23 , "And the truth you know love is all we need")) ;
-        add(new Text (1.29 , "We are the world")) ;
-        add(new Text (1.32 , "We are the children")) ;
-        add(new Text (1.35 , "We are the ones who make a brighter day")) ;
-        add(new Text (1.38 , "So let's start giving")) ;
-        add(new Text (1.42 , "There's a choice we're making")) ;
-        add(new Text (1.45 , "We're saving our own lives")) ;
-        add(new Text (1.49 , "It's true we'll make a better day")) ;
-        add(new Text (1.52 , "Just you and me")) ;
+        root = new Text (37.0 , "There comes a time") ;                                         
+        add(new Text (41.0 , "when we heed a certain call")) ;
+        add(new Text (43.0 , "When the world")) ;
+        add(new Text (45.0 , "must come together as one")) ;
+        add(new Text (49.0 , "There are people dying")) ;
+        add(new Text (53.0 , "And it's time to lend a hand to life")) ;
+        add(new Text (58.0 , "The greatest gift of all")) ;
+        add(new Text (63.0 , "We can't go on")) ;
+        add(new Text (66.0 , "Pretending day by day")) ;
+        add(new Text (69.0 , "That someone somewhere will soon make a change")) ;
+        add(new Text (76.0 , "We are all a part of ")) ;
+        add(new Text (80.0 , "God's great big family")) ;
+        add(new Text (83.0 , "And the truth you know love is all we need")) ;
+        add(new Text (89.0 , "We are the world")) ;
+        add(new Text (92.0 , "We are the children")) ;
+        add(new Text (95.0 , "We are the ones who make a brighter day")) ;
+        add(new Text (98.0 , "So let's start giving")) ;
+        add(new Text (102.0 , "There's a choice we're making")) ;
+        add(new Text (105.0 , "We're saving our own lives")) ;
+        add(new Text (109.0 , "It's true we'll make a better day")) ;
+        add(new Text (112.0 , "Just you and me")) ;
                    
     }
     
-    0.37 , G
-    0.42 , A B G
-    0.43 , G F
-    0.45 , E 
-    0.46 , F
-    0.48 , B G
-    0.49 , G B C G
-    0.53 , C
-    0.55 , B A G
-    0.57 , F E
-    0.58 , A 
-    1.00 , B
-    1.03 , G
-    1.08 , A B G
-    1.09 , G F
-    1.11 , E 
-    1.12 , F
-    1.14 , B G
-    1.15 , G B C G
-    1.20 , C
-    1.22 , B A G
-    1.24 , F E
-    1.25 , A 
-    1.27 , B
-    1.29 , G F E C
-    1.32 , G F E C
-    1.35 , G F E C
-    1.38 , E F D C B
-    1.42 , G B C 
-    1.44 , G
-    1.45 , C
-    1.47 , A G
-    1.49 , E D E D E D E E E E
+    37.0 , G
+    42.0 , A B G
+    43.0 , G F
+    45.0 , E 
+    46.0 , F
+    48.0 , B G
+    49.0 , G B C G
+    53.0 , C
+    55.0 , B A G
+    57.0 , F E
+    58.0 , A 
+    60.0 , B
+    63.0 , G
+    68.0 , A B G
+    69.0 , G F
+    71.0 , E 
+    72.0 , F
+    74.0 , B G
+    75.0 , G B C G
+    80.0 , C
+    82.0 , B A G
+    84.0 , F E
+    85.0 , A 
+    87.0 , B
+    89.0 , G F E C
+    92.0 , G F E C
+    95.0 , G F E C
+    98.0 , E F D C B
+    102.0 , G B C 
+    104.0 , G
+    105.0 , C
+    107.0 , A G
+    109.0 , E D E D E D E E E E
     
     
     
