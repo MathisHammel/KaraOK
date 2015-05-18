@@ -1,4 +1,6 @@
 import java.awt.Menu;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Karaok {
     public enum State{
@@ -24,6 +26,7 @@ public class Karaok {
                    
         case Game : if(pass){ 
                         System.out.println("changé");
+                        GameWindow gamewindow = new GameWindow();
                         pass=false;
         }
                    break;
@@ -39,6 +42,7 @@ public class Karaok {
         }
         
         }
-        }
+    
+}
         
 

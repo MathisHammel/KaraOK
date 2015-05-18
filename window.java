@@ -8,6 +8,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import java.io.File;
 
 
@@ -44,18 +47,20 @@ public class window extends JFrame {
         Cursor cursor = tk.createCustomCursor(img, new Point(0, 0), "micro");
         this.setCursor(cursor);
         
+        this.addKeyListener(new WindowKeyAdapter());
+        
         state=Karaok.State.Menu;
         this.setContentPane(new JLabel(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\image2.png")));
         song=0;
         //création des outils fenetres 
-        close=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\close.png"));
-        close.setBounds(670,0,30,20);
+        close=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Close.png"));
+        close.setBounds(675,0,25,25);
         close.setBorderPainted(false);
         close.addActionListener(new closeListener());
         this.getContentPane().add(close);
         
-        minimize=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\reduire.png"));
-        minimize.setBounds(640,0,30,20);
+        minimize=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Minimize.png"));
+        minimize.setBounds(650,0,25,25);
         minimize.setBorderPainted(false);
         minimize.addActionListener(new minimizeListener());
         this.getContentPane().add(minimize);
@@ -106,12 +111,14 @@ public class window extends JFrame {
         prevpict.setBorderPainted(false);
         this.getContentPane().add(prevpict);
         
+        
+        
         setVisible(true);
     }
     
-    //public static void main(String[] args) {
-    //window Monjeu = new window();
-    //}
+   /** public static void main(String[] args) {
+    window Monjeu = new window();
+    }*/
      class nextListener implements ActionListener{
         
         public void actionPerformed (ActionEvent arg0){
@@ -183,5 +190,17 @@ public class window extends JFrame {
             clip.stop();
             
         }
+    }
+    private class WindowKeyAdapter extends KeyAdapter{
+            
+        
+        public void keyPressed(KeyEvent e) {
+            int code = e.getKeyCode();
+           
+            if(code== KeyEvent.VK_ESCAPE){ 
+                System.out.println("coucou");
+                System.exit(0);
+            }
+}
     }
 }
