@@ -1,5 +1,3 @@
-
-
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Point;
@@ -30,7 +28,6 @@ public class window extends JFrame {
     Clip clip;
     Button next, prev, close, mini, minimize;
     Button pict, nextpict, prevpict;
-    Karaok.State state;
     
     public window() {
         setTitle("Kara-OK.Jackson");
@@ -44,7 +41,6 @@ public class window extends JFrame {
         Cursor cursor = tk.createCustomCursor(img, new Point(0, 0), "micro");
         this.setCursor(cursor);
         
-        state=Karaok.State.Menu;
         this.setContentPane(new JLabel(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\image2.png")));
         song=0;
         //création des outils fenetres 
@@ -91,7 +87,6 @@ public class window extends JFrame {
         pict.setBounds(260,200,180,180);
         pict.setOpaque(false);
         pict.setBorderPainted(false);
-        pict.addActionListener(new pictListener());
         this.getContentPane().add(pict);
         
         nextpict=new Button(new ImageIcon(files[1][1]));
@@ -109,9 +104,9 @@ public class window extends JFrame {
         setVisible(true);
     }
     
-    //public static void main(String[] args) {
-    //window Monjeu = new window();
-    //}
+    public static void main(String[] args) {
+    window Monjeu = new window();
+    }
      class nextListener implements ActionListener{
         
         public void actionPerformed (ActionEvent arg0){
@@ -171,17 +166,6 @@ public class window extends JFrame {
         
         public void actionPerformed (ActionEvent arg0){
             setState(JFrame.ICONIFIED);
-        }
-    }
-    class pictListener implements ActionListener{
-        
-        public void actionPerformed (ActionEvent arg0){
-          
-            System.out.println("bouton appuyé");
-            state=Karaok.State.Game;
-            dispose();
-            clip.stop();
-            
         }
     }
 }
