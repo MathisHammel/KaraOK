@@ -1,10 +1,9 @@
-package FileRead;
-
 public class DataTest {
 	public static void main(String[] args){
 		
 	
-		SongData reader = new SongData("C:\\world.txt");
+		SongData reader = new SongData("We_are_the_world.txt");
 		reader.start();
 	}
 }
+
