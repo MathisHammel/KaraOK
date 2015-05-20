@@ -3,40 +3,48 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class SongData extends Thread {
+			
 	
+	
+			final boolean DEBUG_MODE=true;
+	
+			
+	String currNote="";
+	String currLyrics="";
+			
 	static String filepath="";
+	final int MAXLENGTH=200;
+		
+
+	String[] lyricsData=new String[MAXLENGTH];
+	double[] lyricsTime=new double[MAXLENGTH];
+	String[] notesData=new String[MAXLENGTH];
+	double[] notesTime=new double[MAXLENGTH];
+		
+	int lyricsRead=0;
+	int notesRead=0;
+	
+	long startTime;
+	double endTime=1000;
+	boolean end=false;
+	
 	
 	public SongData(String path){
 		filepath=path;
-	}
+
 	
 	
-	
-	
-	
-	public void run()
-	{
-		final boolean DEBUG_MODE=true;
 		/*
 		 * 
 		 * TODO : add author field ?
 		 * 
 		 */
-		long startTime=System.currentTimeMillis( );
+
 
 		if(DEBUG_MODE){System.out.println("[DEBUG]Timer started at time : "+startTime);}
 		BufferedReader br = null;
 
-		final int MAXLENGTH=200;
-		
 
-		String[] lyricsData=new String[MAXLENGTH];
-		double[] lyricsTime=new double[MAXLENGTH];
-		String[] notesData=new String[MAXLENGTH];
-		double[] notesTime=new double[MAXLENGTH];
-		
-		int lyricsRead=0;
-		int notesRead=0;
 		
 		try {
  
@@ -62,6 +70,12 @@ public class SongData extends Thread {
 					index=0;
 					sCurrentLine = br.readLine();
 					if(DEBUG_MODE){System.out.println("[DEBUG]Found lyrics beginning.");}
+				}
+				
+				if(sCurrentLine.equals("END")){
+					sCurrentLine = br.readLine();
+					endTime=Float.parseFloat(sCurrentLine);
+					if(DEBUG_MODE){System.out.println("[DEBUG]Found endtime.");}
 				}
 				
 				if(sCurrentLine.equals("END LYRICS")){
@@ -135,5 +149,53 @@ public class SongData extends Thread {
 		{
 			System.out.println("[DEBUG]File read went smooth as fuck.");
 		}
+	}
+	
+	
+	
+	
+	
+	public void run()
+	{
+		long currTime;
+		double elapsedTime;
+		startTime=System.currentTimeMillis();
+		
+		int indexLyrics=-1;
+		int indexNotes=-1;
+		
+		String currLyrics="";
+		String currNote="";
+		
+		while(!end)
+		{		
+			currTime=System.currentTimeMillis();
+			elapsedTime=(currTime-startTime)/1000.0;
+			//if(DEBUG_MODE&&elapsedTime%1==0){System.out.println(elapsedTime);}
+			
+				while(lyricsTime[indexLyrics+1]<=elapsedTime && lyricsTime[indexLyrics+1]>=0.1)
+				{
+					indexLyrics++;
+					currLyrics=lyricsData[indexLyrics];
+					if(DEBUG_MODE){System.out.println("[DEBUG]Lyrics : "+currLyrics);}
+				}
+			
+
+				while(notesTime[indexNotes+1]<=elapsedTime && notesTime[indexNotes+1]>=0.1)
+				{
+					indexNotes++;
+					currNote=notesData[indexNotes];
+					if(DEBUG_MODE){System.out.println("[DEBUG]Note : "+currNote);}
+				}
+			
+			
+			if(elapsedTime>endTime)
+			{
+				if(DEBUG_MODE){System.out.println("[DEBUG]Reached end of song.");}
+				end=true;
+			}
+
+		}
+		
 	}
 }
