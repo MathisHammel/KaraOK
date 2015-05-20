@@ -1,9 +1,14 @@
 
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
 
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +30,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class window extends JFrame {
     
@@ -39,7 +45,7 @@ public class window extends JFrame {
         setTitle("Kara-OK.Jackson");
         setUndecorated(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(700, 458);
+        setSize(700, 500);
         this.setLocationRelativeTo(getRootPane());
         this.setIconImage(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\microphone_converted.png").getImage());
         Toolkit tk = Toolkit.getDefaultToolkit();
@@ -50,20 +56,87 @@ public class window extends JFrame {
         this.addKeyListener(new WindowKeyAdapter());
         
         state=Karaok.State.Menu;
-        this.setContentPane(new JLabel(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\image2.png")));
+        this.setLayout(new GridLayout(5,7));
+        LightPad[] lightPad = new LightPad[140];
+        int a = 0;
+        GridLayout grid = new GridLayout(2,2);
+        for(int i=0; i<35; i++){
+            JPanel panel = new JPanel();
+            switch (i){
+            case 6: 
+                panel.setLayout(new GridLayout(2,1));
+               // panel.setBounds(new Rectangle(100,100));
+                JPanel papa = new JPanel();
+                papa.setBackground(new Color(127,140,141));
+                papa.setLayout(null);
+                
+                
+                close=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Close.png"));
+                close.setBounds(70,0,30,26);
+                close.setBorderPainted(false);
+                close.addActionListener(new closeListener());
+                papa.add(close);
+                
+                minimize=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Minimize.png"));
+                minimize.setBounds(38,0,32,26);
+                minimize.setBorderPainted(false);
+                minimize.addActionListener(new minimizeListener());
+                papa.add(minimize);
+            
+                panel.add(papa);
+                
+                papa = new JPanel();
+                
+                papa.setLayout(new GridLayout(1,2));
+                lightPad[a]=new LightPad();
+                papa.add(lightPad[a]);
+                a++;
+                lightPad[a]=new LightPad();
+                papa.add(lightPad[a]);
+                panel.add(papa);
+                this.getContentPane().add(panel);
+                break;
+            case 15:
+                
+                /**prev=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\prev.png"));
+                prev.setBounds(0,0,50,50);
+                prev.setBorderPainted(false);
+                prev.addActionListener(new prevListener());
+                panel.add(prev);*/
+                this.getContentPane().add(panel);
+            default:
+                panel.setLayout(new GridLayout(2,2));
+                for(int j=0; j<4;j++){
+                    lightPad[a]=new LightPad();
+                    panel.add(lightPad[a]);
+                    a++;
+                    this.getContentPane().add(panel);
+                }
+            break;
+            
+            }
+        }
+        
+        
+        //this.setContentPane(new JLabel(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\image2.png")));
+        
         song=0;
+        /**
         //création des outils fenetres 
         close=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Close.png"));
-        close.setBounds(675,0,25,25);
+        close.setBounds(670,0,30,20);
         close.setBorderPainted(false);
         close.addActionListener(new closeListener());
         this.getContentPane().add(close);
         
         minimize=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Minimize.png"));
-        minimize.setBounds(650,0,25,25);
+        minimize.setBounds(630,0,25,25);
         minimize.setBorderPainted(false);
         minimize.addActionListener(new minimizeListener());
         this.getContentPane().add(minimize);
+
+        */
+        
         //lancement de la musique
         try {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(files[0][song]).getAbsoluteFile());
@@ -74,7 +147,7 @@ public class window extends JFrame {
                 System.out.println("Error with playing sound.");
                 ex.printStackTrace();
             }
-        
+        /**
         //mise en place des éléments graphiques 
         next=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\next.png"));
         next.setBounds(600,265,50,50);
@@ -84,13 +157,6 @@ public class window extends JFrame {
         next.addActionListener(new nextListener());
         this.getContentPane().add(next);
         
-        prev=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\prev.png"));
-        prev.setBounds(50,265,50,50);
-        prev.setOpaque(false);
-        prev.setContentAreaFilled(false);
-        prev.setBorderPainted(false);
-        prev.addActionListener(new prevListener());
-        this.getContentPane().add(prev);
         
         pict=new Button(new ImageIcon(files[1][0]));
         pict.setBounds(260,200,180,180);
@@ -110,7 +176,7 @@ public class window extends JFrame {
         prevpict.setOpaque(false);
         prevpict.setBorderPainted(false);
         this.getContentPane().add(prevpict);
-        
+        */
         
         
         setVisible(true);
