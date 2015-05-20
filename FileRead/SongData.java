@@ -16,19 +16,28 @@ public class SongData extends Thread {
 	
 	public void run()
 	{
+		final boolean DEBUG_MODE=true;
 		/*
 		 * 
 		 * TODO : add author field ?
 		 * 
 		 */
-		final int MAXLENGTH=200;
+		long startTime=System.currentTimeMillis( );
+
+		if(DEBUG_MODE){System.out.println("[DEBUG]Timer started at time : "+startTime);}
 		BufferedReader br = null;
+
+		final int MAXLENGTH=200;
+		
+
 		String[] lyricsData=new String[MAXLENGTH];
 		double[] lyricsTime=new double[MAXLENGTH];
 		String[] notesData=new String[MAXLENGTH];
 		double[] notesTime=new double[MAXLENGTH];
+		
 		int lyricsRead=0;
 		int notesRead=0;
+		
 		try {
  
 			String sCurrentLine;
@@ -41,26 +50,35 @@ public class SongData extends Thread {
 				//System.out.println(sCurrentLine);
 				
 				/*
-				 * FIXME :
-				 * WHAT THE HELL, DETECTION OF THESE SPECIFIC LINES FAIL
+				 * FIXED :
+				 * 
+				 * Next time, remember about string comparison, you moron
+				 * 
 				 */
-				if(sCurrentLine=="BEGIN LYRICS"){
+
+				
+				if(sCurrentLine.equals("BEGIN LYRICS")){
 					lyricsRead=1;
 					index=0;
-					System.out.println("[DEBUG]Found lyrics beginning.");
+					sCurrentLine = br.readLine();
+					if(DEBUG_MODE){System.out.println("[DEBUG]Found lyrics beginning.");}
 				}
-				if(sCurrentLine=="END LYRICS"){
+				
+				if(sCurrentLine.equals("END LYRICS")){
 					lyricsRead=2;
-					System.out.println("[DEBUG]Found lyrics ending. "+index+" lyrics found.");
+					if(DEBUG_MODE){System.out.println("[DEBUG]Found lyrics ending. "+index+" lyrics found.");}
 				}
-				if(sCurrentLine=="BEGIN NOTES"){
+				
+				if(sCurrentLine.equals("BEGIN NOTES")){
 					notesRead=1;
 					index=0;
-					System.out.println("[DEBUG]Found notes beginning.");
+					sCurrentLine = br.readLine();
+					if(DEBUG_MODE){System.out.println("[DEBUG]Found notes beginning.");}
 				}
-				if(sCurrentLine=="END NOTES"){
+				
+				if(sCurrentLine.equals("END NOTES")){
 					notesRead=2;
-					System.out.println("[DEBUG]Found notes ending "+index+" notes found.");
+					if(DEBUG_MODE){System.out.println("[DEBUG]Found notes ending. "+index+" notes found.");}
 				}
 				
 				
@@ -68,12 +86,24 @@ public class SongData extends Thread {
 				
 				if(lyricsRead==1 && notesRead!=1){
 					lyricsTime[index]=Float.parseFloat(sCurrentLine);
+					
+					if(index>0 && DEBUG_MODE && lyricsTime[index]<=lyricsTime[index-1])
+					{
+						System.out.println("[DEBUG]Lyrics timestamps in the wrong order");
+					}
+					
 					sCurrentLine = br.readLine();
 					lyricsData[index]=sCurrentLine;
 				}
 
 				if(lyricsRead!=1 && notesRead==1){
 					notesTime[index]=Float.parseFloat(sCurrentLine);
+					
+					if(index>0 && DEBUG_MODE && notesTime[index]<=notesTime[index-1])
+					{
+						System.out.println("[DEBUG]Notes timestamps in the wrong order");
+					}
+					
 					sCurrentLine = br.readLine();
 					notesData[index]=sCurrentLine;
 				}
@@ -81,7 +111,7 @@ public class SongData extends Thread {
 				
 				
 				
-				if(lyricsRead==1 && notesRead==1){
+				if(DEBUG_MODE && lyricsRead==1 && notesRead==1){
 					
 					System.out.println("[DEBUG]Something wrong happened.");
 				
@@ -89,7 +119,9 @@ public class SongData extends Thread {
 				
 				index++;
 			}
-			System.out.println("[DEBUG]EOF reached.");
+			
+			if(DEBUG_MODE){System.out.println("[DEBUG]EOF reached.");}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
