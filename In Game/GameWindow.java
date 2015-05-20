@@ -16,10 +16,15 @@ import javax.swing.JFrame;
 
 public class GameWindow extends JFrame{
     
+    // satic String[] background = ... ; to set the backgroud ! 
+    // static String[] song = ...  
+    
         Timer timer; 
         long time; 
         int score; 
         boolean finjeu; 
+        
+        Pointeur pointeur;
                         
         BufferedImage ArrierePlan; 
         Graphics buffer; 
@@ -35,17 +40,11 @@ public class GameWindow extends JFrame{
             
             /** affichage plein écran !!! */
                              
-            GraphicsDevice device;
             setTitle("Kara-OK.Jackson");
             setUndecorated(true);
-            device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-            //Est ce que le mode plein ecran est disponible ?
-            if (device.isFullScreenSupported()) {
-                device.setFullScreenWindow(this);
-            } else {
-                System.err.println("Le mode plein ecran n'est pas disponible");
-            }
-            
+            this.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
+            this.setLocationRelativeTo(getRootPane());
+           
             
             time = 0;
             score = 0;
@@ -55,7 +54,7 @@ public class GameWindow extends JFrame{
             ArrierePlan =new BufferedImage(getSize().width,getSize().height,BufferedImage.TYPE_INT_RGB);
             buffer = ArrierePlan.getGraphics();
             
-            
+            pointeur = new Pointeur(Ecran);
             
             timer = new Timer(10,new TimerAction());
             
@@ -73,8 +72,7 @@ public class GameWindow extends JFrame{
             Color couleur = new Color(254, 40, 162);
             buffer.setColor(couleur);
             buffer.fillRect(Ecran.x,Ecran.y,Ecran.x+Ecran.width,Ecran.y+Ecran.height);
-           
-            
+            pointeur.draw(time,buffer);
             g.drawImage(ArrierePlan,0,0,this);
         }
 
@@ -92,7 +90,7 @@ public class GameWindow extends JFrame{
             
         }
         
-      /**  public static void main(String[] args) {
+     /**public static void main(String[] args) {
         GameWindow Monjeu = new GameWindow();
         }*/
         
