@@ -25,7 +25,7 @@ import javax.sound.sampled.AudioSystem;
 
 import javax.sound.sampled.Clip;
 
-
+import javax.swing.Timer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,9 +40,12 @@ public class window extends JFrame {
     Button next, prev, close, mini, minimize;
     Button pict, nextpict, prevpict;
     Karaok.State state;
+    long time;
+    Timer timer;
+    LightPad[] lightPad;
     
     public window() {
-        setTitle("Kara-OK.Jackson");
+        setTitle("Kara-OK");
         setUndecorated(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(700, 500);
@@ -57,7 +60,7 @@ public class window extends JFrame {
         
         state=Karaok.State.Menu;
         this.setLayout(new GridLayout(5,7));
-        LightPad[] lightPad = new LightPad[140];
+        lightPad = new LightPad[140];
         int a = 0;
         GridLayout grid = new GridLayout(2,2);
         for(int i=0; i<35; i++){
@@ -71,13 +74,13 @@ public class window extends JFrame {
                 papa.setLayout(null);
                 
                 
-                close=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Close.png"));
+                close=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\CloseOff.png","C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\CloseOn.png"));
                 close.setBounds(70,0,30,26);
                 close.setBorderPainted(false);
                 close.addActionListener(new closeListener());
                 papa.add(close);
                 
-                minimize=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Minimize.png"));
+                minimize=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\MinimizeOff.png","C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\MinimizeOn.png"));
                 minimize.setBounds(38,0,32,26);
                 minimize.setBorderPainted(false);
                 minimize.addActionListener(new minimizeListener());
@@ -99,11 +102,18 @@ public class window extends JFrame {
             case 15:
                 
                 /**prev=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\prev.png"));
-                prev.setBounds(0,0,50,50);
+                prev.setBounds(0,0,100,100);
                 prev.setBorderPainted(false);
                 prev.addActionListener(new prevListener());
-                panel.add(prev);*/
+                panel.add(prev);
                 this.getContentPane().add(panel);
+            case 16: 
+                prevpict=new Button(new ImageIcon(files[1][files[0].length-1]));
+                prevpict.setBounds(0,0,90,90);
+                prevpict.setOpaque(false);
+                prevpict.setBorderPainted(false);
+                panel.add(prevpict);
+                this.getContentPane().add(panel);*/
             default:
                 panel.setLayout(new GridLayout(2,2));
                 for(int j=0; j<4;j++){
@@ -177,8 +187,9 @@ public class window extends JFrame {
         prevpict.setBorderPainted(false);
         this.getContentPane().add(prevpict);
         */
-        
-        
+        time=0;
+        timer = new Timer(100,new TimerAction());
+        timer.start();
         setVisible(true);
     }
     
@@ -268,5 +279,19 @@ public class window extends JFrame {
                 System.exit(0);
             }
 }
+    }
+    private class TimerAction implements ActionListener {
+    
+    public void actionPerformed(ActionEvent e) {
+    game_display();
+    time++;
+    }
+
+    
+    }
+    
+    public void game_display(){
+        int pos = (int)(Math.random()*137);
+        lightPad[pos].update(time);
     }
 }
