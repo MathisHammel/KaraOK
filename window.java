@@ -60,7 +60,7 @@ public class window extends JFrame {
         
         state=Karaok.State.Menu;
         this.setLayout(new GridLayout(5,7));
-        lightPad = new LightPad[140];
+        lightPad = new LightPad[114];
         int a = 0;
         GridLayout grid = new GridLayout(2,2);
         for(int i=0; i<35; i++){
@@ -68,7 +68,6 @@ public class window extends JFrame {
             switch (i){
             case 6: 
                 panel.setLayout(new GridLayout(2,1));
-               // panel.setBounds(new Rectangle(100,100));
                 JPanel papa = new JPanel();
                 papa.setBackground(new Color(127,140,141));
                 papa.setLayout(null);
@@ -96,26 +95,70 @@ public class window extends JFrame {
                 a++;
                 lightPad[a]=new LightPad();
                 papa.add(lightPad[a]);
+                a++;
                 panel.add(papa);
                 this.getContentPane().add(panel);
                 break;
             case 15:
-                
-                /**prev=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\prev.png"));
+                panel.setLayout(null);
+                prev=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next04Off.png"));
                 prev.setBounds(0,0,100,100);
                 prev.setBorderPainted(false);
                 prev.addActionListener(new prevListener());
                 panel.add(prev);
                 this.getContentPane().add(panel);
+            break;
             case 16: 
+                panel.setLayout(null);
                 prevpict=new Button(new ImageIcon(files[1][files[0].length-1]));
-                prevpict.setBounds(0,0,90,90);
-                prevpict.setOpaque(false);
+                prevpict.setBounds(0,0,100,100);
                 prevpict.setBorderPainted(false);
                 panel.add(prevpict);
-                this.getContentPane().add(panel);*/
+                System.out.println(i);
+                this.getContentPane().add(panel);
+            break;
+            case 17:
+                panel.setLayout(null);
+                pict=new Button(new ImageIcon(files[1][0]));
+                pict.setBounds(0,0,100,100);
+                pict.setBorderPainted(false);
+                pict.addActionListener(new pictListener());
+                this.getContentPane().add(pict);
+            break;
+            case 18:
+                panel.setLayout(null);
+                nextpict=new Button(new ImageIcon(files[1][1]));
+                nextpict.setBounds(0,0,100,100);
+                nextpict.setOpaque(false);
+                nextpict.setBorderPainted(false);
+                this.getContentPane().add(nextpict);
+            
+            break;
+            
+            case 19:
+                panel.setLayout(null);
+                next=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next01Off.png"));
+                next.setBounds(0,0,100,100);
+                next.setOpaque(false);
+                next.setContentAreaFilled(false);
+                next.setBorderPainted(false);
+                next.addActionListener(new nextListener());
+                this.getContentPane().add(next);
+            
+            break;
+            case 24: 
+                panel.setLayout(null);
+                next=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\next.png"));
+                next.setBounds(0,0,100,100);
+                next.setOpaque(false);
+                next.setContentAreaFilled(false);
+                next.setBorderPainted(false);
+                next.addActionListener(new nextListener());
+                this.getContentPane().add(next);
+            break;
             default:
                 panel.setLayout(new GridLayout(2,2));
+                System.out.println(i);
                 for(int j=0; j<4;j++){
                     lightPad[a]=new LightPad();
                     panel.add(lightPad[a]);
@@ -188,7 +231,7 @@ public class window extends JFrame {
         this.getContentPane().add(prevpict);
         */
         time=0;
-        timer = new Timer(100,new TimerAction());
+        timer = new Timer(10,new TimerAction());
         timer.start();
         setVisible(true);
     }
@@ -291,7 +334,11 @@ public class window extends JFrame {
     }
     
     public void game_display(){
-        int pos = (int)(Math.random()*137);
+        int pos = (int)(Math.random()*114);
+        lightPad[pos].update(time);
+        pos = (int)(Math.random()*114);
+        lightPad[pos].downdate(time);
+        pos = (int)(Math.random()*114);
         lightPad[pos].update(time);
     }
 }
