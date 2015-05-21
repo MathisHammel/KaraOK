@@ -1,14 +1,14 @@
 
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+
+
+
 import java.awt.Cursor;
-import java.awt.FlowLayout;
+
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
 
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,8 +16,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import java.io.File;
 
@@ -30,9 +28,9 @@ import javax.sound.sampled.Clip;
 
 import javax.swing.Timer;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+
 import javax.swing.JPanel;
 
 public class window extends JFrame {
@@ -40,7 +38,7 @@ public class window extends JFrame {
     static String[][] files = {{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\Fun.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\queen.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\beyonce.wav" },{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\fun-we-are-young.png","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATC.png", "C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATW.png"}};
     int song;
     Clip clip;
-    Button next, prev, close, mini, minimize;
+    Button next, prev,play , close, minimize;
     Button pict, nextpict, prevpict;
     Karaok.State state;
     long time;
@@ -59,7 +57,7 @@ public class window extends JFrame {
         Cursor cursor = tk.createCustomCursor(img, new Point(0, 0), "micro");
         this.setCursor(cursor);
         
-        this.addKeyListener(new WindowKeyAdapter());
+        
         
         state=Karaok.State.Menu;
         this.setLayout(new GridLayout(5,7));
@@ -106,7 +104,7 @@ public class window extends JFrame {
                 break;
             case 15:
                 panel.setLayout(null);
-                prev=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next04Off.png"));
+                prev=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next01Off.png"));
                 prev.setBounds(0,0,100,100);
                 prev.setBorderPainted(false);
                 prev.addActionListener(new prevListener());
@@ -142,7 +140,7 @@ public class window extends JFrame {
             
             case 19:
                 panel.setLayout(null);
-                next=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next01Off.png"));
+                next=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next05Off.png"));
                 next.setBounds(0,0,100,100);
                 next.setOpaque(false);
                 next.setContentAreaFilled(false);
@@ -153,13 +151,13 @@ public class window extends JFrame {
             break;
             case 24: 
                 panel.setLayout(null);
-                next=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\next.png"));
-                next.setBounds(0,0,100,100);
-                next.setOpaque(false);
-                next.setContentAreaFilled(false);
-                next.setBorderPainted(false);
-                next.addActionListener(new nextListener());
-                this.getContentPane().add(next);
+                play=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\next.png"));
+                play.setBounds(0,0,100,100);
+                play.setOpaque(false);
+                play.setContentAreaFilled(false);
+                play.setBorderPainted(false);
+                play.addActionListener(new pictListener());
+                this.getContentPane().add(play);
             break;
             default:
                 panel.setLayout(new GridLayout(2,2));
@@ -176,25 +174,7 @@ public class window extends JFrame {
         }
         
         
-        //this.setContentPane(new JLabel(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\image2.png")));
-        
-        song=0;
-        /**
-        //création des outils fenetres 
-        close=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Close.png"));
-        close.setBounds(670,0,30,20);
-        close.setBorderPainted(false);
-        close.addActionListener(new closeListener());
-        this.getContentPane().add(close);
-        
-        minimize=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Minimize.png"));
-        minimize.setBounds(630,0,25,25);
-        minimize.setBorderPainted(false);
-        minimize.addActionListener(new minimizeListener());
-        this.getContentPane().add(minimize);
-
-        */
-        
+        song=0;  
         //lancement de la musique
         try {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(files[0][song]).getAbsoluteFile());
@@ -205,39 +185,13 @@ public class window extends JFrame {
                 System.out.println("Error with playing sound.");
                 ex.printStackTrace();
             }
-        /**
-        //mise en place des éléments graphiques 
-        next=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\next.png"));
-        next.setBounds(600,265,50,50);
-        next.setOpaque(false);
-        next.setContentAreaFilled(false);
-        next.setBorderPainted(false);
-        next.addActionListener(new nextListener());
-        this.getContentPane().add(next);
-        
-        
-        pict=new Button(new ImageIcon(files[1][0]));
-        pict.setBounds(260,200,180,180);
-        pict.setOpaque(false);
-        pict.setBorderPainted(false);
-        pict.addActionListener(new pictListener());
-        this.getContentPane().add(pict);
-        
-        nextpict=new Button(new ImageIcon(files[1][1]));
-        nextpict.setBounds(450,245,90,90);
-        nextpict.setOpaque(false);
-        nextpict.setBorderPainted(false);
-        this.getContentPane().add(nextpict);
-        
-        prevpict=new Button(new ImageIcon(files[1][files[0].length-1]));
-        prevpict.setBounds(160,245,90,90);
-        prevpict.setOpaque(false);
-        prevpict.setBorderPainted(false);
-        this.getContentPane().add(prevpict);
-        */
+       
         time=0;
         timer = new Timer(10,new TimerAction());
         timer.start();
+        this.setFocusable(true);//permet à la fenetre d'avoir le focus
+        this.requestFocus();
+        this.addKeyListener(new GameKeyAdapter());
         setVisible(true);
     }
     
@@ -316,18 +270,25 @@ public class window extends JFrame {
             
         }
     }
-    private class WindowKeyAdapter extends KeyAdapter{
+    private class GameKeyAdapter extends KeyAdapter{
             
         
         public void keyPressed(KeyEvent e) {
             int code = e.getKeyCode();
-           
-            if(code== KeyEvent.VK_ESCAPE){ 
-                System.out.println("coucou");
+            switch (code){
+            case KeyEvent.VK_ESCAPE: 
                 System.exit(0);
+                break;
+            case KeyEvent.VK_ENTER:
+                    if (!timer.isRunning()) {
+                        timer.start();
+                    } else {
+                        timer.stop();
+                    }
+                break;
+                }
             }
-}
-    }
+        }
  
     
     private class TimerAction implements ActionListener {
