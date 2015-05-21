@@ -4,54 +4,50 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
-  
-public class Button extends JButton implements MouseListener{
+import javax.swing.JFrame;
 
-	private static final long serialVersionUID = 1L;
+public class Button extends JButton implements MouseListener  {
 	
-  private Image imgOff;
-  private Image imgOn;
-  private Image img;
+  public String URL;
+  public ImageIcon img;
 
   
 
-  public Button(ImageIcon iconOff, ImageIcon iconOn){
-    super(iconOff);
-    
-    imgOff=iconOff.getImage();
-    imgOn=iconOn.getImage();
+  public Button(String url){
+    super(new ImageIcon( url+"Off.png"));
+    URL = url;
+    img=new ImageIcon(url+"Off.png");
 
-  this.addMouseListener(this);
   }
 
   public Button(ImageIcon image) {
       super(image);
-      imgOff= image.getImage();
-      imgOn= image.getImage();
-      img=imgOff;
+      URL = "";
+      img=image;
   }
   
   protected void paintComponent(Graphics g) {
       super.paintComponent(g);
       if (img == null) return;
-      g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+      g.drawImage(img.getImage(), 0, 0, getWidth(), getHeight(), this);
   }
   
   protected void setIcon(ImageIcon image){
       super.setIcon(image);
-      img= image.getImage();
+      img= image;
   }
+  
   
   public void mouseClicked(MouseEvent event) {
                     
   }
 
   public void mouseEntered(MouseEvent event) {
-      img = imgOn;
+      setIcon(new ImageIcon( URL+"On.png"));
   }
 
   public void mouseExited(MouseEvent event) {
-	  img = imgOff;
+      setIcon(new ImageIcon(URL + "Off.png"));
   }
 
   public void mousePressed(MouseEvent event) {
@@ -60,5 +56,7 @@ public class Button extends JButton implements MouseListener{
  
   public void mouseReleased(MouseEvent event) {
           
-  }       
+  }   
+  
+  
 }
