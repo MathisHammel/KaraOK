@@ -219,7 +219,8 @@ public class window extends JFrame {
             else nextpict.setIcon(new ImageIcon(files[1][song+1]));
             if(song == 0)prevpict.setIcon(new ImageIcon(files[1][files[0].length-1]));
             else prevpict.setIcon(new ImageIcon(files[1][song-1]));
-            
+            setFocusable(true);//permet à la fenetre d'avoir le focus
+            requestFocus();
         }
     }
         
@@ -243,7 +244,8 @@ public class window extends JFrame {
                 else prevpict.setIcon(new ImageIcon(files[1][song+1]));
                 if(song == 0)nextpict.setIcon(new ImageIcon(files[1][files[0].length-1]));
                 else nextpict.setIcon(new ImageIcon(files[1][song-1]));
-                
+                setFocusable(true);//permet à la fenetre d'avoir le focus
+                requestFocus();
             }
     }
         
@@ -257,6 +259,8 @@ public class window extends JFrame {
         
         public void actionPerformed (ActionEvent arg0){
             setState(JFrame.ICONIFIED);
+            setFocusable(true);//permet à la fenetre d'avoir le focus
+            requestFocus();
         }
     }
     class pictListener implements ActionListener{
