@@ -1,11 +1,9 @@
 
 
-
-
-
+import java.awt.Color;
 import java.awt.Cursor;
 
-import java.awt.GridLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Point;
 
@@ -30,12 +28,16 @@ import javax.swing.Timer;
 import javax.swing.ImageIcon;
 
 import javax.swing.JFrame;
-
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 
 public class window extends JFrame {
     
-    static String[][] files = {{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\Fun.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\queen.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\beyonce.wav" },{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\fun-we-are-young.png","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATC.png", "C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATW.png"}};
+    static String[][] files = {{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\Fun.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\queen.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\beyonce.wav" }
+                               ,{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\fun-we-are-young.png","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATC.png", "C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATW.png"}
+                               ,{"FUN: we are young","QUEEN: we are the champions", "USA for Africa: we are the world"}};
     int song;
     Clip clip;
     Button next, prev,play , close, minimize;
@@ -44,6 +46,7 @@ public class window extends JFrame {
     long time;
     Timer timer;
     LightPad[] lightPad;
+    JLabel title, logo;
     
     public window() {
         setTitle("Kara-OK");
@@ -119,15 +122,26 @@ public class window extends JFrame {
         
         play=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\next.png"));
         play.setBounds(300,300,100,100);
-       
         play.setBorderPainted(false);
         play.addActionListener(new pictListener());
         this.getContentPane().add(play);
-        //
-        //
-        //
         
+        title = new JLabel(files[2][0],SwingConstants.CENTER);
+        title.setBackground(Color.white);
+        title.setOpaque(true);
+        title.setForeground(Color.red);
+        title.setFont(new Font("SansSerif", Font.BOLD, 15));
+        title.setBounds(200,173,300,25);
+        this.getContentPane().add(title);
         
+        logo = new JLabel("KARA-OK",SwingConstants.CENTER);
+        logo.setBackground(Color.PINK);
+        logo.setOpaque(true);
+        logo.setForeground(Color.white);
+        logo.setFont(new Font("SansSerif", Font.BOLD, 40));
+        logo.setBounds(250,75,200,50);
+        this.getContentPane().add(logo);
+            
         song=0;  
         //lancement de la musique
         try {
@@ -141,7 +155,7 @@ public class window extends JFrame {
             }
        
         time=0;
-        timer = new Timer(10,new TimerAction());
+        timer = new Timer(20,new TimerAction());
         timer.start();
         this.setFocusable(true);//permet à la fenetre d'avoir le focus
         this.requestFocus();
@@ -149,9 +163,6 @@ public class window extends JFrame {
         setVisible(true);
     }
     
-   /** public static void main(String[] args) {
-    window Monjeu = new window();
-    }*/
      class nextListener implements ActionListener{
         
         public void actionPerformed (ActionEvent arg0){
@@ -169,6 +180,7 @@ public class window extends JFrame {
                 }
             
             pict.setIcon(new ImageIcon(files[1][song]));
+            title.setText(files[2][song]);
             if(song == files[1].length-1)nextpict.setIcon(new ImageIcon(files[1][0]));
             else nextpict.setIcon(new ImageIcon(files[1][song+1]));
             if(song == 0)prevpict.setIcon(new ImageIcon(files[1][files[0].length-1]));
@@ -194,6 +206,7 @@ public class window extends JFrame {
                         ex.printStackTrace();
                     }
                 pict.setIcon(new ImageIcon(files[1][song]));
+                title.setText(files[2][song]);
                 if(song == files[1].length-1)prevpict.setIcon(new ImageIcon(files[1][0]));
                 else prevpict.setIcon(new ImageIcon(files[1][song+1]));
                 if(song == 0)nextpict.setIcon(new ImageIcon(files[1][files[0].length-1]));
@@ -274,6 +287,8 @@ public class window extends JFrame {
         nextpict.repaint();
         next.repaint();
         play.repaint();
+        title.repaint();
+        logo.repaint();
             
     }
 }
