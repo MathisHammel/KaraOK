@@ -37,7 +37,7 @@ public class window extends JFrame {
     
     static String[][] files = {{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\Fun.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\queen.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\beyonce.wav" }
                                ,{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\fun-we-are-young.png","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATC.png", "C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATW.png"}
-                               ,{"FUN: we are young","QUEEN: we are the champions", "USA for Africa: we are the world"}};
+                               ,{"<html><center>FUN<br> we are young","<html><center>QUEEN<br> we are the champions", "<html><center>USA FOR AFRICA<br> we are the world"}};
     int song;
     Clip clip;
     Button next, prev,play , close, minimize;
@@ -47,6 +47,8 @@ public class window extends JFrame {
     Timer timer;
     LightPad[] lightPad;
     JLabel title, logo;
+    
+    
     
     public window() {
         setTitle("Kara-OK");
@@ -59,79 +61,91 @@ public class window extends JFrame {
         Image img = tk.getImage("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\mic_converted.png");
         Cursor cursor = tk.createCustomCursor(img, new Point(0, 0), "micro");
         this.setCursor(cursor);
+        //background black
+        this.setBackground(new Color(0,0,0,254));
+        this.setOpacity(1);
         
         
         
         state=Karaok.State.Menu;
         //mise en place du backgroud !
-        lightPad=new LightPad[140];
+        lightPad=new LightPad[108];
         int b=0;
         this.setLayout(null);
         for(int i=0;i<14;i++){
             for(int j=0;j<10;j++){
-                lightPad[b]=new LightPad(50*i,50*j);  
+                if(((j==4 || j==5) && (1<i && i<12)) || ((j==6 || j==7) &&(i==6 || i==7))){
+                    j++;
+                }
+                else{if(j==1 &&(4<i && i<9 )|| j==3 &&(4<i && i<9) ) ;
+                     else{
+               
+                    lightPad[b]=new LightPad(50*i,50*j); 
+                    this.getContentPane().add(lightPad[b]);
+                    b++;
+                     }
+                }
                 
-                this.getContentPane().add(lightPad[b]);
-                b++;
             }
         }
         
-        
+        lightPad[98].setBounds(650,23,50,25);
         // mise en place des éléments de la fenetre
+
         close=new Button("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Close");
-        close.setBounds(670,0,30,26);
+        close.setBounds(675,0,25,23);
         close.setBorderPainted(false);
         close.addActionListener(new closeListener());
         close.addMouseListener(close);
-        getContentPane().add(close);
+        this.getContentPane().add(close);
         
         minimize=new Button("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Minimize");
-        minimize.setBounds(638,0,32,26);
+        minimize.setBounds(650,0,25,23);
         minimize.setBorderPainted(false);
         minimize.addActionListener(new minimizeListener());
         minimize.addMouseListener(minimize);
-        getContentPane().add(minimize);
+        this.getContentPane().add(minimize);
         
         prev=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next01Off.png"));
-        prev.setBounds(100,200,100,100);
+        prev.setBounds(102,202,96,96);
         prev.setBorderPainted(false);
         prev.addActionListener(new prevListener());
         this.getContentPane().add(prev);
         
         prevpict=new Button(new ImageIcon(files[1][files[0].length-1]));
-        prevpict.setBounds(200,200,100,100);
+        prevpict.setBounds(202,202,96,96);
         prevpict.setBorderPainted(false);
         this.getContentPane().add(prevpict);
         
         pict=new Button(new ImageIcon(files[1][0]));
-        pict.setBounds(300,200,100,100);
+        pict.setBounds(302,202,96,96);
         pict.setBorderPainted(false);
         pict.addActionListener(new pictListener());
         this.getContentPane().add(pict);
         
         nextpict=new Button(new ImageIcon(files[1][1]));
-        nextpict.setBounds(400,200,100,100);
+        nextpict.setBounds(402,202,96,96);
         nextpict.setBorderPainted(false);
         this.getContentPane().add(nextpict);
         
         next=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next05Off.png"));
-        next.setBounds(500,200,100,100);
+        next.setBounds(502,202,96,96);
         next.setBorderPainted(false);
         next.addActionListener(new nextListener());
         this.getContentPane().add(next);
         
         play=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\next.png"));
-        play.setBounds(300,300,100,100);
+        play.setBounds(302,302,96,96);
         play.setBorderPainted(false);
         play.addActionListener(new pictListener());
         this.getContentPane().add(play);
         
         title = new JLabel(files[2][0],SwingConstants.CENTER);
-        title.setBackground(Color.white);
+        title.setBackground(Color.magenta);
         title.setOpaque(true);
-        title.setForeground(Color.red);
-        title.setFont(new Font("SansSerif", Font.BOLD, 15));
-        title.setBounds(200,173,300,25);
+        title.setForeground(Color.white);
+        title.setFont(new Font("Arial", Font.BOLD, 17));
+        title.setBounds(252,152,196,46);
         this.getContentPane().add(title);
         
         logo = new JLabel("KARA-OK",SwingConstants.CENTER);
@@ -139,11 +153,13 @@ public class window extends JFrame {
         logo.setOpaque(true);
         logo.setForeground(Color.white);
         logo.setFont(new Font("SansSerif", Font.BOLD, 40));
-        logo.setBounds(250,75,200,50);
+        logo.setBounds(252,52,196,46);
         this.getContentPane().add(logo);
-            
+        
+       
+        //lancement de la musique   
+        
         song=0;  
-        //lancement de la musique
         try {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(files[0][song]).getAbsoluteFile());
                 clip = AudioSystem.getClip();
@@ -157,9 +173,11 @@ public class window extends JFrame {
         time=0;
         timer = new Timer(20,new TimerAction());
         timer.start();
+        
         this.setFocusable(true);//permet à la fenetre d'avoir le focus
         this.requestFocus();
         this.addKeyListener(new GameKeyAdapter());
+        
         setVisible(true);
     }
     
@@ -261,6 +279,7 @@ public class window extends JFrame {
             }
         }
  
+   
     
     private class TimerAction implements ActionListener {
     
@@ -273,11 +292,11 @@ public class window extends JFrame {
     }
     
     public void game_display(){
-        int pos = (int)(Math.random()*140);
+        int pos = (int)(Math.random()*(lightPad.length-1));
         lightPad[pos].update(time);
-        pos = (int)(Math.random()*140);
+        pos = (int)(Math.random()*(lightPad.length-1));
         lightPad[pos].downdate(time);
-        pos = (int)(Math.random()*140);
+        pos = (int)(Math.random()*(lightPad.length-1));
         lightPad[pos].update(time);
         close.repaint();
         minimize.repaint();
