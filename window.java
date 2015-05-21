@@ -16,6 +16,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import java.io.File;
 
 
@@ -69,20 +72,22 @@ public class window extends JFrame {
             case 6: 
                 panel.setLayout(new GridLayout(2,1));
                 JPanel papa = new JPanel();
-                papa.setBackground(new Color(127,140,141));
+                papa.setBackground(LightPad.mainColor);
                 papa.setLayout(null);
                 
                 
-                close=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\CloseOff.png","C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\CloseOn.png"));
+                close=new Button("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Close");
                 close.setBounds(70,0,30,26);
                 close.setBorderPainted(false);
                 close.addActionListener(new closeListener());
+                close.addMouseListener(close);
                 papa.add(close);
                 
-                minimize=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\MinimizeOff.png","C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\MinimizeOn.png"));
+                minimize=new Button("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Minimize");
                 minimize.setBounds(38,0,32,26);
                 minimize.setBorderPainted(false);
                 minimize.addActionListener(new minimizeListener());
+                minimize.addMouseListener(minimize);
                 papa.add(minimize);
             
                 panel.add(papa);
@@ -323,13 +328,15 @@ public class window extends JFrame {
             }
 }
     }
+ 
+    
     private class TimerAction implements ActionListener {
     
-    public void actionPerformed(ActionEvent e) {
-    game_display();
-    time++;
-    }
-
+        public void actionPerformed(ActionEvent e) {
+        game_display();
+        time++;
+        }
+    
     
     }
     
