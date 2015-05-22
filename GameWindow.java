@@ -10,19 +10,21 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 import javax.swing.JFrame;
 
 public class GameWindow extends JFrame{
     
-    // satic String[] background = ... ; to set the backgroud ! 
+       static String background = "C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\GameBG.png";
     // static String[] song = ...  
     
         Timer timer; 
         long time; 
         int score; 
         boolean finjeu; 
+        Note test;
         
         Pointeur pointeur;
                         
@@ -40,12 +42,11 @@ public class GameWindow extends JFrame{
             
             /** affichage plein écran !!! */
                              
-            setTitle("Kara-OK.Jackson");
+            setTitle("Kara-OK");
             setUndecorated(true);
             this.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
-            this.setLocationRelativeTo(getRootPane());
            
-            
+           
             time = 0;
             score = 0;
             finjeu=false;
@@ -60,6 +61,9 @@ public class GameWindow extends JFrame{
             
             this.addKeyListener(new GameKeyAdapter());
             
+            test = new Note("B",Ecran,50);
+            System.out.println();
+            System.out.println(test.h);System.out.println(test.x);
             
             timer.start();
             
@@ -69,10 +73,13 @@ public class GameWindow extends JFrame{
         }
         
         public void paint(Graphics g){
-            Color couleur = new Color(254, 40, 162);
-            buffer.setColor(couleur);
-            buffer.fillRect(Ecran.x,Ecran.y,Ecran.x+Ecran.width,Ecran.y+Ecran.height);
+            //Color couleur = new Color(254, 40, 162);
+           // buffer.setColor(couleur);
+           // buffer.fillRect(Ecran.x,Ecran.y,Ecran.x+Ecran.width,Ecran.y+Ecran.height);
+            ImageIcon img = new ImageIcon(background);
+            buffer.drawImage(img.getImage(), 0, 0, img.getImageObserver());
             pointeur.draw(time,buffer);
+            test.draw(time,buffer);
             g.drawImage(ArrierePlan,0,0,this);
         }
 

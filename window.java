@@ -62,7 +62,7 @@ public class window extends JFrame {
         Cursor cursor = tk.createCustomCursor(img, new Point(0, 0), "micro");
         this.setCursor(cursor);
         //background black
-        this.setBackground(new Color(0,0,0,254));
+        this.setBackground(new Color(127,140,141,254));
         this.setOpacity(1);
         
         
@@ -92,14 +92,14 @@ public class window extends JFrame {
         lightPad[98].setBounds(650,23,50,25);
         // mise en place des éléments de la fenetre
 
-        close=new Button("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Close");
+        close=new Button("img\\Close");
         close.setBounds(675,0,25,23);
         close.setBorderPainted(false);
         close.addActionListener(new closeListener());
         close.addMouseListener(close);
         this.getContentPane().add(close);
         
-        minimize=new Button("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Minimize");
+        minimize=new Button("img\\Minimize");
         minimize.setBounds(650,0,25,23);
         minimize.setBorderPainted(false);
         minimize.addActionListener(new minimizeListener());
@@ -128,10 +128,11 @@ public class window extends JFrame {
         nextpict.setBorderPainted(false);
         this.getContentPane().add(nextpict);
         
-        next=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next05Off.png"));
+        next=new Button("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next01");
         next.setBounds(502,202,96,96);
         next.setBorderPainted(false);
         next.addActionListener(new nextListener());
+        next.addMouseListener(next);
         this.getContentPane().add(next);
         
         play=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\next.png"));
@@ -141,7 +142,7 @@ public class window extends JFrame {
         this.getContentPane().add(play);
         
         title = new JLabel(files[2][0],SwingConstants.CENTER);
-        title.setBackground(Color.magenta);
+        title.setBackground(new Color(52,152,219));
         title.setOpaque(true);
         title.setForeground(Color.white);
         title.setFont(new Font("Arial", Font.BOLD, 17));
@@ -149,7 +150,7 @@ public class window extends JFrame {
         this.getContentPane().add(title);
         
         logo = new JLabel("KARA-OK",SwingConstants.CENTER);
-        logo.setBackground(Color.PINK);
+        logo.setBackground(new Color(142,68,173));
         logo.setOpaque(true);
         logo.setForeground(Color.white);
         logo.setFont(new Font("SansSerif", Font.BOLD, 40));
@@ -197,12 +198,12 @@ public class window extends JFrame {
                     ex.printStackTrace();
                 }
             
-            pict.setIcon(new ImageIcon(files[1][song]));
-            title.setText(files[2][song]);
-            if(song == files[1].length-1)nextpict.setIcon(new ImageIcon(files[1][0]));
+            prevpict.setIcon(pict.img);
+            pict.setIcon(nextpict.img);
+            if(song+1==files[0].length) nextpict.setIcon(new ImageIcon(files[1][0]));
             else nextpict.setIcon(new ImageIcon(files[1][song+1]));
-            if(song == 0)prevpict.setIcon(new ImageIcon(files[1][files[0].length-1]));
-            else prevpict.setIcon(new ImageIcon(files[1][song-1]));
+            title.setText(files[2][song]);
+            timer.setDelay(song*10+10);
             setFocusable(true);//permet à la fenetre d'avoir le focus
             requestFocus();
         }
@@ -223,12 +224,12 @@ public class window extends JFrame {
                         System.out.println("Error with playing sound.");
                         ex.printStackTrace();
                     }
-                pict.setIcon(new ImageIcon(files[1][song]));
+                nextpict.setIcon(pict.img);
+                pict.setIcon(prevpict.img);
+                if(song==0) prevpict.setIcon(new ImageIcon(files[1][files[0].length-1]));
+                else prevpict.setIcon(new ImageIcon(files[1][song-1]));
                 title.setText(files[2][song]);
-                if(song == files[1].length-1)prevpict.setIcon(new ImageIcon(files[1][0]));
-                else prevpict.setIcon(new ImageIcon(files[1][song+1]));
-                if(song == 0)nextpict.setIcon(new ImageIcon(files[1][files[0].length-1]));
-                else nextpict.setIcon(new ImageIcon(files[1][song-1]));
+                timer.setDelay(song*10+10);
                 setFocusable(true);//permet à la fenetre d'avoir le focus
                 requestFocus();
             }

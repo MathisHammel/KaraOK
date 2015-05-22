@@ -26,7 +26,7 @@ public class Pointeur extends Object {
 
     
     void move(long t) {
-        // noting we need frequency to go further
+        // nothing, we need frequency to go further
     }
 
 

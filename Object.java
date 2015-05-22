@@ -10,13 +10,12 @@ public abstract class Object {
     
     int x, y, h, l;
     float dx, dy, speed;
-    Rectangle edges, frameEdges;
+    Rectangle frameEdges;
     String objectName;
     
     public Object(int ax, int ay,int ah,int al , float adx, float ady, float aspeed , Rectangle aframe, String name) {
         x=ax; y=ay; h=ah; l=al;
         dx=adx; dy=ady; speed=aspeed;
-        edges = new Rectangle(ax,ay,l,h);
         frameEdges=aframe;
         objectName=name;
     }
