@@ -35,8 +35,8 @@ import javax.swing.SwingConstants;
 
 public class window extends JFrame {
     
-    static String[][] files = {{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\Fun.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\queen.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\beyonce.wav" }
-                               ,{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\fun-we-are-young.png","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATC.png", "C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATW.png"}
+    static String[][] files = {{"songs\\Fun.wav","songs\\queen.wav","songs\\beyonce.wav" }
+                               ,{"img\\fun-we-are-young.png","img\\WATC.png", "img\\WATW.png"}
                                ,{"<html><center>FUN<br> we are young","<html><center>QUEEN<br> we are the champions", "<html><center>USA FOR AFRICA<br> we are the world"}};
     int song;
     Clip clip;
@@ -56,9 +56,9 @@ public class window extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(700, 500);
         this.setLocationRelativeTo(getRootPane());
-        this.setIconImage(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\microphone_converted.png").getImage());
+        this.setIconImage(new ImageIcon("img\\microphone_converted.png").getImage());
         Toolkit tk = Toolkit.getDefaultToolkit();
-        Image img = tk.getImage("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\mic_converted.png");
+        Image img = tk.getImage("img\\mic_converted.png");
         Cursor cursor = tk.createCustomCursor(img, new Point(0, 0), "micro");
         this.setCursor(cursor);
         //background black
@@ -106,10 +106,11 @@ public class window extends JFrame {
         minimize.addMouseListener(minimize);
         this.getContentPane().add(minimize);
         
-        prev=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next01Off.png"));
+        prev=new Button("img\\NextPrev\\Prev04");
         prev.setBounds(102,202,96,96);
         prev.setBorderPainted(false);
         prev.addActionListener(new prevListener());
+        prev.addMouseListener(prev);
         this.getContentPane().add(prev);
         
         prevpict=new Button(new ImageIcon(files[1][files[0].length-1]));
@@ -128,17 +129,18 @@ public class window extends JFrame {
         nextpict.setBorderPainted(false);
         this.getContentPane().add(nextpict);
         
-        next=new Button("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next01");
+        next=new Button("img\\NextPrev\\Next04");
         next.setBounds(502,202,96,96);
         next.setBorderPainted(false);
         next.addActionListener(new nextListener());
         next.addMouseListener(next);
         this.getContentPane().add(next);
         
-        play=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\next.png"));
+        play=new Button("img\\Play");
         play.setBounds(302,302,96,96);
         play.setBorderPainted(false);
         play.addActionListener(new pictListener());
+        play.addMouseListener(play);
         this.getContentPane().add(play);
         
         title = new JLabel(files[2][0],SwingConstants.CENTER);
