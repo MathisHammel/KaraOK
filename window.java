@@ -1,11 +1,9 @@
 
 
-
-
-
+import java.awt.Color;
 import java.awt.Cursor;
 
-import java.awt.GridLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Point;
 
@@ -30,12 +28,16 @@ import javax.swing.Timer;
 import javax.swing.ImageIcon;
 
 import javax.swing.JFrame;
-
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 
 public class window extends JFrame {
     
-    static String[][] files = {{"songs\\Fun.wav","songs\\queen.wav","songs\\beyonce.wav" },{"img\\fun-we-are-young.png","img\\WATC.png", "img\\WATW.png"}};
+    static String[][] files = {{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\Fun.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\queen.wav","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\beyonce.wav" }
+                               ,{"C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\fun-we-are-young.png","C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATC.png", "C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\WATW.png"}
+                               ,{"<html><center>FUN<br> we are young","<html><center>QUEEN<br> we are the champions", "<html><center>USA FOR AFRICA<br> we are the world"}};
     int song;
     Clip clip;
     Button next, prev,play , close, minimize;
@@ -44,6 +46,9 @@ public class window extends JFrame {
     long time;
     Timer timer;
     LightPad[] lightPad;
+    JLabel title, logo;
+    
+    
     
     public window() {
         setTitle("Kara-OK");
@@ -51,131 +56,110 @@ public class window extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(700, 500);
         this.setLocationRelativeTo(getRootPane());
-        this.setIconImage(new ImageIcon("img\\microphone_converted.png").getImage());
+        this.setIconImage(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\microphone_converted.png").getImage());
         Toolkit tk = Toolkit.getDefaultToolkit();
-        Image img = tk.getImage("img\\mic_converted.png");
+        Image img = tk.getImage("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\mic_converted.png");
         Cursor cursor = tk.createCustomCursor(img, new Point(0, 0), "micro");
         this.setCursor(cursor);
+        //background black
+        this.setBackground(new Color(0,0,0,254));
+        this.setOpacity(1);
         
         
         
         state=Karaok.State.Menu;
-        this.setLayout(new GridLayout(5,7));
-        lightPad = new LightPad[114];
-        int a = 0;
-        GridLayout grid = new GridLayout(2,2);
-        for(int i=0; i<35; i++){
-            JPanel panel = new JPanel();
-            switch (i){
-            case 6: 
-                panel.setLayout(new GridLayout(2,1));
-                JPanel papa = new JPanel();
-                papa.setBackground(LightPad.mainColor);
-                papa.setLayout(null);
-                
-                
-                close=new Button("img\\Close");
-                close.setBounds(70,0,30,26);
-                close.setBorderPainted(false);
-                close.addActionListener(new closeListener());
-                close.addMouseListener(close);
-                papa.add(close);
-                
-                minimize=new Button("img\\Minimize");
-                minimize.setBounds(38,0,32,26);
-                minimize.setBorderPainted(false);
-                minimize.addActionListener(new minimizeListener());
-                minimize.addMouseListener(minimize);
-                papa.add(minimize);
-            
-                panel.add(papa);
-                
-                papa = new JPanel();
-                
-                papa.setLayout(new GridLayout(1,2));
-                lightPad[a]=new LightPad();
-                papa.add(lightPad[a]);
-                a++;
-                lightPad[a]=new LightPad();
-                papa.add(lightPad[a]);
-                a++;
-                panel.add(papa);
-                this.getContentPane().add(panel);
-                break;
-            case 15:
-                panel.setLayout(null);
-                prev=new Button(new ImageIcon("img\\NextPrev\\Prev04Off.png"));
-                prev.setBounds(0,0,100,100);
-                prev.setBorderPainted(false);
-                prev.addActionListener(new prevListener());
-                panel.add(prev);
-                this.getContentPane().add(panel);
-            break;
-            case 16: 
-                panel.setLayout(null);
-                prevpict=new Button(new ImageIcon(files[1][files[0].length-1]));
-                prevpict.setBounds(0,0,100,100);
-                prevpict.setBorderPainted(false);
-                panel.add(prevpict);
-                System.out.println(i);
-                this.getContentPane().add(panel);
-            break;
-            case 17:
-                panel.setLayout(null);
-                pict=new Button(new ImageIcon(files[1][0]));
-                pict.setBounds(0,0,100,100);
-                pict.setBorderPainted(false);
-                pict.addActionListener(new pictListener());
-                this.getContentPane().add(pict);
-            break;
-            case 18:
-                panel.setLayout(null);
-                nextpict=new Button(new ImageIcon(files[1][1]));
-                nextpict.setBounds(0,0,100,100);
-                nextpict.setOpaque(false);
-                nextpict.setBorderPainted(false);
-                this.getContentPane().add(nextpict);
-            
-            break;
-            
-            case 19:
-                panel.setLayout(null);
-                next=new Button(new ImageIcon("img\\NextPrev\\Next04Off.png"));
-                next.setBounds(0,0,100,100);
-                next.setOpaque(false);
-                next.setContentAreaFilled(false);
-                next.setBorderPainted(false);
-                next.addActionListener(new nextListener());
-                this.getContentPane().add(next);
-            
-            break;
-            case 24: 
-                panel.setLayout(null);
-                play=new Button(new ImageIcon("img\\PlayOff.png"));
-                play.setBounds(0,0,100,100);
-                play.setOpaque(false);
-                play.setContentAreaFilled(false);
-                play.setBorderPainted(false);
-                play.addActionListener(new pictListener());
-                this.getContentPane().add(play);
-            break;
-            default:
-                panel.setLayout(new GridLayout(2,2));
-                System.out.println(i);
-                for(int j=0; j<4;j++){
-                    lightPad[a]=new LightPad();
-                    panel.add(lightPad[a]);
-                    a++;
-                    this.getContentPane().add(panel);
+        //mise en place du backgroud !
+        lightPad=new LightPad[108];
+        int b=0;
+        this.setLayout(null);
+        for(int i=0;i<14;i++){
+            for(int j=0;j<10;j++){
+                if(((j==4 || j==5) && (1<i && i<12)) || ((j==6 || j==7) &&(i==6 || i==7))){
+                    j++;
                 }
-            break;
-            
+                else{if(j==1 &&(4<i && i<9 )|| j==3 &&(4<i && i<9) ) ;
+                     else{
+               
+                    lightPad[b]=new LightPad(50*i,50*j); 
+                    this.getContentPane().add(lightPad[b]);
+                    b++;
+                     }
+                }
+                
             }
         }
         
+        lightPad[98].setBounds(650,23,50,25);
+        // mise en place des éléments de la fenetre
+
+        close=new Button("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Close");
+        close.setBounds(675,0,25,23);
+        close.setBorderPainted(false);
+        close.addActionListener(new closeListener());
+        close.addMouseListener(close);
+        this.getContentPane().add(close);
+        
+        minimize=new Button("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\Minimize");
+        minimize.setBounds(650,0,25,23);
+        minimize.setBorderPainted(false);
+        minimize.addActionListener(new minimizeListener());
+        minimize.addMouseListener(minimize);
+        this.getContentPane().add(minimize);
+        
+        prev=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next01Off.png"));
+        prev.setBounds(102,202,96,96);
+        prev.setBorderPainted(false);
+        prev.addActionListener(new prevListener());
+        this.getContentPane().add(prev);
+        
+        prevpict=new Button(new ImageIcon(files[1][files[0].length-1]));
+        prevpict.setBounds(202,202,96,96);
+        prevpict.setBorderPainted(false);
+        this.getContentPane().add(prevpict);
+        
+        pict=new Button(new ImageIcon(files[1][0]));
+        pict.setBounds(302,202,96,96);
+        pict.setBorderPainted(false);
+        pict.addActionListener(new pictListener());
+        this.getContentPane().add(pict);
+        
+        nextpict=new Button(new ImageIcon(files[1][1]));
+        nextpict.setBounds(402,202,96,96);
+        nextpict.setBorderPainted(false);
+        this.getContentPane().add(nextpict);
+        
+        next=new Button(new ImageIcon("C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\NextPrev\\Next05Off.png"));
+        next.setBounds(502,202,96,96);
+        next.setBorderPainted(false);
+        next.addActionListener(new nextListener());
+        this.getContentPane().add(next);
+        
+        play=new Button(new ImageIcon("C:\\JDeveloper\\mywork\\OCR\\ProjetInfo\\classes\\next.png"));
+        play.setBounds(302,302,96,96);
+        play.setBorderPainted(false);
+        play.addActionListener(new pictListener());
+        this.getContentPane().add(play);
+        
+        title = new JLabel(files[2][0],SwingConstants.CENTER);
+        title.setBackground(Color.magenta);
+        title.setOpaque(true);
+        title.setForeground(Color.white);
+        title.setFont(new Font("Arial", Font.BOLD, 17));
+        title.setBounds(252,152,196,46);
+        this.getContentPane().add(title);
+        
+        logo = new JLabel("KARA-OK",SwingConstants.CENTER);
+        logo.setBackground(Color.PINK);
+        logo.setOpaque(true);
+        logo.setForeground(Color.white);
+        logo.setFont(new Font("SansSerif", Font.BOLD, 40));
+        logo.setBounds(252,52,196,46);
+        this.getContentPane().add(logo);
+        
+       
+        //lancement de la musique   
         
         song=0;  
-        //lancement de la musique
         try {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(files[0][song]).getAbsoluteFile());
                 clip = AudioSystem.getClip();
@@ -187,17 +171,16 @@ public class window extends JFrame {
             }
        
         time=0;
-        timer = new Timer(10,new TimerAction());
+        timer = new Timer(20,new TimerAction());
         timer.start();
+        
         this.setFocusable(true);//permet à la fenetre d'avoir le focus
         this.requestFocus();
         this.addKeyListener(new GameKeyAdapter());
+        
         setVisible(true);
     }
     
-   /** public static void main(String[] args) {
-    window Monjeu = new window();
-    }*/
      class nextListener implements ActionListener{
         
         public void actionPerformed (ActionEvent arg0){
@@ -215,6 +198,7 @@ public class window extends JFrame {
                 }
             
             pict.setIcon(new ImageIcon(files[1][song]));
+            title.setText(files[2][song]);
             if(song == files[1].length-1)nextpict.setIcon(new ImageIcon(files[1][0]));
             else nextpict.setIcon(new ImageIcon(files[1][song+1]));
             if(song == 0)prevpict.setIcon(new ImageIcon(files[1][files[0].length-1]));
@@ -240,6 +224,7 @@ public class window extends JFrame {
                         ex.printStackTrace();
                     }
                 pict.setIcon(new ImageIcon(files[1][song]));
+                title.setText(files[2][song]);
                 if(song == files[1].length-1)prevpict.setIcon(new ImageIcon(files[1][0]));
                 else prevpict.setIcon(new ImageIcon(files[1][song+1]));
                 if(song == 0)nextpict.setIcon(new ImageIcon(files[1][files[0].length-1]));
@@ -294,6 +279,7 @@ public class window extends JFrame {
             }
         }
  
+   
     
     private class TimerAction implements ActionListener {
     
@@ -306,11 +292,22 @@ public class window extends JFrame {
     }
     
     public void game_display(){
-        int pos = (int)(Math.random()*114);
+        int pos = (int)(Math.random()*(lightPad.length-1));
         lightPad[pos].update(time);
-        pos = (int)(Math.random()*114);
+        pos = (int)(Math.random()*(lightPad.length-1));
         lightPad[pos].downdate(time);
-        pos = (int)(Math.random()*114);
+        pos = (int)(Math.random()*(lightPad.length-1));
         lightPad[pos].update(time);
+        close.repaint();
+        minimize.repaint();
+        prev.repaint();
+        prevpict.repaint();
+        pict.repaint();
+        nextpict.repaint();
+        next.repaint();
+        play.repaint();
+        title.repaint();
+        logo.repaint();
+            
     }
 }
