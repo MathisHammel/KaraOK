@@ -4,10 +4,10 @@ import java.awt.Rectangle;
 
 
 public class Pointeur extends Object {
-    
+
     Color color; // the color off pointeur
-    int ymax, ymin; // edges for the pointer 
-    
+    int ymax, ymin; // edges for the pointer
+
     public Pointeur(Rectangle aframe) {
         super((int)aframe.getWidth()/6, (int)aframe.getHeight()/2, (int)aframe.getHeight()/10, (int)aframe.getHeight()/20,  0,  0,  0 , aframe, "pointeur");
         ymin=(int)aframe.getHeight()/6;
@@ -15,13 +15,13 @@ public class Pointeur extends Object {
         color= Content.mainColor;
     }
 
-    
+
     void move(long t, double frequency) {
-        y =(int)((ymax-ymin)*frequency/(830.61-440.0)) ;
-        
+        y =(int)((ymax-ymin)*frequency/(880.0-440.0)) ;
+
     }
 
-    
+
     void move(long t) {
         // nothing, we need frequency to go further
     }
@@ -38,9 +38,11 @@ public class Pointeur extends Object {
 
     }
     public void changeColor ( double deltanote){
-        if(deltanote<20){ color= Color.green;}
-        else if(deltanote<40){color= Color.orange;}
-            else if (deltanote>60){color = Color.red;}
+        if(deltanote==-1){color= Contents.mainColor;}
+        else if(deltanote<20){ color= Color.green;}
+        else if(deltanote<40){color= Color.yellow;}
+        else if(deltanote<60){color= Color.orange;}
+            else if (deltanote>=60){color = Color.red;}
     }
 }
 

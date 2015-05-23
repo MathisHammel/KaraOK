@@ -24,36 +24,37 @@ import javax.swing.JFrame;
 
 
 public class GameWindow extends JFrame{
-    
+
        static String background = "img\\GameBG.png";
-    // static String[] song = ...  
-    
-        Timer timer; 
-        long time; 
-        int score; 
-        boolean finjeu; 
+    // static String[] song = ...
+
+        Timer timer;
+        long time;
+        int score;
+        boolean finjeu;
         Note test;
-        
+
         Pointeur pointeur;
-                        
-        BufferedImage ArrierePlan; 
-        Graphics buffer; 
-        Rectangle Ecran; 
-        
+
+        BufferedImage ArrierePlan;
+        Graphics buffer;
+        Rectangle Ecran;
+
         Clip clip;
-        
+
         static Karaok.State state;
         Pause pause;
-        
+
         //LinkedList <objet> Objets;
-        
-        
-        
+
+
+
         public GameWindow(int song) {
-            
+
             /** affichage plein écran !!! */
-            // frame                 
+            // frame
             setTitle("Kara-OK");
+
             setUndecorated(true);
             this.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
             this.setLayout(null);
@@ -65,10 +66,10 @@ public class GameWindow extends JFrame{
             time = 0;
             score = 0;
             finjeu=false;
-            
+
            //STATE !!!!!!!!!
             state = Karaok.State.Game;
-            
+
             pointeur = new Pointeur(Ecran);
             // music
             try {
@@ -80,30 +81,30 @@ public class GameWindow extends JFrame{
                     System.out.println("Error with playing sound.");
                     ex.printStackTrace();
                 }
-            
+
             // key adapter
             this.addKeyListener(new GameKeyAdapter());
-            
+
             test = new Note("B",Ecran,200);
-            
+
             // timer
             timer = new Timer(20,new TimerAction());
             timer.start();
-            
+
             setVisible(true);
-            
-            
+
+
         }
-        
+
         public void paint(Graphics g){
-            
-            
+
+
             paintBackGround(buffer,Ecran);
             test.draw(time,buffer);
-            
+
            // buffer.drawImage(gameAdd.getImage(),0,0,gameAdd.getImageObserver()); // draw last
             paintAdd(buffer, Ecran);
-            pointeur.draw(time,buffer); // draw last 
+            pointeur.draw(time,buffer); // draw last
             g.drawImage(ArrierePlan,0,0,this);
         }
         public void paintBackGround(Graphics g, Rectangle aframe){
@@ -112,17 +113,17 @@ public class GameWindow extends JFrame{
             g.setColor(Content.colors[9]);
             for(int i=0; i<13; i++){
                 fillRectY(buffer,0, (int)(aframe.getHeight()*(1+i*0.5)*0.1) , (int)aframe.getWidth(), (int)(aframe.getHeight()/(100+100*(i%2))));
-               
+
             }
         }
-        
+
         public void paintAdd(Graphics g, Rectangle aframe){
             g.setColor(Content.colors[8]);
             g.fillRect(0,0,(int)aframe.getWidth()/6,(int)aframe.getHeight());
             g.setColor(Content.colors[9]);
             fillRectX(g,(int)aframe.getWidth()/6,0,(int)aframe.getWidth()/100,(int)aframe.getHeight());
         }
-        
+
         //dessine les rectangles en les centrant sur les coordonnées y !
         public void fillRectY(Graphics g, int x, int y, int l, int h){
             g.fillRect(x,y-h/2,l,h);
@@ -132,31 +133,32 @@ public class GameWindow extends JFrame{
         }
 
         private class TimerAction implements ActionListener {
-        
+
             public void actionPerformed(ActionEvent e) {
                 game_display();
                 time++;
             }
 
-        
+
         }
-        
-        
+
+
         public void game_display(){
             test.move(time);
+            pointeur.move(time,440+(440*Math.random()));
             repaint();
-    
+
         }
-        
-       
-        
+
+
+
      /**public static void main(String[] args) {
         GameWindow Monjeu = new GameWindow();
         }*/
-        
+
     private class GameKeyAdapter extends KeyAdapter{
-            
-        
+
+
         public void keyPressed(KeyEvent e) {
             int code = e.getKeyCode();
             switch (code){
@@ -169,7 +171,7 @@ public class GameWindow extends JFrame{
                         timer.stop();
                     }
                 break;
-            case KeyEvent.VK_P: 
+            case KeyEvent.VK_P:
                 System.out.println("[DEBUG] P Key pressed");
                 state=Karaok.State.Pause;
                 }
@@ -177,5 +179,5 @@ public class GameWindow extends JFrame{
         }
     }
 
-   
+
 
