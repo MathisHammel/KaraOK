@@ -106,7 +106,7 @@ public class window extends JFrame {
         minimize.addMouseListener(minimize);
         this.getContentPane().add(minimize);
         
-        prev=new Button("img\\NextPrev\\Prev01");
+        prev=new Button("img\\NextPrev\\Prev04");
         prev.setBounds(102,202,96,96);
         prev.setBorderPainted(false);
         prev.addActionListener(new prevListener());
@@ -129,7 +129,7 @@ public class window extends JFrame {
         nextpict.setBorderPainted(false);
         this.getContentPane().add(nextpict);
         
-        next=new Button("img\\NextPrev\\Next01");
+        next=new Button("img\\NextPrev\\Next04");
         next.setBounds(502,202,96,96);
         next.setBorderPainted(false);
         next.addActionListener(new nextListener());
