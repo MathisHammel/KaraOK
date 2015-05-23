@@ -9,14 +9,14 @@ public class Note extends Object {
     double frequency; // maybe not usefull
     
     public Note(String anote, Rectangle aframe, int length) {
-        super((int)aframe.getWidth() - 400,0,(int)aframe.getHeight()/40,length , -1, 0, 10 , aframe, "note");
+        super((int)aframe.getWidth(),0,(int)aframe.getHeight()/30,length , -1, 0, 1 , aframe, "note");
         ymin=(int)(aframe.getHeight()*0.1);
         note=anote;
         int a=0;
         while(!notes[a].equals(note)){
             a++;
         }
-        y=ymin*(1+a/2);
+        y=ymin*(1+a/2) -h/2;
         
     }
 

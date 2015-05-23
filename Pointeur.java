@@ -38,7 +38,6 @@ public class Pointeur extends Object {
         color=color.brighter();
         g.setColor(color);
         g.fillOval((int)x-l/2 +6, (int)y-h/2 +6, l-12, h-12);
-        System.out.print(x + "  "); System.out.print(y + "  "); System.out.print(h+ "  "); System.out.print(l);
 
     }
     public void changeColor ( double deltanote){

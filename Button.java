@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Button extends JButton implements MouseListener  {
-	
+ 
   public String URL;
   public ImageIcon img;
 

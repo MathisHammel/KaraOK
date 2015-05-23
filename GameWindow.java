@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 
 public class GameWindow extends JFrame{
     
-       static String background = "C:\\Users\\Administrateur\\Documents\\GitHub\\Projetinfo\\KaraOK\\img\\GameBG.png";
+       static String background = "img\\GameBG.png";
     // static String[] song = ...  
     
         Timer timer; 
@@ -57,11 +57,11 @@ public class GameWindow extends JFrame{
             
             pointeur = new Pointeur(Ecran);
             
-            timer = new Timer(10,new TimerAction());
+            timer = new Timer(20,new TimerAction());
             
             this.addKeyListener(new GameKeyAdapter());
             
-            test = new Note("B",Ecran,50);
+            test = new Note("B",Ecran,200);
             System.out.println();
             System.out.println(test.h);System.out.println(test.x);
             
@@ -73,14 +73,42 @@ public class GameWindow extends JFrame{
         }
         
         public void paint(Graphics g){
-            //Color couleur = new Color(254, 40, 162);
-           // buffer.setColor(couleur);
-           // buffer.fillRect(Ecran.x,Ecran.y,Ecran.x+Ecran.width,Ecran.y+Ecran.height);
+            
+            /*ImageIcon gameAdd = new ImageIcon("img\\GameAdd.png");
             ImageIcon img = new ImageIcon(background);
-            buffer.drawImage(img.getImage(), 0, 0, img.getImageObserver());
-            pointeur.draw(time,buffer);
+            buffer.drawImage(img.getImage(), gameAdd.getIconWidth(), 0, img.getImageObserver());*/
+            paintBackGround(buffer,Ecran);
+            
             test.draw(time,buffer);
+            
+           // buffer.drawImage(gameAdd.getImage(),0,0,gameAdd.getImageObserver()); // draw last
+            paintAdd(buffer, Ecran);
+            pointeur.draw(time,buffer); // draw last 
             g.drawImage(ArrierePlan,0,0,this);
+        }
+        public void paintBackGround(Graphics g, Rectangle aframe){
+            g.setColor(new Color(52,152,219));
+            g.fillRect(0, 0, (int)aframe.getWidth(),(int) aframe.getHeight());
+            g.setColor(new Color(41,128,185));
+            for(int i=0; i<13; i++){
+                fillRectY(buffer,0, (int)(aframe.getHeight()*(1+i*0.5)*0.1) , (int)aframe.getWidth(), (int)(aframe.getHeight()/(100+100*(i%2))));
+               
+            }
+        }
+        
+        public void paintAdd(Graphics g, Rectangle aframe){
+            g.setColor(new Color(52,152,219));
+            g.fillRect(0,0,(int)aframe.getWidth()/6,(int)aframe.getHeight());
+            g.setColor(Color.yellow);
+            fillRectX(g,(int)aframe.getWidth()/6,0,(int)aframe.getWidth()/100,(int)aframe.getHeight());
+        }
+        
+        //dessine les rectangles en les centrant sur les coordonnées y !
+        public void fillRectY(Graphics g, int x, int y, int l, int h){
+            g.fillRect(x,y-h/2,l,h);
+        }
+        public void fillRectX(Graphics g, int x, int y, int l, int h){
+            g.fillRect(x-l/2,y,l,h);
         }
 
         private class TimerAction implements ActionListener {
@@ -94,7 +122,9 @@ public class GameWindow extends JFrame{
     }
         
         public void game_display(){
-            
+            test.move(time);
+            repaint();
+    
         }
         
      /**public static void main(String[] args) {

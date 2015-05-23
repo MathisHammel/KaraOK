@@ -301,16 +301,7 @@ public class window extends JFrame {
         lightPad[pos].downdate(time);
         pos = (int)(Math.random()*(lightPad.length-1));
         lightPad[pos].update(time);
-        close.repaint();
-        minimize.repaint();
-        prev.repaint();
-        prevpict.repaint();
-        pict.repaint();
-        nextpict.repaint();
-        next.repaint();
-        play.repaint();
-        title.repaint();
-        logo.repaint();
+        repaint();
             
     }
 }
