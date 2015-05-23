@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 
 public class Karaok {
     public enum State{
-        Menu, Game, Win, Pause;
+        Menu, Game, Win, Pause, Restart;
     }
     public static  State state;
     public static boolean pass;
@@ -34,7 +34,6 @@ public class Karaok {
             if( a==0){ 
                 System.out.println("[DEBUG] song value: " + song);
                 gamewindow = new GameWindow(song);
-                pass=false;
                 a++;
             }
             else{ 
@@ -51,9 +50,14 @@ public class Karaok {
                 pause=new Pause(gamewindow);
                 a++;
                 System.out.println("[DEBUG] Pause has been created");
+                System.out.println("[DEBUG]" + gamewindow.state +" a = " + a);
             }
                      
-            state=pause.state;
+            state=gamewindow.state;
+            if(state==State.Restart){
+                a=0;
+                state=State.Game;
+            }
                      
             break;
         

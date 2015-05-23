@@ -12,10 +12,10 @@ import javax.swing.SwingConstants;
 
 public class Pause extends JPanel{
     public GameWindow game;
-    public Karaok.State state;
     public Button resume;
     public Button backToMenu;
     public Button exitGame;
+    public Button restart;
     public JPanel pause;
     public JLabel logo;
     
@@ -24,34 +24,12 @@ public class Pause extends JPanel{
     public Pause(GameWindow gamewindow) {
         super();
         pause=this;
-        state=Karaok.State.Pause;
         game=gamewindow;
         game.clip.stop();
         game.timer.stop();
         this.setBounds(0, 0, (int)game.Ecran.getWidth(),(int) game.Ecran.getHeight());
         this.setBackground(new Color(0,0,0,0));
         this.setLayout(null);
-        
-        resume=new Button(Content.play);
-        resume.setBounds((int)game.Ecran.getWidth()/2,(int)game.Ecran.getHeight()/10,25,23);
-        resume.setBorderPainted(false);
-        resume.addActionListener(new resumeListener());
-        resume.addMouseListener(resume);
-        game.add(resume);
-        
-        exitGame=new Button(Content.close);
-        exitGame.setBounds((int)game.Ecran.getWidth()/2,(int)game.Ecran.getHeight()*2/10,25,23);
-        exitGame.setBorderPainted(false);
-        exitGame.addActionListener(new exitListener());
-        exitGame.addMouseListener(exitGame);
-        game.add(exitGame);
-        
-        backToMenu=new Button(Content.close);
-        backToMenu.setBounds((int)game.Ecran.getWidth()/2,(int)game.Ecran.getHeight()*3/10,25,23);
-        backToMenu.setBorderPainted(false);
-        backToMenu.addActionListener(new backListener());
-        backToMenu.addMouseListener(backToMenu);
-        game.add(backToMenu);
         
         logo = new JLabel("PAUSE",SwingConstants.CENTER);
         logo.setBackground(Content.colors[6]);
@@ -61,10 +39,56 @@ public class Pause extends JPanel{
         logo.setBounds((int)(game.Ecran.getWidth()*0.375),(int)game.Ecran.getHeight()*1/10,(int)game.Ecran.getWidth()/4,46);
         game.add(logo);
         
+        resume=new Button();
+        resume.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*2/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
+        resume.setBorderPainted(false);
+        resume.setBackground(Content.colors[2]);
+        resume.setForeground(Color.white);
+        resume.setFont(new Font("Arial", Font.BOLD, (int)game.Ecran.getHeight()/40));
+        resume.setText("Resume Game" );
+        resume.addActionListener(new resumeListener());
+        resume.addMouseListener(resume);
+        game.add(resume);
+        
+        restart=new Button();
+        restart.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*3/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
+        restart.setBorderPainted(false);
+        restart.setBackground(Content.colors[2]);
+        restart.setForeground(Color.white);
+        restart.setFont(new Font("Arial", Font.BOLD, (int)game.Ecran.getHeight()/40));
+        restart.setText("restart Game" );
+        restart.addActionListener(new restartListener());
+        restart.addMouseListener(restart);
+        game.add(restart);
+        
+        backToMenu=new Button();
+        backToMenu.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*4/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
+        backToMenu.setBorderPainted(false);
+        backToMenu.setBackground(Content.colors[2]);
+        backToMenu.setForeground(Color.white);
+        backToMenu.setFont(new Font("Arial", Font.BOLD, (int)game.Ecran.getHeight()/40));
+        backToMenu.setText("backToMenu" );
+        backToMenu.addActionListener(new backListener());
+        backToMenu.addMouseListener(backToMenu);
+        game.add(backToMenu);
+        
+        exitGame=new Button();
+        exitGame.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*5/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
+        exitGame.setBorderPainted(false);
+        exitGame.setBackground(Content.colors[2]);
+        exitGame.setForeground(Color.white);
+        exitGame.setFont(new Font("Arial", Font.BOLD, (int)game.Ecran.getHeight()/40));
+        exitGame.setText("backToMenu" );
+        exitGame.addActionListener(new exitListener());
+        exitGame.addMouseListener(exitGame);
+        game.add(exitGame);
+        
+        
         exitGame.repaint();
         resume.repaint();
         backToMenu.repaint();
         logo.repaint();
+        restart.repaint();
         
         
     }
@@ -75,22 +99,36 @@ public class Pause extends JPanel{
             System.exit(0);
         }
     }
+    class restartListener implements ActionListener{
+        
+        public void actionPerformed (ActionEvent arg0){
+            game.state=Karaok.State.Restart;
+        }
+    }
     
     class resumeListener implements ActionListener{
         
         public void actionPerformed (ActionEvent arg0){
+            
+            game.state=Karaok.State.Game; // change game window state 
             game.getContentPane().remove(pause);
-            game.clip.start();
+            game.getContentPane().remove(resume);
+            game.getContentPane().remove(backToMenu);
+            game.getContentPane().remove(exitGame);
+            game.getContentPane().remove(restart);
+            game.clip.start(); 
             game.timer.restart();
-            game.requestFocus();
-            state=Karaok.State.Game;
+            game.requestFocus(); // request focus back 
+            
+            
+            System.out.println("[DEBUG]" );
             
         }
     }
     class backListener implements ActionListener{
         
         public void actionPerformed (ActionEvent arg0){
-            state=Karaok.State.Menu;
+            game.state=Karaok.State.Menu; // change gamewindow state
             game.dispose();
         }
     }

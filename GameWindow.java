@@ -41,15 +41,15 @@ public class GameWindow extends JFrame{
         Rectangle Ecran; 
         
         Clip clip;
+        int song;
         
         static Karaok.State state;
-        Pause pause;
         
         //LinkedList <objet> Objets;
         
         
         
-        public GameWindow(int song) {
+        public GameWindow(int asong) {
             
             /** affichage plein écran !!! */
             // frame                 
@@ -71,6 +71,7 @@ public class GameWindow extends JFrame{
             
             pointeur = new Pointeur(Ecran);
             // music
+            song=asong;
             try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.files[0][song]).getAbsoluteFile());
                     clip = AudioSystem.getClip();
@@ -101,7 +102,7 @@ public class GameWindow extends JFrame{
             paintBackGround(buffer,Ecran);
             test.draw(time,buffer);
             
-           // buffer.drawImage(gameAdd.getImage(),0,0,gameAdd.getImageObserver()); // draw last
+           
             paintAdd(buffer, Ecran);
             pointeur.draw(time,buffer); // draw last 
             g.drawImage(ArrierePlan,0,0,this);
@@ -142,9 +143,9 @@ public class GameWindow extends JFrame{
         }
         
         
-        public void game_display(){
-            test.move(time);
-            repaint();
+            public void game_display(){
+                test.move(time);
+                repaint();
     
         }
         
@@ -153,6 +154,7 @@ public class GameWindow extends JFrame{
      /**public static void main(String[] args) {
         GameWindow Monjeu = new GameWindow();
         }*/
+    
         
     private class GameKeyAdapter extends KeyAdapter{
             

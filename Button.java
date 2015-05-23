@@ -26,6 +26,9 @@ public class Button extends JButton implements MouseListener  {
       img=image;
   }
   
+  public Button (){
+      super();
+  }
   protected void paintComponent(Graphics g) {
       super.paintComponent(g);
       if (img == null) return;
