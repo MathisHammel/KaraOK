@@ -31,15 +31,16 @@ public class Karaok {
             break;
                    
         case Game : 
-            if(pass && a==0){ 
+            if( a==0){ 
                 System.out.println("[DEBUG] song value: " + song);
                 gamewindow = new GameWindow(song);
                 pass=false;
                 a++;
             }
             else{ 
-                // let gamewindow do what it need
+                a=1;
             }
+            state= gamewindow.state;
             break;
                    
                    case Win : ;
@@ -49,8 +50,11 @@ public class Karaok {
             if(a==1){
                 pause=new Pause(gamewindow);
                 a++;
+                System.out.println("[DEBUG] Pause has been created");
             }
+                     
             state=pause.state;
+                     
             break;
         
             

@@ -56,6 +56,7 @@ public class GameWindow extends JFrame{
             setTitle("Kara-OK");
             setUndecorated(true);
             this.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
+            this.setLayout(null);
             // buffer
             Ecran=new Rectangle(getInsets().left,getInsets().top,getSize().width-getInsets().right-getInsets().left,getSize().height-getInsets().bottom-getInsets().top);
             ArrierePlan =new BufferedImage(getSize().width,getSize().height,BufferedImage.TYPE_INT_RGB);
@@ -170,6 +171,7 @@ public class GameWindow extends JFrame{
                 break;
             case KeyEvent.VK_P: 
                 System.out.println("[DEBUG] P Key pressed");
+                state=Karaok.State.Pause;
                 }
             }
         }

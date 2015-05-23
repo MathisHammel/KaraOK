@@ -23,5 +23,5 @@ public class Content {
     static Color mainColor =new Color(127,140,141); // grey
     
     // notes stuff
-    static String[] notes ={"A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab","A"};
+    static String[] notes ={"A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"};
 }
