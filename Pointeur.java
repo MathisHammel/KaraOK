@@ -2,9 +2,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import java.io.File;
-
-import javax.imageio.ImageIO;
 
 public class Pointeur extends Object {
     
@@ -15,7 +12,7 @@ public class Pointeur extends Object {
         super((int)aframe.getWidth()/6, (int)aframe.getHeight()/2, (int)aframe.getHeight()/10, (int)aframe.getHeight()/20,  0,  0,  0 , aframe, "pointeur");
         ymin=(int)aframe.getHeight()/6;
         ymax=ymin*5;
-        color= Color.gray;
+        color= Content.mainColor;
     }
 
     

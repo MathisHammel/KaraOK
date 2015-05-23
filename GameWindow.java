@@ -10,10 +10,18 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import java.io.File;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+
+import javax.sound.sampled.Clip;
+
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 import javax.swing.JFrame;
+
 
 public class GameWindow extends JFrame{
     
@@ -31,40 +39,54 @@ public class GameWindow extends JFrame{
         BufferedImage ArrierePlan; 
         Graphics buffer; 
         Rectangle Ecran; 
-                         
-        //Pointeur pointeur;
+        
+        Clip clip;
+        
+        static Karaok.State state;
+        Pause pause;
         
         //LinkedList <objet> Objets;
         
         
         
-        public GameWindow() {
+        public GameWindow(int song) {
             
             /** affichage plein écran !!! */
-                             
+            // frame                 
             setTitle("Kara-OK");
             setUndecorated(true);
             this.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
-           
-           
+            // buffer
+            Ecran=new Rectangle(getInsets().left,getInsets().top,getSize().width-getInsets().right-getInsets().left,getSize().height-getInsets().bottom-getInsets().top);
+            ArrierePlan =new BufferedImage(getSize().width,getSize().height,BufferedImage.TYPE_INT_RGB);
+            buffer = ArrierePlan.getGraphics();
+            // variables
             time = 0;
             score = 0;
             finjeu=false;
             
-            Ecran=new Rectangle(getInsets().left,getInsets().top,getSize().width-getInsets().right-getInsets().left,getSize().height-getInsets().bottom-getInsets().top);
-            ArrierePlan =new BufferedImage(getSize().width,getSize().height,BufferedImage.TYPE_INT_RGB);
-            buffer = ArrierePlan.getGraphics();
+           //STATE !!!!!!!!!
+            state = Karaok.State.Game;
             
             pointeur = new Pointeur(Ecran);
+            // music
+            try {
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.files[0][song]).getAbsoluteFile());
+                    clip = AudioSystem.getClip();
+                    clip.open(audioInputStream);
+                    clip.start();
+                } catch(Exception ex) {
+                    System.out.println("Error with playing sound.");
+                    ex.printStackTrace();
+                }
             
-            timer = new Timer(20,new TimerAction());
-            
+            // key adapter
             this.addKeyListener(new GameKeyAdapter());
             
             test = new Note("B",Ecran,200);
-            System.out.println();
-            System.out.println(test.h);System.out.println(test.x);
             
+            // timer
+            timer = new Timer(20,new TimerAction());
             timer.start();
             
             setVisible(true);
@@ -74,11 +96,8 @@ public class GameWindow extends JFrame{
         
         public void paint(Graphics g){
             
-            /*ImageIcon gameAdd = new ImageIcon("img\\GameAdd.png");
-            ImageIcon img = new ImageIcon(background);
-            buffer.drawImage(img.getImage(), gameAdd.getIconWidth(), 0, img.getImageObserver());*/
-            paintBackGround(buffer,Ecran);
             
+            paintBackGround(buffer,Ecran);
             test.draw(time,buffer);
             
            // buffer.drawImage(gameAdd.getImage(),0,0,gameAdd.getImageObserver()); // draw last
@@ -87,9 +106,9 @@ public class GameWindow extends JFrame{
             g.drawImage(ArrierePlan,0,0,this);
         }
         public void paintBackGround(Graphics g, Rectangle aframe){
-            g.setColor(new Color(52,152,219));
+            g.setColor(Content.colors[8]);
             g.fillRect(0, 0, (int)aframe.getWidth(),(int) aframe.getHeight());
-            g.setColor(new Color(41,128,185));
+            g.setColor(Content.colors[9]);
             for(int i=0; i<13; i++){
                 fillRectY(buffer,0, (int)(aframe.getHeight()*(1+i*0.5)*0.1) , (int)aframe.getWidth(), (int)(aframe.getHeight()/(100+100*(i%2))));
                
@@ -97,9 +116,9 @@ public class GameWindow extends JFrame{
         }
         
         public void paintAdd(Graphics g, Rectangle aframe){
-            g.setColor(new Color(52,152,219));
+            g.setColor(Content.colors[8]);
             g.fillRect(0,0,(int)aframe.getWidth()/6,(int)aframe.getHeight());
-            g.setColor(Color.yellow);
+            g.setColor(Content.colors[9]);
             fillRectX(g,(int)aframe.getWidth()/6,0,(int)aframe.getWidth()/100,(int)aframe.getHeight());
         }
         
@@ -113,19 +132,22 @@ public class GameWindow extends JFrame{
 
         private class TimerAction implements ActionListener {
         
-        public void actionPerformed(ActionEvent e) {
-        game_display();
-        time++;
-        }
+            public void actionPerformed(ActionEvent e) {
+                game_display();
+                time++;
+            }
 
         
-    }
+        }
+        
         
         public void game_display(){
             test.move(time);
             repaint();
     
         }
+        
+       
         
      /**public static void main(String[] args) {
         GameWindow Monjeu = new GameWindow();
@@ -146,6 +168,8 @@ public class GameWindow extends JFrame{
                         timer.stop();
                     }
                 break;
+            case KeyEvent.VK_P: 
+                System.out.println("[DEBUG] P Key pressed");
                 }
             }
         }

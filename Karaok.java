@@ -6,35 +6,54 @@ public class Karaok {
     public enum State{
         Menu, Game, Win, Pause;
     }
-    public static State state;
+    public static  State state;
     public static boolean pass;
+    public static int song; 
     
     
     public static void main (String[] args){
         state = State.Menu;
+        int a=0;
         pass=false;
         window MenuWindow=null;
+        GameWindow gamewindow = null;
+        Pause pause=null;
         while(true){
         switch(state){
         case Menu :
             if(!pass){
-            pass=true;
-                       MenuWindow = new window();     
-        }
-                     state= MenuWindow.state;
-                   break;
+                pass=true;
+                MenuWindow = new window();
+                a=0;
+            }
+            state= MenuWindow.state;
+            song= MenuWindow.song;
+            break;
                    
-        case Game : if(pass){ 
-                        System.out.println("changé");
-                        GameWindow gamewindow = new GameWindow();
-                        pass=false;
-        }
-                   break;
+        case Game : 
+            if(pass && a==0){ 
+                System.out.println("[DEBUG] song value: " + song);
+                gamewindow = new GameWindow(song);
+                pass=false;
+                a++;
+            }
+            else{ 
+                // let gamewindow do what it need
+            }
+            break;
                    
                    case Win : ;
                    break;
                    
-                   case Pause : ;
+        case Pause :
+            if(a==1){
+                pause=new Pause(gamewindow);
+                a++;
+            }
+            state=pause.state;
+            break;
+        
+            
                    default : 
                      break;
                  }

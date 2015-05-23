@@ -1,10 +1,7 @@
 import java.awt.Graphics;
-import java.awt.Image;
+
 import java.awt.Rectangle;
 
-import java.io.File;
-
-import javax.imageio.ImageIO;
 
 public abstract class Object {
     
