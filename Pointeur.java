@@ -10,15 +10,15 @@ public class Pointeur extends Object {
 
     public Pointeur(Rectangle aframe) {
         super((int)aframe.getWidth()/6, (int)aframe.getHeight()/2, (int)aframe.getHeight()/10, (int)aframe.getHeight()/20,  0,  0,  0 , aframe, "pointeur");
-        ymin=(int)aframe.getHeight()/6;
-        ymax=ymin*5;
+        ymin=(int)aframe.getHeight()/10;
+        ymax=ymin*7;
         color= Content.mainColor;
     }
 
 
     void move(long t, double frequency) {
-        y =(int)((ymax-ymin)*frequency/(880.0-440.0)) ;
-
+        //y =(int)(ymin*frequency/440) ;
+        y=(int)( ymin + ((frequency-440)/440)*(ymax-ymin));
     }
 
 
@@ -38,7 +38,7 @@ public class Pointeur extends Object {
 
     }
     public void changeColor ( double deltanote){
-        if(deltanote==-1){color= Contents.mainColor;}
+        if(deltanote==-1){color= Content.mainColor;}
         else if(deltanote<20){ color= Color.green;}
         else if(deltanote<40){color= Color.yellow;}
         else if(deltanote<60){color= Color.orange;}

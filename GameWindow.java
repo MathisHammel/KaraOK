@@ -41,7 +41,6 @@ public class GameWindow extends JFrame{
         Rectangle Ecran;
 
         Clip clip;
-<<<<<<< HEAD
         int song;
         
         static Karaok.State state;
@@ -49,21 +48,11 @@ public class GameWindow extends JFrame{
         //LinkedList <objet> Objets;
         
         
-        
+
+
+
         public GameWindow(int asong) {
-            
-=======
 
-        static Karaok.State state;
-        Pause pause;
-
-        //LinkedList <objet> Objets;
-
-
-
-        public GameWindow(int song) {
-
->>>>>>> origin/master
             /** affichage plein écran !!! */
             // frame
             setTitle("Kara-OK");
@@ -115,13 +104,8 @@ public class GameWindow extends JFrame{
 
             paintBackGround(buffer,Ecran);
             test.draw(time,buffer);
-<<<<<<< HEAD
             
-           
-=======
-
-           // buffer.drawImage(gameAdd.getImage(),0,0,gameAdd.getImageObserver()); // draw last
->>>>>>> origin/master
+            
             paintAdd(buffer, Ecran);
             pointeur.draw(time,buffer); // draw last
             g.drawImage(ArrierePlan,0,0,this);
@@ -160,14 +144,7 @@ public class GameWindow extends JFrame{
 
 
         }
-<<<<<<< HEAD
-        
-        
-            public void game_display(){
-                test.move(time);
-                repaint();
-    
-=======
+
 
 
         public void game_display(){
@@ -175,7 +152,7 @@ public class GameWindow extends JFrame{
             pointeur.move(time,440+(440*Math.random()));
             repaint();
 
->>>>>>> origin/master
+
         }
 
 
@@ -183,12 +160,7 @@ public class GameWindow extends JFrame{
      /**public static void main(String[] args) {
         GameWindow Monjeu = new GameWindow();
         }*/
-<<<<<<< HEAD
-    
-        
-=======
 
->>>>>>> origin/master
     private class GameKeyAdapter extends KeyAdapter{
 
 
