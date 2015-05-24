@@ -1,3 +1,4 @@
+import Frequency.FreqThread; //pourquoi ne marche pas ?????
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
@@ -42,12 +43,12 @@ public class GameWindow extends JFrame{
 
         Clip clip;
         int song;
-        
+
         static Karaok.State state;
-        
+
         //LinkedList <objet> Objets;
-        
-        
+
+
 
 
 
@@ -55,6 +56,8 @@ public class GameWindow extends JFrame{
 
             /** affichage plein écran !!! */
             // frame
+            FreqThread freqmaster=new FreqThread();
+            freqmaster.start();
             setTitle("Kara-OK");
 
             setUndecorated(true);
@@ -104,8 +107,8 @@ public class GameWindow extends JFrame{
 
             paintBackGround(buffer,Ecran);
             test.draw(time,buffer);
-            
-            
+
+
             paintAdd(buffer, Ecran);
             pointeur.draw(time,buffer); // draw last
             g.drawImage(ArrierePlan,0,0,this);
@@ -149,8 +152,8 @@ public class GameWindow extends JFrame{
 
         public void game_display(){
             test.move(time);
-            pointeur.move(time,440+(440*Math.random()));
-            pointeur.changeColor(Math.random()*100);
+            pointeur.move(time,freqmaster.mainFreq);
+            pointeur.changeColor(Math.abs(587.33-freqmaster.mainFreq));
             repaint();
 
 
