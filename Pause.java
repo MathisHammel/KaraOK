@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 
-public class Pause extends JPanel{
+public class Pause {
     public GameWindow game;
     public Button resume;
     public Button backToMenu;
@@ -26,9 +26,6 @@ public class Pause extends JPanel{
         game=gamewindow;
         game.clip.stop();
         game.timer.stop();
-        this.setBounds(0, 0, (int)game.Ecran.getWidth(),(int) game.Ecran.getHeight());
-        this.setBackground(new Color(0,0,0,0));
-        this.setLayout(null);
         
         logo = new Button();
         logo.setBackground(Content.colors[6]);
@@ -126,7 +123,6 @@ public class Pause extends JPanel{
         public void actionPerformed (ActionEvent arg0){
             
             game.state=Karaok.State.Game; // change game window state 
-            game.getContentPane().remove(Pause.this);
             game.getContentPane().remove(resume);
             game.getContentPane().remove(backToMenu);
             game.getContentPane().remove(exitGame);
