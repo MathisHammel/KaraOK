@@ -22,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 public class GameWindow extends JFrame{
@@ -171,15 +172,20 @@ public class GameWindow extends JFrame{
         public void keyPressed(KeyEvent e) {
             int code = e.getKeyCode();
             switch (code){
-            case KeyEvent.VK_ESCAPE: System.exit(0);
+            case KeyEvent.VK_ESCAPE: 
+                state=Karaok.State.Pause;
+                    JOptionPane jop = new JOptionPane();            
+                          int option = jop.showConfirmDialog(null, 
+                            "Are you sure you wan't to leave ?", 
+                            "Leaving game", 
+                            JOptionPane.YES_NO_OPTION, 
+                            JOptionPane.WARNING_MESSAGE);
+
+                          if(option == JOptionPane.OK_OPTION){
+                            System.exit(0);
+                          }
                 break;
-            case KeyEvent.VK_ENTER:
-                    if (!timer.isRunning()) {
-                        timer.start();
-                    } else {
-                        timer.stop();
-                    }
-                break;
+            
             case KeyEvent.VK_P:
                 System.out.println("[DEBUG] P Key pressed");
                 state=Karaok.State.Pause;
