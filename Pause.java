@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -16,7 +17,7 @@ public class Pause extends JPanel{
     public Button backToMenu;
     public Button exitGame;
     public Button restart;
-    public JLabel logo;
+    public Button logo;
     
 
     
@@ -29,12 +30,14 @@ public class Pause extends JPanel{
         this.setBackground(new Color(0,0,0,0));
         this.setLayout(null);
         
-        logo = new JLabel("PAUSE",SwingConstants.CENTER);
+        logo = new Button();
         logo.setBackground(Content.colors[6]);
-        logo.setOpaque(true);
+        logo.setBorderPainted(false);
         logo.setForeground(Color.white);
         logo.setFont(new Font("SansSerif", Font.BOLD, 40));
+        logo.setText("PAUSE");
         logo.setBounds((int)(game.Ecran.getWidth()*0.375),(int)game.Ecran.getHeight()*1/10,(int)game.Ecran.getWidth()/4,46);
+        logo.addActionListener(null);
         game.add(logo);
         
         resume=new Button();
@@ -76,17 +79,18 @@ public class Pause extends JPanel{
         exitGame.setBackground(Content.colors[2]);
         exitGame.setForeground(Color.white);
         exitGame.setFont(new Font("Arial", Font.BOLD, (int)game.Ecran.getHeight()/40));
-        exitGame.setText("Exit Game" );
+        exitGame.setText("Leave Game" );
         exitGame.addActionListener(new exitListener());
         exitGame.addMouseListener(exitGame);
         game.add(exitGame);
         
         
-        exitGame.repaint();
-        resume.repaint();
-        backToMenu.repaint();
-        logo.repaint();
-        restart.repaint();
+        exitGame.requestFocus();
+        resume.requestFocus();
+        backToMenu.requestFocus();
+        logo.requestFocus();
+        restart.requestFocus();
+        game.requestFocus();
         
         
     }
@@ -94,7 +98,20 @@ public class Pause extends JPanel{
     class exitListener implements ActionListener{
         
         public void actionPerformed (ActionEvent arg0){
-            System.exit(0);
+            JOptionPane jop = new JOptionPane();            
+                  int option = jop.showConfirmDialog(null, 
+                    "Are you sure you wan't to leave ?", 
+                    "Leaving game", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.WARNING_MESSAGE);
+
+                  if(option == JOptionPane.OK_OPTION){
+                    System.exit(0);
+                  }
+                  else{
+                      backToMenu.repaint();
+                      game.requestFocus();
+                  }
         }
     }
     class restartListener implements ActionListener{
