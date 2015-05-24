@@ -2,7 +2,7 @@ TODO:
 [X]Faire le fichier TODO
 [X]Mettre les song_cut
 [ ]Revoir la découpe des morceaux + ajouter un court blanc au tout début 
-[ ]Faire deltanote dans Pointeur.java
+[X]Faire deltanote dans Pointeur.java
 [X]Refaire CORRECTEMENT l'intervalle de position du pointeur
 [ ]Intégrer les threads (freq/songdata)
 [ ]Supprimer SongData et l'intégrer à Content ?? peut être, je sais pas, c'est pas ma classe ... mouhahaah 

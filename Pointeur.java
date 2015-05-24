@@ -34,15 +34,15 @@ public class Pointeur extends Object {
         g.fillOval((int)x-l/2,(int) y-h/2, l, h);
         color=color.brighter();
         g.setColor(color);
-        g.fillOval((int)x-l/2 +6, (int)y-h/2 +6, l-12, h-12);
+        g.fillOval((int)x-l/2 +4, (int)y-h/2 +4, l-8, h-8);
 
     }
     public void changeColor ( double deltanote){
         if(deltanote==-1){color= Content.mainColor;}
-        else if(deltanote<20){ color= Color.green;}
-        else if(deltanote<40){color= Color.yellow;}
-        else if(deltanote<60){color= Color.orange;}
-            else if (deltanote>=60){color = Color.red;}
+        else if(deltanote<20){ color= Content.colors[5];}
+        else if(deltanote<40){color= Content.colors[2];}
+        else if(deltanote<60){color= Content.colors[6];}
+            else if (deltanote>=60){color = Content.colors[10];}
     }
 }
 

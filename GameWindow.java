@@ -150,6 +150,7 @@ public class GameWindow extends JFrame{
         public void game_display(){
             test.move(time);
             pointeur.move(time,440+(440*Math.random()));
+            pointeur.changeColor(Math.random()*100);
             repaint();
 
 
