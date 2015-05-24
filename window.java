@@ -158,6 +158,14 @@ public class window extends JFrame {
         
        
         //lancement de la musique   
+        time=0;
+        timer = new Timer(20,new TimerAction());
+        timer.start();
+        
+        this.setFocusable(true);//permet à la fenetre d'avoir le focus
+        this.requestFocus();
+        this.addKeyListener(new GameKeyAdapter());
+        
         
         song=0;  
         try {
@@ -170,15 +178,9 @@ public class window extends JFrame {
                 ex.printStackTrace();
             }
        
-        time=0;
-        timer = new Timer(20,new TimerAction());
-        timer.start();
-        
-        this.setFocusable(true);//permet à la fenetre d'avoir le focus
-        this.requestFocus();
-        this.addKeyListener(new GameKeyAdapter());
         
         setVisible(true);
+       
     }
     
      class nextListener implements ActionListener{

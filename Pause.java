@@ -16,14 +16,12 @@ public class Pause extends JPanel{
     public Button backToMenu;
     public Button exitGame;
     public Button restart;
-    public JPanel pause;
     public JLabel logo;
     
 
     
     public Pause(GameWindow gamewindow) {
         super();
-        pause=this;
         game=gamewindow;
         game.clip.stop();
         game.timer.stop();
@@ -78,7 +76,7 @@ public class Pause extends JPanel{
         exitGame.setBackground(Content.colors[2]);
         exitGame.setForeground(Color.white);
         exitGame.setFont(new Font("Arial", Font.BOLD, (int)game.Ecran.getHeight()/40));
-        exitGame.setText("backToMenu" );
+        exitGame.setText("Exit Game" );
         exitGame.addActionListener(new exitListener());
         exitGame.addMouseListener(exitGame);
         game.add(exitGame);
@@ -111,11 +109,12 @@ public class Pause extends JPanel{
         public void actionPerformed (ActionEvent arg0){
             
             game.state=Karaok.State.Game; // change game window state 
-            game.getContentPane().remove(pause);
+            game.getContentPane().remove(Pause.this);
             game.getContentPane().remove(resume);
             game.getContentPane().remove(backToMenu);
             game.getContentPane().remove(exitGame);
             game.getContentPane().remove(restart);
+            
             game.clip.start(); 
             game.timer.restart();
             game.requestFocus(); // request focus back 
@@ -129,7 +128,10 @@ public class Pause extends JPanel{
         
         public void actionPerformed (ActionEvent arg0){
             game.state=Karaok.State.Menu; // change gamewindow state
+            System.out.println("[DEBUG] state changed to "+game.state);
             game.dispose();
+            System.out.println("[DEBUG] gamewindow disposed");
+            
         }
     }
 }

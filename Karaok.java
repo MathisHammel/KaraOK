@@ -35,6 +35,7 @@ public class Karaok {
                 System.out.println("[DEBUG] song value: " + song);
                 gamewindow = new GameWindow(song);
                 a++;
+                pass=false;
             }
             else{ 
                 a=1;
@@ -54,13 +55,15 @@ public class Karaok {
             }
                      
             state=gamewindow.state;
-            if(state==State.Restart){
-                a=0;
-                state=State.Game;
-            }
                      
             break;
-        
+        case Restart:
+            a=1;
+            GameWindow other = new GameWindow(song);
+            gamewindow.dispose();
+            gamewindow=other;
+            state=State.Game;
+            break;
             
                    default : 
                      break;
