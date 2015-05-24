@@ -3,9 +3,10 @@ import java.awt.Color;
 public class Content {
     // this class contein all the extra !
     
-    public     static String[][] files = {{"songs\\Fun.wav","songs\\queen.wav","songs\\beyonce.wav" }
+    public     static String[][] files = {{"songs\\Fun_cut.wav","songs\\queen_cut.wav","songs\\beyonce.wav" }
                                ,{"img\\fun-we-are-young.png","img\\WATC.png", "img\\WATW.png"}
-                               ,{"<html><center>FUN<br> we are young","<html><center>QUEEN<br> we are the champions", "<html><center>USA FOR AFRICA<br> we are the world"}}; 
+                               ,{"<html><center>FUN<br> we are young","<html><center>QUEEN<br> we are the champions", "<html><center>USA FOR AFRICA<br> we are the world"}
+                               ,{"songs\\Fun.wav","songs\\queen.wav","songs\\beyonce.wav" }};
    
     // frame elements
     public static String icon = "img\\microphone_converted.png";
