@@ -1,4 +1,4 @@
- //pourquoi ne marche pas ?????
+import Frequency.FreqThread; //pourquoi ne marche pas ?????
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
@@ -43,7 +43,7 @@ public class GameWindow extends JFrame{
 
         Clip clip;
         int song;
-        FreqThread freqmaster;
+
         static Karaok.State state;
 
         //LinkedList <objet> Objets;
@@ -56,7 +56,7 @@ public class GameWindow extends JFrame{
 
             /** affichage plein écran !!! */
             // frame
-            freqmaster=new FreqThread();
+            FreqThread freqmaster=new FreqThread();
             freqmaster.start();
             setTitle("Kara-OK");
 
