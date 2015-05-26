@@ -1,3 +1,4 @@
+package Frequency;
 /*************************************************************************
  *  Compilation:  javac FFT.java
  *  Execution:    java FFT N

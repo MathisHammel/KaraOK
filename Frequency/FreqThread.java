@@ -1,20 +1,26 @@
+package Frequency;
+import java.io.IOException;
+import java.io.File;
+
+import java.math.*;
+
+import java.io.*;
+
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.TargetDataLine;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.TargetDataLine;
+import javax.sound.sampled.AudioFileFormat;
 
 
-public class FreqThread extends Thread {
-	
+public class FreqThread extends Thread{
+
+	String note;
 	double freq;
 	double mainFreq;
-	String note;
-
-	  public FreqThread()
-	  {
-
-	  }
+	double noteFreq;
 
 	public static double getMainFreq(double in)
 	{
@@ -102,6 +108,9 @@ public class FreqThread extends Thread {
    	 }
    	 System.out.println("Line available");
 
+  int numBytesRead;
+
+
   byte[] data = new byte[1024];
   System.out.println("Src buffer size : "+target.getBufferSize());
 
@@ -115,7 +124,10 @@ public class FreqThread extends Thread {
 	  avg=0.0;
 	 //System.out.print("\n\n\n");
 
-	  // Save this chunk of data.
+	  // Read the next chunk of data from the TargetDataLine.
+     numBytesRead =  target.read(data, 0, data.length);
+
+     // Save this chunk of data.
      for(j=0;j<data.length;j++)
      {
     	 avg+=data[j];
@@ -139,9 +151,11 @@ public class FreqThread extends Thread {
     {
     	prev=mes;
     }
+     this.note=getNote(getMainFreq(mes));
      this.freq=mes;
      this.mainFreq=getMainFreq(mes);
-     this.note=getNote(this.mainFreq);
+     this.noteFreq=getFreq(getNote(getMainFreq(mes)));
+
   }
  }
 }

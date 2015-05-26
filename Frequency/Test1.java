@@ -1,3 +1,4 @@
+package Frequency;
 import java.io.IOException;
 import java.io.File;
 
@@ -14,8 +15,12 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.AudioFileFormat;
 
 
-public class Test1 {
+public class Test1 extends Thread{
 
+	String note;
+	double freq;
+	double mainFreq;
+	double noteFreq;
 
 	public static double getMainFreq(double in)
 	{
@@ -70,7 +75,7 @@ public class Test1 {
 	}
 	
 	
-    public static void main(String[] args){
+    public void run(){
     	float sampleRate = 44100;
     	int sampleSizeInBits = 8;
     	int channels = 1;
@@ -111,7 +116,7 @@ public class Test1 {
 
   // Begin audio capture.
   target.start();
- int i=0,j=0;
+ int j=0;
  double avg;
  boolean stopped=false;
   // Here, stopped is a global boolean set by another thread.
@@ -146,7 +151,10 @@ public class Test1 {
     {
     	prev=mes;
     }
-     System.out.println("\n"+getNote(getMainFreq(mes))+" "+mes+" "+getMainFreq(mes)+" "+getFreq(getNote(getMainFreq(mes))));
+     this.note=getNote(getMainFreq(mes));
+     this.freq=mes;
+     this.mainFreq=getMainFreq(mes);
+     this.noteFreq=getFreq(getNote(getMainFreq(mes)));
 
   }
  }
