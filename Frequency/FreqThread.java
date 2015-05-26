@@ -6,7 +6,7 @@ import javax.sound.sampled.TargetDataLine;
 
 
 public class FreqThread extends Thread {
-	
+
 	double freq;
 	double mainFreq;
 	String note;
@@ -34,7 +34,7 @@ public class FreqThread extends Thread {
 		}
 		return(in);
 	}
-	
+
 	public static String getNote(double in){
 		int i;
 		int ecart=50;
@@ -50,10 +50,10 @@ public class FreqThread extends Thread {
 				out=notes[i];
 			}
 		}
-		
+
 		return out;
 	}
-	
+
 	public static double getFreq(String in){
 		String[] notes = {"A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"};
 		double[] freq = {440.0 , 466.16 , 493.88 , 523.25 , 554.37 , 587.33 , 622.25 , 659.25 , 698.46 , 739.99 , 783.99 , 830.61};
@@ -67,8 +67,8 @@ public class FreqThread extends Thread {
 		}
 		return(out);
 	}
-	
-	
+
+
     public void run(){
     	float sampleRate = 44100;
     	int sampleSizeInBits = 8;
@@ -132,6 +132,7 @@ public class FreqThread extends Thread {
 
 
     mes=Autocorrelate.freq(data);
+    			System.out.println("This is okok "+mes);
     if(mes==-44100.0){
     	mes=prev;
     }
