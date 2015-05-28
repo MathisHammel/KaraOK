@@ -188,7 +188,7 @@ public class window extends JFrame {
         public void actionPerformed (ActionEvent arg0){
             if(song+1>Content.files[0].length-1)song=0;
             else song++;
-            clip.stop();
+            clip.close();
             try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.files[0][song]).getAbsoluteFile());
                     clip = AudioSystem.getClip();
@@ -215,7 +215,7 @@ public class window extends JFrame {
             public void actionPerformed (ActionEvent arg0){
                 if(song-1<0)song=Content.files[0].length-1;
                 else song--;
-                clip.stop();
+                clip.close();
                 try {
                         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.files[0][song]).getAbsoluteFile());
                         clip = AudioSystem.getClip();
