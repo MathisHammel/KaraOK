@@ -1,5 +1,6 @@
  //pourquoi ne marche pas ?????
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -22,12 +23,15 @@ import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 
 public class GameWindow extends JFrame{
 
-       static String background = "img\\GameBG.png";
+
     // static String[] song = ...
 
         Timer timer;
@@ -35,6 +39,7 @@ public class GameWindow extends JFrame{
         int score;
         boolean finjeu;
         Note test;
+        JLabel popup;
 
         Pointeur pointeur;
 
@@ -44,7 +49,7 @@ public class GameWindow extends JFrame{
 
         Clip clip;
         int song;
-        FreqThread freqmaster;
+        //FreqThread freqmaster;
         static Karaok.State state;
 
         //LinkedList <objet> Objets;
@@ -57,13 +62,15 @@ public class GameWindow extends JFrame{
 
             /** affichage plein écran !!! */
             // frame
-            freqmaster=new FreqThread();
-            freqmaster.start();
+            /*freqmaster=new FreqThread();
+            freqmaster.start();*/
             setTitle("Kara-OK");
 
             setUndecorated(true);
             this.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
             this.setLayout(null);
+            getContentPane().setBackground(new Color(0,0,0,0));
+            
             // buffer
             Ecran=new Rectangle(getInsets().left,getInsets().top,getSize().width-getInsets().right-getInsets().left,getSize().height-getInsets().bottom-getInsets().top);
             ArrierePlan =new BufferedImage(getSize().width,getSize().height,BufferedImage.TYPE_INT_RGB);
@@ -83,7 +90,7 @@ public class GameWindow extends JFrame{
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.files[3][song]).getAbsoluteFile());
                     clip = AudioSystem.getClip();
                     clip.open(audioInputStream);
-                    clip.start();
+                    //clip.start();
                 } catch(Exception ex) {
                     System.out.println("Error with playing sound.");
                     ex.printStackTrace();
@@ -105,19 +112,26 @@ public class GameWindow extends JFrame{
 
         public void paint(Graphics g){
 
-
+            
             paintBackGround(buffer,Ecran);
             test.draw(time,buffer);
-
+            buffer.setColor(Color.white);
+            buffer.setFont(new Font("Arial", Font.BOLD, (int)Ecran.getHeight()/20));
+            buffer.drawString("score: "+ score , (int)(Ecran.getWidth()*0.80), (int)Ecran.getHeight()/20);
 
             paintAdd(buffer, Ecran);
+            if(popup !=null){
+                getContentPane().paintComponents(buffer);
+            }
+            
             pointeur.draw(time,buffer); // draw last
+            
             g.drawImage(ArrierePlan,0,0,this);
         }
         public void paintBackGround(Graphics g, Rectangle aframe){
-            g.setColor(Content.colors[8]);
+            g.setColor(Content.background[song*2]);
             g.fillRect(0, 0, (int)aframe.getWidth(),(int) aframe.getHeight());
-            g.setColor(Content.colors[9]);
+            g.setColor(Content.background[song*2+1]);
             for(int i=0; i<13; i++){
                 fillRectY(buffer,0, (int)(aframe.getHeight()*(1+i*0.5)*0.1) , (int)aframe.getWidth(), (int)(aframe.getHeight()/(100+100*(i%2))));
 
@@ -125,9 +139,9 @@ public class GameWindow extends JFrame{
         }
 
         public void paintAdd(Graphics g, Rectangle aframe){
-            g.setColor(Content.colors[8]);
+            g.setColor(Content.background[song*2]);
             g.fillRect(0,0,(int)aframe.getWidth()/6,(int)aframe.getHeight());
-            g.setColor(Content.colors[9]);
+            g.setColor(Content.background[song*2+1]);
             fillRectX(g,(int)aframe.getWidth()/6,0,(int)aframe.getWidth()/100,(int)aframe.getHeight());
         }
 
@@ -152,9 +166,10 @@ public class GameWindow extends JFrame{
 
 
         public void game_display(){
+            
             test.move(time);
-            pointeur.move(time,freqmaster.mainFreq);
-            pointeur.changeColor(Math.abs(587.33-freqmaster.mainFreq));
+            pointeur.move(time,Karaok.freqmaster.mainFreq); //FIXME
+            pointeur.changeColor(Math.abs(587.33-Karaok.freqmaster.mainFreq));
             repaint();
 
 
@@ -165,7 +180,27 @@ public class GameWindow extends JFrame{
      /**public static void main(String[] args) {
         GameWindow Monjeu = new GameWindow();
         }*/
-
+     
+     public void songWillStart(){
+         int timeleft=5;
+         popup = new JLabel("KARA-OK",SwingConstants.CENTER);
+         popup.setBounds((int)Ecran.getWidth()*3/8,(int)(Ecran.getHeight()*0.35),(int)Ecran.getWidth()/4, (int)(Ecran.getHeight()*0.30));
+         popup.setBackground(Content.colors[2]);
+         popup.setOpaque(true);
+         popup.setForeground(Color.white);
+         popup.setFont(new Font("Arial", Font.BOLD, (int)Ecran.getHeight()/20));
+         popup.setText("<html><center>GET READY !<br> The song will start in: <br> " + timeleft );
+         this.getContentPane().add(popup);
+         
+         while(timeleft>0){
+             timeleft= 5- (int)time/100;
+             popup.setText("<html><center>GET READY !<br> The song will start in: <br> " + timeleft );
+         }
+         popup=null;
+         clip.start();
+         time=0;
+     }
+     
     private class GameKeyAdapter extends KeyAdapter{
 
 

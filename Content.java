@@ -8,7 +8,8 @@ public class Content {
                                ,{"<html><center>FUN<br> we are young","<html><center>QUEEN<br> we are the champions", "<html><center>USA FOR AFRICA<br> we are the world"}
                                ,{"songs\\Fun.wav","songs\\queen.wav","songs\\beyonce.wav" }};
    
-    // frame elements
+    public static Color[] background= {new Color(52,152,219), new Color(41,128,185),new Color(46,204,113), new Color(39,174,96), new Color(231,76,60), new Color(192,57,43)};
+    // frame element
     public static String icon = "img\\microphone_converted.png";
     public static String cursor = "img\\mic_converted.png";
     // button elemetns 

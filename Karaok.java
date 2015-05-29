@@ -9,10 +9,13 @@ public class Karaok {
     public static  State state;
     public static boolean pass;
     public static int song; 
+    public static FreqThread freqmaster;
     
     
     public static void main (String[] args){
         state = State.Menu;
+        freqmaster=new FreqThread();
+        freqmaster.start();
         int a=0;
         pass=false;
         window MenuWindow=null;
@@ -34,6 +37,7 @@ public class Karaok {
             if( a==0){ 
                 System.out.println("[DEBUG] song value: " + song);
                 gamewindow = new GameWindow(song);
+                gamewindow.songWillStart();
                 a++;
                 pass=false;
             }
@@ -62,6 +66,7 @@ public class Karaok {
             GameWindow other = new GameWindow(song);
             gamewindow.dispose();
             gamewindow=other;
+            gamewindow.songWillStart();
             state=State.Game;
             break;
             

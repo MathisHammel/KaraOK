@@ -7,6 +7,7 @@ public class Note extends Object {
     int ymin;
     String note;
     double frequency; // maybe not usefull
+    boolean destroy;
     
     public Note(String anote, Rectangle aframe, int length) {
         super((int)aframe.getWidth(),0,(int)aframe.getHeight()/30,length , -1, 0, 1 , aframe, "note");
@@ -17,6 +18,7 @@ public class Note extends Object {
             a++;
         }
         y=ymin*(1+a/2) -h/2;
+        destroy=false;
         
     }
 
@@ -31,7 +33,11 @@ public class Note extends Object {
 
     @Override
     void move(long t) {
+        if(x+dx*speed>0){
         x+= dx*speed;
+        }else{
+            destroy=true;
+        }
     }
 
     @Override
