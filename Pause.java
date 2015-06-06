@@ -18,7 +18,7 @@ public class Pause {
     public Button exitGame;
     public Button restart;
     public Button logo;
-    
+    public Button end;
 
     
     public Pause(GameWindow gamewindow) {
@@ -88,6 +88,17 @@ public class Pause {
         exitGame.addMouseListener(exitGame);
         game.getContentPane().add(exitGame);
         
+        end=new Button();
+        end.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*6/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
+        end.setBorderPainted(false);
+        end.setBackground(Content.colors[2]);
+        end.setForeground(Color.white);
+        end.setFont(new Font("Arial", Font.BOLD, (int)game.Ecran.getHeight()/40));
+        end.setText("Leave Game" );
+        end.addActionListener(new endListener());
+        end.addMouseListener(end);
+        game.getContentPane().add(end);
+        
         //repaint the gamewindow 
         game.repaint();
         
@@ -134,6 +145,7 @@ public class Pause {
             game.getContentPane().remove(exitGame);
             game.getContentPane().remove(restart);
             game.getContentPane().remove(logo);
+            game.getContentPane().remove(end);
             
             // restart song and timer
             game.clip.start(); 
@@ -149,6 +161,18 @@ public class Pause {
         
         public void actionPerformed (ActionEvent arg0){
             game.state=Karaok.State.Menu; // change gamewindow state to Menu
+            
+            // dispose this gamewindow
+            System.out.println("[DEBUG] state changed to "+game.state);
+            game.dispose();
+            System.out.println("[DEBUG] gamewindow disposed");
+            
+        }
+    }
+    class endListener implements ActionListener{
+        
+        public void actionPerformed (ActionEvent arg0){
+            game.state=Karaok.State.Win; // change gamewindow state to Menu
             
             // dispose this gamewindow
             System.out.println("[DEBUG] state changed to "+game.state);

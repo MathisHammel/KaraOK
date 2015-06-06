@@ -7,7 +7,6 @@ public class Karaok {
         Menu, Game, Win, Pause, Restart;
     }
     public static  State state;
-    public static boolean pass;
     public static int song; 
     public static FreqThread freqmaster;
     
@@ -16,17 +15,19 @@ public class Karaok {
         state = State.Menu;
         freqmaster=new FreqThread();
         freqmaster.start();
-        int a=0;
-        pass=false;
+        int a=1;
         window MenuWindow=null;
         GameWindow gamewindow = null;
         Pause pause=null;
+        scoreWindow scorewindow=null;
         while(true){
         switch(state){
         case Menu :
-            if(!pass){
-                pass=true;
+             
+            if(a!=0){
+                
                 MenuWindow = new window();
+                if(a==3)scorewindow.dispose();
                 a=0;
             }
             state= MenuWindow.state;
@@ -34,12 +35,11 @@ public class Karaok {
             break;
                    
         case Game : 
-            if( a==0){ 
+            if( a!=1 && a!=2){ 
                 System.out.println("[DEBUG] song value: " + song);
                 gamewindow = new GameWindow(song);
                 gamewindow.songWillStart();
-                a++;
-                pass=false;
+                a=1;
             }
             else{ 
                 a=1;
@@ -47,13 +47,19 @@ public class Karaok {
             state= gamewindow.state;
             break;
                    
-                   case Win : ;
-                   break;
+        case Win :
+            if(a!=3){
+                scorewindow=new scoreWindow(song);
+                a=3;
+            }
+            song=scorewindow.song;
+            state=scorewindow.state;
+            break;
                    
         case Pause :
-            if(a==1){
+            if(a!=2){
                 pause=new Pause(gamewindow);
-                a++;
+                a=2;
                 System.out.println("[DEBUG] Pause has been created");
                 System.out.println("[DEBUG]" + gamewindow.state +" a = " + a);
             }

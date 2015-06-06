@@ -12,29 +12,35 @@ public class LightPad extends JLabel{
     
     public LightPad(int x, int y){
         super();
-        this.setBounds(x,y,50,50);
-        current= Content.mainColor;
+        this.setBounds(x,y,50,50); // set size
+        current= Content.mainColor; // set color to grey
     }
     
     public void paintComponent(Graphics g){
         super.paintComponents(g);
+        //paint large grey rectangle for borders
         g.setColor(Content.mainColor);
         g.fillRect(0, 0, 50, 50);
+        // paint smaller rectangle 
         g.setColor(current);
         g.fillRect(2, 2, 46, 46);
        
     }
     
-    public void downdate(long t){
-        int pos = (int)(Math.random()*Content.colors.length);
-        current= Content.mainColor;
-        this.repaint(t);
+    public void downdate(){
+        
+        current= Content.mainColor; //set current color to grey
+        this.repaint();
+        
     }
     
-    public void update (long t){
-        int pos = (int)(Math.random()*Content.colors.length);
+    
+    public void update (){
+        
+        // select a random color in the palet
+        int pos = (int)(Math.random()*Content.colors.length); 
         current=Content.colors[pos];
-        this.repaint(t);
+        this.repaint();
         
     }
 }

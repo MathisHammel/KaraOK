@@ -64,10 +64,8 @@ public class GameWindow extends JFrame{
 
             /** affichage plein écran !!! */
             // frame
-            /*freqmaster=new FreqThread();
-            freqmaster.start();*/
+            
             setTitle("Kara-OK");
-
             setUndecorated(true);
             this.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
             this.setLayout(null);
@@ -229,6 +227,7 @@ public class GameWindow extends JFrame{
             }
         }
     }
+
 
 
 
