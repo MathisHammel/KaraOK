@@ -1,5 +1,3 @@
-
-package Frequency;
 /*************************************************************************
  *  Compilation:  javac Complex.java
  *  Execution:    java Complex

@@ -5,7 +5,7 @@ public class Content {
     
     public     static String[][] files = {{"songs\\Fun_cut.wav","songs\\queen_cut.wav","songs\\beyonce.wav" }
                                ,{"img\\fun-we-are-young.png","img\\WATC.png", "img\\WATW.png"}
-                               ,{"<html><center>FUN<br> we are young","<html><center>QUEEN<br> we are the champions", "<html><center>USA FOR AFRICA<br> we are the world"}
+                               ,{"<html><center>&#9835&#9835 FUN &#9835&#9835<br> we are young","<html><center>&#x2606&#x2605&#x2605 QUEEN &#x2605&#x2605&#x2606<br> we are the champions", "<html><center>* USA FOR AFRICA *<br> we are the world"}
                                ,{"songs\\Fun.wav","songs\\queen.wav","songs\\beyonce.wav" }};
    
     public static Color[] background= {new Color(52,152,219), new Color(41,128,185),new Color(46,204,113), new Color(39,174,96), new Color(231,76,60), new Color(192,57,43)};

@@ -14,6 +14,8 @@ import java.awt.image.BufferedImage;
 
 import java.io.File;
 
+import java.util.LinkedList;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
@@ -39,8 +41,8 @@ public class GameWindow extends JFrame{
         int score;
         boolean finjeu;
         Note test;
-        JLabel popup;
-
+        JLabel popup, title, lyrics;
+        boolean pop;
         Pointeur pointeur;
 
         BufferedImage ArrierePlan;
@@ -49,10 +51,10 @@ public class GameWindow extends JFrame{
 
         Clip clip;
         int song;
-        //FreqThread freqmaster;
         static Karaok.State state;
-
-        //LinkedList <objet> Objets;
+        
+        // pointeurs + notes.
+        LinkedList <Note> note;
 
 
 
@@ -69,7 +71,8 @@ public class GameWindow extends JFrame{
             setUndecorated(true);
             this.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
             this.setLayout(null);
-            getContentPane().setBackground(new Color(0,0,0,0));
+            getContentPane().setBackground(new Color(Color.TRANSLUCENT));
+            
             
             // buffer
             Ecran=new Rectangle(getInsets().left,getInsets().top,getSize().width-getInsets().right-getInsets().left,getSize().height-getInsets().bottom-getInsets().top);
@@ -102,8 +105,11 @@ public class GameWindow extends JFrame{
             test = new Note("B",Ecran,200);
 
             // timer
-            timer = new Timer(20,new TimerAction());
+            timer = new Timer(10,new TimerAction());
             timer.start();
+            
+            // initialisation des notes:
+            note= new LinkedList();
 
             setVisible(true);
 
@@ -118,12 +124,11 @@ public class GameWindow extends JFrame{
             buffer.setColor(Color.white);
             buffer.setFont(new Font("Arial", Font.BOLD, (int)Ecran.getHeight()/20));
             buffer.drawString("score: "+ score , (int)(Ecran.getWidth()*0.80), (int)Ecran.getHeight()/20);
+            buffer.drawString(Content.files[2][song], (int)(Ecran.getWidth()*0.40),(int)(Ecran.getHeight()/20));
 
             paintAdd(buffer, Ecran);
-            if(popup !=null){
-                getContentPane().paintComponents(buffer);
-            }
-            
+           
+            getContentPane().paintComponents(buffer);
             pointeur.draw(time,buffer); // draw last
             
             g.drawImage(ArrierePlan,0,0,this);
@@ -166,7 +171,7 @@ public class GameWindow extends JFrame{
 
 
         public void game_display(){
-            
+           
             test.move(time);
             pointeur.move(time,Karaok.freqmaster.mainFreq); //FIXME
             pointeur.changeColor(Math.abs(587.33-Karaok.freqmaster.mainFreq));
@@ -175,11 +180,6 @@ public class GameWindow extends JFrame{
 
         }
 
-
-
-     /**public static void main(String[] args) {
-        GameWindow Monjeu = new GameWindow();
-        }*/
      
      public void songWillStart(){
          int timeleft=5;
@@ -196,6 +196,7 @@ public class GameWindow extends JFrame{
              timeleft= 5- (int)time/100;
              popup.setText("<html><center>GET READY !<br> The song will start in: <br> " + timeleft );
          }
+         getContentPane().remove(popup);
          popup=null;
          clip.start();
          time=0;

@@ -144,7 +144,7 @@ public class window extends JFrame {
         title.setBackground(Content.colors[2]);
         title.setOpaque(true);
         title.setForeground(Color.white);
-        title.setFont(new Font("Arial", Font.BOLD, 17));
+        title.setFont(new Font("LAIKA", Font.BOLD, 16));
         title.setBounds(252,152,196,46);
         this.getContentPane().add(title);
         
@@ -152,7 +152,7 @@ public class window extends JFrame {
         logo.setBackground(Content.colors[13]);
         logo.setOpaque(true);
         logo.setForeground(Color.white);
-        logo.setFont(new Font("SansSerif", Font.BOLD, 40));
+        logo.setFont(new Font("LAIKA", Font.BOLD, 40));
         logo.setBounds(252,52,196,46);
         this.getContentPane().add(logo);
         

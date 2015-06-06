@@ -1,4 +1,4 @@
-package Frequency;
+
 public class Autocorrelate {
 	public static double[] compute(byte[] x){ //compute autocorrelation and return array
 		int N=x.length;
@@ -78,6 +78,15 @@ public class Autocorrelate {
 			
 			
 			freq=44100/n;
+			/*while(freq>=880)
+			{
+				freq/=2;
+			}
+			while(freq<440)
+			{
+				System.out.println(freq);
+				freq*=2;
+			}*/
 			return(freq);
 		
 		}

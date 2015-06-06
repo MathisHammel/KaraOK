@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 public class Pointeur extends Object {
 
     Color color; // the color off pointeur
-    int ymax, ymin; // edges for the pointer
+    int ymax, ymin; // edges for the pointeur deplacements
 
     public Pointeur(Rectangle aframe) {
         super((int)aframe.getWidth()/6, (int)aframe.getHeight()/2, (int)aframe.getHeight()/10, (int)aframe.getHeight()/20,  0,  0,  0 , aframe, "pointeur");
@@ -17,8 +17,8 @@ public class Pointeur extends Object {
 
 
     void move(long t, double frequency) {
-        //y =(int)(ymin*frequency/440) ;
-        y=(int)( ymin + ((frequency-440)/440)*(ymax-ymin));
+        
+        y=(int)( ymax - ((frequency-440)/440)*(ymax-ymin));
     }
 
 
