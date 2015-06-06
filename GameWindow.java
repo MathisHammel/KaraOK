@@ -114,7 +114,13 @@ public class GameWindow extends JFrame{
             title.setBounds(0,0,(int)Ecran.getWidth(),(int)Ecran.getHeight()/15);
             getContentPane().add(title);
             
-            
+            lyrics = new JLabel("Bitch please",SwingConstants.CENTER);
+            lyrics.setOpaque(false);
+            lyrics.setForeground(Color.white);
+            lyrics.setFont(new Font("LAIKA", Font.PLAIN,(int)Ecran.getHeight()/15));
+            lyrics.setBounds((int)Ecran.getWidth()/6,(int)(Ecran.getHeight()*0.7),(int)(Ecran.getWidth()*5/6),(int)(Ecran.getHeight()*0.3));
+            lyrics.setText("bitch please");
+            getContentPane().add(lyrics);
             // initialisation des notes:
             note= new LinkedList();
 
