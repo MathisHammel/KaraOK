@@ -89,7 +89,7 @@ public class GameWindow extends JFrame{
             // music
             song=asong;
             try {
-                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.files[3][song]).getAbsoluteFile());
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.files[0][song]).getAbsoluteFile());
                     clip = AudioSystem.getClip();
                     clip.open(audioInputStream);
                     //clip.start();

@@ -3,12 +3,11 @@ import java.awt.Color;
 public class Content {
     // this class contein all the extra !
     
-    public     static String[][] files = {{"songs\\Fun_cut.wav","songs\\queen_cut.wav","songs\\beyonce.wav" }
-                               ,{"img\\fun-we-are-young.png","img\\WATC.png", "img\\WATW.png"}
-                               ,{"<html><center>&#9835&#9835 FUN &#9835&#9835<br> we are young","<html><center>&#9835&#9835 QUEEN &#9835&#9835<br> we are the champions", "<html><center>&#9835 USA FOR AFRICA &#9835<br> we are the world"}
-                               ,{"songs\\Fun.wav","songs\\queen.wav","songs\\beyonce.wav" }};
-    public static String[] titles = {"FUN: We are young", "QUEEN: We are the champion", "USA FOR AFRICA: We are the world"};
-    public static Color[] background= {new Color(52,152,219), new Color(41,128,185),new Color(46,204,113), new Color(39,174,96), new Color(231,76,60), new Color(192,57,43)};
+    public     static String[][] files = {{"songs\\Fun_cut.wav","songs\\queen_cut.wav","songs\\beyonce.wav","songs\\beyonce.wav" }
+                               ,{"img\\fun-we-are-young.png","img\\WATC.png", "img\\WATW.png","img\\KanaBoon.png"}
+                               ,{"<html><center>&#9835&#9835 FUN &#9835&#9835<br> we are young","<html><center>&#9835&#9835 QUEEN &#9835&#9835<br> we are the champions", "<html><center>&#9835 USA FOR AFRICA &#9835<br> we are the world","<html><center>&#9835&#9835&#9835 kana-boon &#9835&#9835&#9835<br> silhouette"}};
+    public static String[] titles = {"FUN: We are young", "QUEEN: We are the champion", "USA FOR AFRICA: We are the world","KANA-BOON: silhouette"};
+    public static Color[] background= {new Color(52,152,219), new Color(41,128,185),new Color(46,204,113), new Color(39,174,96),new Color(26,188,156),new Color(22,160,133), new Color(231,76,60), new Color(192,57,43)};
     // frame element
     public static String icon = "img\\microphone_converted.png";
     public static String cursor = "img\\mic_converted.png";
