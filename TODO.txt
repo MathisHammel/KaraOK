@@ -1,8 +1,15 @@
 TODO:
 
 [ ]Revoir la découpe des morceaux + ajouter un court blanc au tout début 
-[ ]Revoir pointeur (inverser le déplacement)
+[X]Revoir pointeur (inverser le déplacement)
 [ ]Intégrer les threads (songdata)
 [ ]Supprimer SongData et l'intégrer à Content ?? peut être, je sais pas, c'est pas ma classe ... mouhahaah 
-[ ]page de score
-[ ]
+[ ]page de score (en cours)
+[ ]faires les images pour les boutons : les supprimer de la liste ce qui est fait)
+	EXIT (on/Off)
+	MENU (on/off)
+	RESUME (on/off)
+	RESTART (on/off)
+	END (on/off)
+	replay (image)(on/off)
+
