@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -47,10 +48,12 @@ public class Button extends JButton implements MouseListener  {
 
   public void mouseEntered(MouseEvent event) {
       setIcon(new ImageIcon( URL+"On.png"));
+      this.setForeground(Color.white);
   }
 
   public void mouseExited(MouseEvent event) {
       setIcon(new ImageIcon(URL + "Off.png"));
+      this.setForeground(Content.mainColor);
   }
 
   public void mousePressed(MouseEvent event) {

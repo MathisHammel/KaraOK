@@ -1,9 +1,7 @@
- //pourquoi ne marche pas ?????
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +25,7 @@ import javax.swing.Timer;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
 import javax.swing.SwingConstants;
 
 
@@ -71,6 +69,8 @@ public class GameWindow extends JFrame{
             this.setLayout(null);
             getContentPane().setBackground(new Color(Color.TRANSLUCENT));
             
+            this.setIconImage(new ImageIcon(Content.icon).getImage());
+            
             
             // buffer
             Ecran=new Rectangle(getInsets().left,getInsets().top,getSize().width-getInsets().right-getInsets().left,getSize().height-getInsets().bottom-getInsets().top);
@@ -81,6 +81,7 @@ public class GameWindow extends JFrame{
             score = 0;
             finjeu=false;
 
+            
            //STATE !!!!!!!!!
             state = Karaok.State.Game;
 
@@ -106,6 +107,14 @@ public class GameWindow extends JFrame{
             timer = new Timer(10,new TimerAction());
             timer.start();
             
+            title = new JLabel(Content.titles[song],SwingConstants.CENTER);
+            title.setOpaque(false);
+            title.setForeground(Color.white);
+            title.setFont(new Font("LAIKA", Font.PLAIN, (int)Ecran.getHeight()/20));
+            title.setBounds(0,0,(int)Ecran.getWidth(),(int)Ecran.getHeight()/15);
+            getContentPane().add(title);
+            
+            
             // initialisation des notes:
             note= new LinkedList();
 
@@ -119,16 +128,15 @@ public class GameWindow extends JFrame{
             
             paintBackGround(buffer,Ecran);
             test.draw(time,buffer);
-            buffer.setColor(Color.white);
-            buffer.setFont(new Font("Arial", Font.BOLD, (int)Ecran.getHeight()/20));
-            buffer.drawString("score: "+ score , (int)(Ecran.getWidth()*0.80), (int)Ecran.getHeight()/20);
-            buffer.drawString(Content.files[2][song], (int)(Ecran.getWidth()*0.40),(int)(Ecran.getHeight()/20));
-
+            
             paintAdd(buffer, Ecran);
            
             getContentPane().paintComponents(buffer);
             pointeur.draw(time,buffer); // draw last
-            
+            buffer.setColor(Color.white);
+            buffer.setFont(new Font("LAIKA", Font.BOLD, (int)Ecran.getHeight()/20));
+            buffer.drawString("score: "+ score , (int)(Ecran.getWidth()*0.80), (int)Ecran.getHeight()/20);
+
             g.drawImage(ArrierePlan,0,0,this);
         }
         public void paintBackGround(Graphics g, Rectangle aframe){
@@ -186,7 +194,7 @@ public class GameWindow extends JFrame{
          popup.setBackground(Content.colors[2]);
          popup.setOpaque(true);
          popup.setForeground(Color.white);
-         popup.setFont(new Font("Arial", Font.BOLD, (int)Ecran.getHeight()/20));
+         popup.setFont(new Font("LAIKA", Font.BOLD, (int)Ecran.getHeight()/17));
          popup.setText("<html><center>GET READY !<br> The song will start in: <br> " + timeleft );
          this.getContentPane().add(popup);
          

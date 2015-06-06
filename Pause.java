@@ -17,7 +17,7 @@ public class Pause {
     public Button backToMenu;
     public Button exitGame;
     public Button restart;
-    public Button logo;
+    public JLabel logo;
     public Button end;
 
     
@@ -30,24 +30,22 @@ public class Pause {
         game.timer.stop();
         
         // create logo Label <======= FIXME
-        logo = new Button();
+        logo = new JLabel("PAUSE",SwingConstants.CENTER);
         logo.setBackground(Content.colors[6]);
-        logo.setBorderPainted(false);
+        logo.setOpaque(true);
         logo.setForeground(Color.white);
-        logo.setFont(new Font("SansSerif", Font.BOLD, 40));
-        logo.setText("PAUSE");
+        logo.setFont(new Font("LAIKA", Font.PLAIN, (int)game.Ecran.getHeight()/17));
         logo.setBounds((int)(game.Ecran.getWidth()*0.375),(int)game.Ecran.getHeight()*1/10,(int)game.Ecran.getWidth()/4,46);
-        logo.addActionListener(null);
         game.getContentPane().add(logo);
         
         // create resume Button to resume game
         resume=new Button();
         resume.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*2/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
         resume.setBorderPainted(false);
-        resume.setBackground(Content.colors[2]);
-        resume.setForeground(Color.white);
-        resume.setFont(new Font("Arial", Font.BOLD, (int)game.Ecran.getHeight()/40));
-        resume.setText("Resume Game" );
+        resume.setBackground(Content.colors[13]);
+        resume.setForeground(Content.mainColor);
+        resume.setFont(new Font("LAIKA", Font.BOLD, (int)game.Ecran.getHeight()/20));
+        resume.setText("Resume" );
         resume.addActionListener(new resumeListener());
         resume.addMouseListener(resume);
         game.getContentPane().add(resume);
@@ -56,10 +54,10 @@ public class Pause {
         restart=new Button();
         restart.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*3/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
         restart.setBorderPainted(false);
-        restart.setBackground(Content.colors[2]);
-        restart.setForeground(Color.white);
-        restart.setFont(new Font("Arial", Font.BOLD, (int)game.Ecran.getHeight()/40));
-        restart.setText("restart Game" );
+        restart.setBackground(Content.colors[12]);
+        restart.setForeground(Content.mainColor);
+        restart.setFont(new Font("LAIKA", Font.BOLD, (int)game.Ecran.getHeight()/20));
+        restart.setText("restart" );
         restart.addActionListener(new restartListener());
         restart.addMouseListener(restart);
         game.getContentPane().add(restart);
@@ -68,10 +66,10 @@ public class Pause {
         backToMenu=new Button();
         backToMenu.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*4/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
         backToMenu.setBorderPainted(false);
-        backToMenu.setBackground(Content.colors[2]);
-        backToMenu.setForeground(Color.white);
-        backToMenu.setFont(new Font("Arial", Font.BOLD, (int)game.Ecran.getHeight()/40));
-        backToMenu.setText("backToMenu" );
+        backToMenu.setBackground(Content.colors[11]);
+        backToMenu.setForeground(Content.mainColor);
+        backToMenu.setFont(new Font("LAIKA", Font.BOLD, (int)game.Ecran.getHeight()/20));
+        backToMenu.setText("back" );
         backToMenu.addActionListener(new backListener());
         backToMenu.addMouseListener(backToMenu);
         game.getContentPane().add(backToMenu);
@@ -80,10 +78,10 @@ public class Pause {
         exitGame=new Button();
         exitGame.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*5/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
         exitGame.setBorderPainted(false);
-        exitGame.setBackground(Content.colors[2]);
-        exitGame.setForeground(Color.white);
-        exitGame.setFont(new Font("Arial", Font.BOLD, (int)game.Ecran.getHeight()/40));
-        exitGame.setText("Leave Game" );
+        exitGame.setBackground(Content.colors[10]);
+        exitGame.setForeground(Content.mainColor);
+        exitGame.setFont(new Font("LAIKA", Font.BOLD, (int)game.Ecran.getHeight()/20));
+        exitGame.setText("exit" );
         exitGame.addActionListener(new exitListener());
         exitGame.addMouseListener(exitGame);
         game.getContentPane().add(exitGame);
@@ -91,10 +89,10 @@ public class Pause {
         end=new Button();
         end.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*6/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
         end.setBorderPainted(false);
-        end.setBackground(Content.colors[2]);
-        end.setForeground(Color.white);
-        end.setFont(new Font("Arial", Font.BOLD, (int)game.Ecran.getHeight()/40));
-        end.setText("Leave Game" );
+        end.setBackground(Content.colors[9]);
+        end.setForeground(Content.mainColor);
+        end.setFont(new Font("LAIKA", Font.BOLD, (int)game.Ecran.getHeight()/20));
+        end.setText("end" );
         end.addActionListener(new endListener());
         end.addMouseListener(end);
         game.getContentPane().add(end);

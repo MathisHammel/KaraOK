@@ -28,7 +28,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 
@@ -48,6 +47,7 @@ public class scoreWindow extends JFrame {
     long time;
     LightPad[] lightPad;
     Karaok.State state;
+    JLabel dancer;
     
     public scoreWindow( int song) {
         this.song=song;
@@ -91,6 +91,14 @@ public class scoreWindow extends JFrame {
         
         //set button 
         
+        dancer = new JLabel(new ImageIcon("C:\\Users\\Administrateur\\Documents\\spouderman.gif"));
+        dancer.setBounds(75, 325, 100, 100);
+        getContentPane().add(dancer);
+        
+        JLabel dancer2=new JLabel(new ImageIcon("C:\\Users\\Administrateur\\Documents\\mouchaeljack.gif"));
+        dancer2.setBounds(75, 225, 100, 100);
+        getContentPane().add(dancer2);
+        
         
         // the close button to close the game
         close=new Button(Content.close);
@@ -115,7 +123,7 @@ public class scoreWindow extends JFrame {
         next.addMouseListener(next);
         getContentPane().add(next);
         
-        replay=new Button(Content.play);
+        replay=new Button(Content.replay);
         replay.setBounds(402,252,96,96);
         replay.setBorderPainted(false);
         replay.addActionListener(new replayListener()); 
@@ -130,7 +138,7 @@ public class scoreWindow extends JFrame {
         getContentPane().add(prev);
         
         
-        title = new JLabel(Content.files[2][0],SwingConstants.CENTER);
+        title = new JLabel(Content.files[2][song],SwingConstants.CENTER);
         title.setBackground(Content.colors[2]);
         title.setOpaque(true);
         title.setForeground(Color.white);
@@ -143,8 +151,8 @@ public class scoreWindow extends JFrame {
         backToMenu.setBounds(252,402,146,46);
         backToMenu.setBorderPainted(false);
         backToMenu.setBackground(Content.colors[2]);
-        backToMenu.setForeground(Color.white);
-        backToMenu.setFont(new Font("Arial", Font.PLAIN, 20));
+        backToMenu.setForeground(Content.mainColor);
+        backToMenu.setFont(new Font("LAIKA", Font.PLAIN, 20));
         backToMenu.setText("Menu" );
         backToMenu.addActionListener(new backListener()); 
         backToMenu.addMouseListener(backToMenu);
@@ -155,8 +163,8 @@ public class scoreWindow extends JFrame {
         exitGame.setBounds(502,402,146,46);
         exitGame.setBorderPainted(false);
         exitGame.setBackground(Content.colors[2]);
-        exitGame.setForeground(Color.white);
-        exitGame.setFont(new Font("Arial", Font.BOLD, 20));
+        exitGame.setForeground(Content.mainColor);
+        exitGame.setFont(new Font("LAIKA", Font.BOLD, 20));
         exitGame.setText("Exit" );
         exitGame.addActionListener(new exitListener()); 
         exitGame.addMouseListener(exitGame);
