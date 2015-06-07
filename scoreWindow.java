@@ -135,7 +135,7 @@ public class scoreWindow extends JFrame {
         title.setBackground(Content.colors[2]);
         title.setOpaque(true);
         title.setForeground(Color.white);
-        title.setFont(new Font("LAIKA", Font.PLAIN, 16));
+        title.setFont(Content.font.deriveFont(16f));
         title.setBounds(352,52,196,46);
         getContentPane().add(title);
         
@@ -145,7 +145,7 @@ public class scoreWindow extends JFrame {
         backToMenu.setBorderPainted(false);
         backToMenu.setBackground(Content.colors[2]);
         backToMenu.setForeground(Content.mainColor);
-        backToMenu.setFont(new Font("LAIKA", Font.PLAIN, 20));
+        backToMenu.setFont(Content.font.deriveFont(20f));
         backToMenu.setText("Menu" );
         backToMenu.addActionListener(new backListener()); 
         backToMenu.addMouseListener(backToMenu);
@@ -157,7 +157,7 @@ public class scoreWindow extends JFrame {
         exitGame.setBorderPainted(false);
         exitGame.setBackground(Content.colors[2]);
         exitGame.setForeground(Content.mainColor);
-        exitGame.setFont(new Font("LAIKA", Font.BOLD, 20));
+        exitGame.setFont(Content.font.deriveFont(20f));
         exitGame.setText("Exit" );
         exitGame.addActionListener(new exitListener()); 
         exitGame.addMouseListener(exitGame);
@@ -168,13 +168,6 @@ public class scoreWindow extends JFrame {
         this.getContentPane().add(scoreGraph);
         scoreGraph.repaint();
         
-     
-        /*JLabel test1 = new JLabel();
-        test1.setBackground(Content.colors[13]);
-        test1.setOpaque(true);
-        test1.setBounds(252,102,396,96);
-        getContentPane().add(test1);*/
-    
         this.addKeyListener(new GameKeyAdapter());
         this.setFocusable(true);
         this.requestFocus();

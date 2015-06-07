@@ -15,6 +15,12 @@ public class Karaok {
     
     
     public static void main (String[] args) {
+        try {
+            Content.createFont();
+            System.out.println(Content.font);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         state = State.Menu;
         freqmaster=new FreqThread();
         freqmaster.start();

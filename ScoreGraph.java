@@ -56,7 +56,7 @@ public class ScoreGraph extends JPanel {
             
             stars[i+5]=new JLabel(new ImageIcon("img\\PlayOff.png"));
             stars[i+5].setOpaque(true);
-            stars[i+5].setBounds(321-i*75,25,50,50);
+            stars[i+5].setBounds(319-i*73,24,50,50);
             scoreStars.add(stars[i+5]);
         }
         
@@ -96,7 +96,7 @@ public class ScoreGraph extends JPanel {
         g.fillRect(85,ymin+scoreRect,12,5);
         
         g.setColor(Color.white);
-        g.setFont((new Font("LAIKA", Font.BOLD, 17)));
+        g.setFont(Content.font.deriveFont(17f));
         g.drawString("score: "+sc, 25, 375);
         
         this.paintComponents(g);
