@@ -136,8 +136,8 @@ public class Pause {
             game.getContentPane().remove(end);
             
             // restart song and timer
-            game.clip.start(); 
-            game.timer.restart();
+            //game.clip.start(); 
+            //game.timer.restart();
             game.requestFocus(); // request focus back 
             
             

@@ -17,8 +17,8 @@ public class SongWillStart extends JLabel{
         game=agame;
         timer = new Timer(10,new TimerAction());
         timer.start();
-        int timeleft=5;
-        this.setBounds((int)game.Ecran.getWidth()*3/8,(int)(game.Ecran.getHeight()*0.35),(int)game.Ecran.getWidth()/4, (int)(game.Ecran.getHeight()*0.30));
+        int timeleft=3;
+        this.setBounds((int)game.Ecran.getWidth()*3/8,(int)(game.Ecran.getHeight()*0.25),(int)game.Ecran.getWidth()/4, (int)(game.Ecran.getHeight()*0.30));
         this.setBackground(Content.colors[2]);
         this.setOpaque(true);
         this.setForeground(Color.white);
@@ -27,11 +27,9 @@ public class SongWillStart extends JLabel{
         game.getContentPane().add(this);
         
         while(timeleft>0){
-            timeleft= 5- (int)time/100;
+            timeleft= 3- (int)time/100;
             this.setText("<html><center>GET READY !<br> The song will start in: <br> " + timeleft );
         }
-        this.setOpaque(false);
-        this.setText("");
         game.getContentPane().remove(this);
         System.out.println("[DEBUD] songwillstarted removed");
         game.clip.start();
