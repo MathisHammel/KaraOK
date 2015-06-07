@@ -35,6 +35,7 @@ import javax.swing.SwingConstants;
 
 public class scoreWindow extends JFrame {
     int score;
+    ScoreGraph scoreGraph;
     int song;
     Clip clip;
     Timer timer;
@@ -66,9 +67,7 @@ public class scoreWindow extends JFrame {
         Cursor cursor = tk.createCustomCursor(img, new Point(0, 0), "micro");
         this.setCursor(cursor);
         
-        time=0;
-        timer = new javax.swing.Timer(30,new TimerAction());
-        timer.start();
+        
         this.setBackground(new Color(127,140,141,254)); // main color + alpha max
         lightPad = new LightPad[78];
         int b =0;
@@ -91,13 +90,7 @@ public class scoreWindow extends JFrame {
         
         //set button 
         
-        dancer = new JLabel(new ImageIcon("C:\\Users\\Administrateur\\Documents\\spouderman.gif"));
-        dancer.setBounds(75, 325, 100, 100);
-        getContentPane().add(dancer);
         
-        JLabel dancer2=new JLabel(new ImageIcon("C:\\Users\\Administrateur\\Documents\\mouchaeljack.gif"));
-        dancer2.setBounds(75, 225, 100, 100);
-        getContentPane().add(dancer2);
         
         
         // the close button to close the game
@@ -170,13 +163,16 @@ public class scoreWindow extends JFrame {
         exitGame.addMouseListener(exitGame);
         getContentPane().add(exitGame);
         
+        score=2500;
+        scoreGraph=new ScoreGraph(this);
+        this.getContentPane().add(scoreGraph);
+        scoreGraph.repaint();
         
-        
-        JLabel test = new JLabel();
+       /* JLabel test = new JLabel();
         test.setBackground(Color.pink);
         test.setOpaque(true);
         test.setBounds(0, 0, 200, 500);
-        getContentPane().add(test);
+        getContentPane().add(test);*/
         
         JLabel test1 = new JLabel();
         test1.setBackground(Content.colors[13]);
@@ -197,6 +193,9 @@ public class scoreWindow extends JFrame {
                 System.out.println("Error with playing sound.");
                 ex.printStackTrace();
             }
+        time=0;
+        timer = new javax.swing.Timer(30,new TimerAction());
+        timer.start();
     
         setVisible(true);
         
@@ -248,13 +247,17 @@ public class scoreWindow extends JFrame {
     
     public void game_display(){
         //change the color of 2 lightPad and set 1 to grey
+        time++;
         int pos = (int)(Math.random()*(lightPad.length-1));
         lightPad[pos].update();
         pos = (int)(Math.random()*(lightPad.length-1));
         lightPad[pos].update();
         pos = (int)(Math.random()*(lightPad.length-1));
         lightPad[pos].downdate();
+        System.out.println("[DEBUG] "+time);
+        scoreGraph.update(time);
         repaint();
+        
             
     }
     
