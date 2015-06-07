@@ -168,6 +168,7 @@ public class scoreWindow extends JFrame {
         this.getContentPane().add(scoreGraph);
         scoreGraph.repaint();
         
+
         this.addKeyListener(new GameKeyAdapter());
         this.setFocusable(true);
         this.requestFocus();
