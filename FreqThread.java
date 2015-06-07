@@ -11,8 +11,11 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.AudioFileFormat;
 
-
-public class FreqThread extends Thread{
+/**
+*This class is a thread that manages audio lines for signal sampling and 
+*
+*/
+public class FreqThread extends Thread{ //frequency manager
 
         double freq;
         double mainFreq;
