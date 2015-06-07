@@ -3,7 +3,6 @@
 import java.awt.Color;
 import java.awt.Cursor;
 
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.Point;
 
@@ -31,30 +30,47 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 
+
 public class window extends JFrame {
     
+    // the current state of the game
+    Karaok.State state;
     
-    int song; // to know which song is currently displayed
-    Clip clip;
-    Button  close, minimize; // button needed for the window interaction
-    Button next, prev,play ,pict, nextpict, prevpict; // button used to select the song and start the game 
-    Karaok.State state; // the state of the game  
+    // the LightPad background animation
+    LightPad[] lightPad; 
+    
+    // the song 
+    int song; // refer to the current song
+    Clip clip; // to play the song 
+    
+    // Frame component
+    Button  close, minimize; // window interaction
+    Button next, prev,play ,pict, nextpict, prevpict; // game interaction
+    JLabel title, logo; 
+    
+    //timer
     Timer timer; // swing Timer 
-    LightPad[] lightPad; // used for the background animation 
-    JLabel title, logo; // logo of the game, and title of the song 
+     
+     
     
     
-    
+    /** 
+    * the launcher window constructor
+    * create a new launcher window
+    * Size 700,500
+    * presse esce to exit, enter to stop timer,
+    */
     public window() {
         
         state=Karaok.State.Menu;
         
-        //create the game Frame 
+        //create the Frame 
         setTitle("Kara-OK");
         setUndecorated(true); //no borders 
         setSize(700, 500);
         this.setLocationRelativeTo(getRootPane()); // place the frame on the center of the screen
-        this.setIconImage(new ImageIcon(Content.icon).getImage()); // icon off the game 
+        this.setIconImage(new ImageIcon(Content.icon).getImage()); // icon of the game 
+        this.setLayout(null); //to place each component manually
         
         // set the mouse pointer as a mic image
         Toolkit tk = Toolkit.getDefaultToolkit();
@@ -65,20 +81,18 @@ public class window extends JFrame {
         //create the background with lightPad
         this.setBackground(new Color(127,140,141,254)); // main color + alpha max
         lightPad=new LightPad[108];
-        int b=0;
-        this.setLayout(null);
-        //place the lightPad where there is no other elements 
+        int b=0; // int to fill the lightPad
+        
+        
+        //place each LightPad where there is no other elements 
         for(int i=0;i<14;i++){
             for(int j=0;j<10;j++){
-                if(((j==4 || j==5) && (1<i && i<12)) || ((j==6 || j==7) &&(i==6 || i==7))){
-                    j++;
-                }
+                if(((j==4 || j==5) && (1<i && i<12)) || ((j==6 || j==7) &&(i==6 || i==7)));
                 else{if(j==1 &&(4<i && i<9 )|| j==3 &&(4<i && i<9) ) ;
                      else{
-               
-                    lightPad[b]=new LightPad(50*i,50*j); 
-                    this.getContentPane().add(lightPad[b]);
-                    b++;
+                         lightPad[b]=new LightPad(50*i,50*j); 
+                         this.getContentPane().add(lightPad[b]);
+                         b++;
                      }
                 }
                 
@@ -87,7 +101,7 @@ public class window extends JFrame {
         
         lightPad[98].setBounds(650,23,50,25); // special lightPad under minimize and close button
         
-        // set interactives button 
+        /** set interactives button */
         // the close button to close the game
         close=new Button(Content.close);
         close.setBounds(675,0,25,23);
@@ -156,7 +170,7 @@ public class window extends JFrame {
         title.setBounds(252,152,196,46);
         this.getContentPane().add(title);
         
-        //the logo of the song 
+        //the logo of the game
         logo = new JLabel("KARA-OK",SwingConstants.CENTER);
         logo.setBackground(Content.colors[13]);
         logo.setOpaque(true);
@@ -171,11 +185,12 @@ public class window extends JFrame {
         timer.start();
         
         this.setFocusable(true);
-        this.requestFocus();//give focus to the window for keyboard actions
+        this.requestFocus(); //give focus to the window for keyboard actions
+        
         this.addKeyListener(new GameKeyAdapter());
         
-        //start song 
-        song=0;  
+        //play song  
+        song=0;  //initialise the song to 0: first song
         try {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.files[0][song]).getAbsoluteFile());
                 clip = AudioSystem.getClip();
@@ -191,12 +206,21 @@ public class window extends JFrame {
        
     }
     
+    
      class nextListener implements ActionListener{
-        
+        /**
+         * Action performed when next is clicked
+         * make all the changes to play next song 
+         * @param arg0 ActionEvent
+         */
         public void actionPerformed (ActionEvent arg0){
+            // change song value
             if(song+1>Content.files[0].length-1)song=0;
             else song++;
-            clip.close(); //stop song 
+            
+            //stop song 
+            clip.close();
+            
             //start new song 
             try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.files[0][song]).getAbsoluteFile());
@@ -207,25 +231,40 @@ public class window extends JFrame {
                     System.out.println("Error with playing sound.");
                     ex.printStackTrace();
                 }
+            
             //update picts
             prevpict.setIcon(pict.img);
             pict.setIcon(nextpict.img);
             if(song+1==Content.files[0].length) nextpict.setIcon(new ImageIcon(Content.files[1][0]));
             else nextpict.setIcon(new ImageIcon(Content.files[1][song+1]));
+            
+            
             //update title
             title.setText(Content.files[2][song]);
+            
             // change timer speed
             timer.setDelay(song*10+10);
-            requestFocus(); // bring the focus back to the frame
+            
+            // bring the focus back on the frame
+            requestFocus(); 
         }
     }
         
         class prevListener implements ActionListener{
-            
+        /**
+         * Action performed when preve is clicked
+         * make all the changes to play prev song
+         * @param arg0 ActionEvent
+         */
             public void actionPerformed (ActionEvent arg0){
+            
+                //change song value
                 if(song-1<0)song=Content.files[0].length-1;
                 else song--;
-                clip.close(); //stop current song
+                
+                //stop current song
+                clip.close(); 
+                
                 //start new song 
                 try {
                         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.files[0][song]).getAbsoluteFile());
@@ -236,44 +275,72 @@ public class window extends JFrame {
                         System.out.println("Error with playing sound.");
                         ex.printStackTrace();
                     }
+                
                 //update picts 
                 nextpict.setIcon(pict.img);
                 pict.setIcon(prevpict.img);
                 if(song==0) prevpict.setIcon(new ImageIcon(Content.files[1][Content.files[0].length-1]));
                 else prevpict.setIcon(new ImageIcon(Content.files[1][song-1]));
+                
                 //update title
                 title.setText(Content.files[2][song]);
+                
                 //change the timer speed
                 timer.setDelay(song*10+10);
-                requestFocus();//bring the focus on the frame
+                
+                //bring the focus on the frame
+                requestFocus();
             }
     }
         
     class closeListener implements ActionListener{
-        
+        /**
+         * Action performed when close is clicked
+         * quit the game
+         * @param arg0 ActionEvent
+         */
         public void actionPerformed (ActionEvent arg0){
             System.exit(0);
         }
     }
     class minimizeListener implements ActionListener{
-        
+
+        /**
+         * Action performed when minimize is clicked
+         * minimize the window
+         * @param arg0 ActionEvent
+         */
         public void actionPerformed (ActionEvent arg0){
             setState(JFrame.ICONIFIED);
         }
     }
     class pictListener implements ActionListener{
-        
+
+        /**
+         * Action performed when pict is clicked,
+         * dispose this fram, change state, and close song,
+         * @param arg0 ActionEvent
+         */
         public void actionPerformed (ActionEvent arg0){
-          
-            state=Karaok.State.Game; //change the state to Game
-            dispose(); // close this Frame
-            clip.close(); // stop song
+            //change the state to Game
+            state=Karaok.State.Game;
+            
+            // close this Frame
+            dispose(); 
+            
+            // stop song
+            clip.close(); 
             
         }
     }
     private class GameKeyAdapter extends KeyAdapter{
-            
-        
+
+
+        /**
+         * the action displayed each time a key is pressed
+         * keys: escape,P.
+         * @param e KeyEvent
+         */
         public void keyPressed(KeyEvent e) {
             int code = e.getKeyCode();
             switch (code){
@@ -290,11 +357,16 @@ public class window extends JFrame {
                 }
             }
         }
- 
-   
+
+
+    
     
     private class TimerAction implements ActionListener {
-    
+
+        /**
+         * the action performed each timer step
+         * @param e ActionEvent
+         */
         public void actionPerformed(ActionEvent e) {
         game_display();
         }
@@ -302,15 +374,23 @@ public class window extends JFrame {
     
     }
     
+    /** 
+    * Timer managment action method
+    * LightPads randomly change colors each timer action 
+    * 2 LightPad colored, 1 LightPad back to mainColor
+    * @return void 
+    */
     public void game_display(){
-        //change the color of 2 lightPad and set 1 to grey
+        // color 2 LightPad
         int pos = (int)(Math.random()*(lightPad.length));
         lightPad[pos].update();
         pos = (int)(Math.random()*(lightPad.length));
         lightPad[pos].update();
         
+        // 1 Light Pad to grey
         pos = (int)(Math.random()*(lightPad.length));
         lightPad[pos].downdate();
+        
         repaint();
             
     }
