@@ -1,11 +1,24 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+# -*- coding: utf-8 -*
 
-print "Content-type:text/html\r\n\r\n"
-print '<html>'
-print '<head>'
-print '<title>Hello Word - First CGI Program</title>'
-print '</head>'
-print '<body>'
-print '<h2>Hello Word! This is my first CGI program</h2>'
-print '</body>'
-print '</html>'
+import cgi 
+
+form = cgi.FieldStorage()
+print("Content-type: text/html; charset=utf-8\n")
+
+print(form.getvalue("name"))
+
+html = """<!DOCTYPE html>
+<head>
+    <title>Mon programme</title>
+</head>
+<body>
+    <form action="/index.py" method="post">
+        <input type="text" name="name" value="Votre nom" />
+        <input type="submit" name="send" value="Envoyer information au serveur">
+    </form> 
+</body>
+</html>
+"""
+
+print(html)

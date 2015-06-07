@@ -1,35 +1,20 @@
-import time
-import BaseHTTPServer
-
-
-HOST_NAME = 'http://46.101.167.42/' # !!!REMEMBER TO CHANGE THIS!!!
-PORT_NUMBER = 8000 # Maybe set this to 9000.
-
-
-class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
-    def do_HEAD(s):
-        s.send_response(200)
-        s.send_header("Content-type", "text/html")
-        s.end_headers()
-    def do_GET(s):
-        """Respond to a GET request."""
-        s.send_response(200)
-        s.send_header("Content-type", "text/html")
-        s.end_headers()
-        s.wfile.write("<html><head><title>Title goes here.</title></head>")
-        s.wfile.write("<body><p>This is a test.</p>")
-        # If someone went to "http://something.somewhere.net/foo/bar/",
-        # then s.path equals "/foo/bar/".
-        s.wfile.write("<p>You accessed path: %s</p>" % s.path)
-        s.wfile.write("</body></html>")
-
-if __name__ == '__main__':
-    server_class = BaseHTTPServer.HTTPServer
-    httpd = server_class((HOST_NAME, PORT_NUMBER), MyHandler)
-    print time.asctime(), "Server Starts - %s:%s" % (HOST_NAME, PORT_NUMBER)
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        pass
-    httpd.server_close()
-    print time.asctime(), "Server Stops - %s:%s" % (HOST_NAME, PORT_NUMBER)
+import socket
+Sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+Host = '46.101.167.42' # l'ip locale de l'ordinateur
+Port = 8000         # choix d'un port
+ 
+# on bind notre socket :
+Sock.bind((Host,Port))
+ 
+# On est a l'ecoute d'une seule et unique connexion :
+Sock.listen(1)
+ 
+# Le script se stoppe ici jusqu'a ce qu'il y ait connexion :
+client, adresse = Sock.accept() # accepte les connexions de l'exterieur
+print "L'adresse",adresse,"vient de se connecter au serveur !"
+while 1:
+        RequeteDuClient = client.recv(255) # on recoit 255 caracteres grand max
+        if not RequeteDuClient: # si on ne recoit plus rien
+                break  # on break la boucle (sinon les bips vont se repeter)
+        print RequeteDuClient
+        Sock.send("SWAAAAG")
