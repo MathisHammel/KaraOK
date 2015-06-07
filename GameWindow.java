@@ -32,7 +32,9 @@ public class GameWindow extends JFrame{
 
 
     // static String[] song = ...
-
+		double startTime;
+		double elapsedTime;
+		SongData songMaster;
         Timer timer;
         long time;
         int score;
@@ -51,6 +53,11 @@ public class GameWindow extends JFrame{
         int song;
         static Karaok.State state;
         
+		double pauseStart;
+		double pauseDuration=0.0;
+		
+		double songEnd;
+		
         // pointeurs + notes.
         LinkedList <Note> note;
 
@@ -88,6 +95,13 @@ public class GameWindow extends JFrame{
             pointeur = new Pointeur(Ecran);
             // music
             song=asong;
+			
+			songMaster=new SongData(Content.files[3][song]);
+			songMaster.start();
+			startTime=System.currentTimeMillis();
+			
+			songEnd=Content.songEnd[song];
+			
             try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.titles[1][song]).getAbsoluteFile());
                     clip = AudioSystem.getClip();
@@ -110,16 +124,16 @@ public class GameWindow extends JFrame{
             title = new JLabel(Content.titles[0][song],SwingConstants.CENTER);
             title.setOpaque(false);
             title.setForeground(Color.white);
-            title.setFont(new Font("LAIKA", Font.PLAIN, (int)Ecran.getHeight()/20));
+            title.setFont(Content.font.deriveFont((float)Ecran.getHeight()/20));
             title.setBounds(0,0,(int)Ecran.getWidth(),(int)Ecran.getHeight()/15);
             getContentPane().add(title);
             
             lyrics = new JLabel("Lyrics0",SwingConstants.CENTER);
             lyrics.setOpaque(false);
             lyrics.setForeground(Color.white);
-            lyrics.setFont(new Font("LAIKA", Font.PLAIN,(int)Ecran.getHeight()/15));
+            lyrics.setFont(Content.font.deriveFont((float)Ecran.getHeight()/15));
             lyrics.setBounds((int)Ecran.getWidth()/6,(int)(Ecran.getHeight()*0.7),(int)(Ecran.getWidth()*5/6),(int)(Ecran.getHeight()*0.3));
-            lyrics.setText(currentLyrics);
+            lyrics.setText(String.valueOf(time));
             getContentPane().add(lyrics);
             // initialisation des notes:
             note= new LinkedList();
@@ -131,18 +145,17 @@ public class GameWindow extends JFrame{
 
         public void paint(Graphics g){
 
-            
+            elapsedTime=(System.currentTimeMillis()-startTime)/1000;
             paintBackGround(buffer,Ecran);
             test.draw(time,buffer);
             
             paintAdd(buffer, Ecran);
-           
+			lyrics.setText(String.valueOf(time));
             getContentPane().paintComponents(buffer);
             pointeur.draw(time,buffer); // draw last
             buffer.setColor(Color.white);
-            buffer.setFont(new Font("LAIKA", Font.BOLD, (int)Ecran.getHeight()/20));
+            buffer.setFont(Content.font.deriveFont((float)Ecran.getHeight()/20));
             buffer.drawString("score: "+ score , (int)(Ecran.getWidth()*0.80), (int)Ecran.getHeight()/20);
-
             g.drawImage(ArrierePlan,0,0,this);
         }
         public void paintBackGround(Graphics g, Rectangle aframe){
@@ -183,12 +196,14 @@ public class GameWindow extends JFrame{
 
 
         public void game_display(){
-           
+            
             test.move(time);
             pointeur.move(time,Karaok.freqmaster.mainFreq); //FIXME
             pointeur.changeColor(Math.abs(587.33-Karaok.freqmaster.mainFreq));
+			elapsedTime=System.currentTimeMillis();
+			songMaster.elapsedTime=elapsedTime;
             repaint();
-
+			
 
         }
 
