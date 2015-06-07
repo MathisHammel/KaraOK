@@ -168,17 +168,12 @@ public class scoreWindow extends JFrame {
         this.getContentPane().add(scoreGraph);
         scoreGraph.repaint();
         
-       /* JLabel test = new JLabel();
-        test.setBackground(Color.pink);
-        test.setOpaque(true);
-        test.setBounds(0, 0, 200, 500);
-        getContentPane().add(test);*/
-        
-        JLabel test1 = new JLabel();
+     
+        /*JLabel test1 = new JLabel();
         test1.setBackground(Content.colors[13]);
         test1.setOpaque(true);
         test1.setBounds(252,102,396,96);
-        getContentPane().add(test1);
+        getContentPane().add(test1);*/
     
         this.addKeyListener(new GameKeyAdapter());
         this.setFocusable(true);
