@@ -28,6 +28,8 @@ import javax.swing.JOptionPane;
 
 import javax.swing.SwingConstants;
 
+import FileRead.SongData;
+
 
 public class GameWindow extends JFrame{
 
@@ -42,6 +44,7 @@ public class GameWindow extends JFrame{
         JLabel popup, title, lyrics;
         boolean pop;
         Pointeur pointeur;
+		String currentLyrics="Lyrics";
 
         BufferedImage ArrierePlan;
         Graphics buffer;
@@ -54,7 +57,7 @@ public class GameWindow extends JFrame{
         // pointeurs + notes.
         LinkedList <Note> note;
 
-
+		SongData songMaster = new SongData();
 
 
 
@@ -62,7 +65,7 @@ public class GameWindow extends JFrame{
 
             /** affichage plein écran !!! */
             // frame
-            
+            songMaster.start();
             setTitle("Kara-OK");
             setUndecorated(true);
             this.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
@@ -114,12 +117,12 @@ public class GameWindow extends JFrame{
             title.setBounds(0,0,(int)Ecran.getWidth(),(int)Ecran.getHeight()/15);
             getContentPane().add(title);
             
-            lyrics = new JLabel("Bitch please",SwingConstants.CENTER);
+            lyrics = new JLabel("Lyrics0",SwingConstants.CENTER);
             lyrics.setOpaque(false);
             lyrics.setForeground(Color.white);
             lyrics.setFont(new Font("LAIKA", Font.PLAIN,(int)Ecran.getHeight()/15));
             lyrics.setBounds((int)Ecran.getWidth()/6,(int)(Ecran.getHeight()*0.7),(int)(Ecran.getWidth()*5/6),(int)(Ecran.getHeight()*0.3));
-            lyrics.setText("bitch please");
+            lyrics.setText(currentLyrics);
             getContentPane().add(lyrics);
             // initialisation des notes:
             note= new LinkedList();

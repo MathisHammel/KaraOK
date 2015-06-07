@@ -6,7 +6,7 @@ public class SongData extends Thread {
                         
         
         
-                        final boolean DEBUG_MODE=false;
+                        final boolean DEBUG_MODE=true;
         
                         
         String currNote="";
@@ -165,6 +165,7 @@ public class SongData extends Thread {
                                 {
                                         indexLyrics++;
                                         currLyrics=lyricsData[indexLyrics];
+										System.out.println(currLyrics);
                                         if(DEBUG_MODE){System.out.println("[DEBUG]Lyrics : "+currLyrics);}
                                 }
                         
