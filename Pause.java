@@ -62,9 +62,20 @@ public class Pause {
         restart.addMouseListener(restart);
         game.getContentPane().add(restart);
         
+        end=new Button();
+        end.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*4/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
+        end.setBorderPainted(false);
+        end.setBackground(Content.colors[9]);
+        end.setForeground(Content.mainColor);
+        end.setFont(new Font("LAIKA", Font.BOLD, (int)game.Ecran.getHeight()/20));
+        end.setText("end" );
+        end.addActionListener(new endListener());
+        end.addMouseListener(end);
+        game.getContentPane().add(end);
+        
         // create backToMenu button to go back to the game launcher
         backToMenu=new Button();
-        backToMenu.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*4/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
+        backToMenu.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*5/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
         backToMenu.setBorderPainted(false);
         backToMenu.setBackground(Content.colors[11]);
         backToMenu.setForeground(Content.mainColor);
@@ -76,7 +87,7 @@ public class Pause {
         
         // create exitGame button to close the game
         exitGame=new Button();
-        exitGame.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*5/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
+        exitGame.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*6/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
         exitGame.setBorderPainted(false);
         exitGame.setBackground(Content.colors[10]);
         exitGame.setForeground(Content.mainColor);
@@ -86,16 +97,7 @@ public class Pause {
         exitGame.addMouseListener(exitGame);
         game.getContentPane().add(exitGame);
         
-        end=new Button();
-        end.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*6/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
-        end.setBorderPainted(false);
-        end.setBackground(Content.colors[9]);
-        end.setForeground(Content.mainColor);
-        end.setFont(new Font("LAIKA", Font.BOLD, (int)game.Ecran.getHeight()/20));
-        end.setText("end" );
-        end.addActionListener(new endListener());
-        end.addMouseListener(end);
-        game.getContentPane().add(end);
+        
         
         //repaint the gamewindow 
         game.repaint();
@@ -107,20 +109,8 @@ public class Pause {
         
         public void actionPerformed (ActionEvent arg0){
             // create an OptionPane to be sure that player wants ton leave the game
-            JOptionPane jop = new JOptionPane();            
-                  int option = jop.showConfirmDialog(null, 
-                    "wallah're you sure you want to leave ?", 
-                    "Leaving game", 
-                    JOptionPane.YES_NO_OPTION, 
-                    JOptionPane.WARNING_MESSAGE);
-
-                  if(option == JOptionPane.OK_OPTION){ // clicked on yes
-                    System.exit(0); 
-                  }
-                  else{ //clicked on no
-                      game.repaint(); //repaint the gamewindow
-                      game.requestFocus(); // the gamewindow request the focus back
-                  }
+            PopUp jop = new PopUp(game);            
+                  
         }
     }
     class restartListener implements ActionListener{
@@ -146,8 +136,8 @@ public class Pause {
             game.getContentPane().remove(end);
             
             // restart song and timer
-            game.clip.start(); 
-            game.timer.restart();
+            //game.clip.start(); 
+            //game.timer.restart();
             game.requestFocus(); // request focus back 
             
             

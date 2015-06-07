@@ -1,6 +1,9 @@
+import java.awt.Font;
 import java.awt.Menu;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import java.io.IOException;
 
 public class Karaok {
     public enum State{
@@ -11,11 +14,11 @@ public class Karaok {
     public static FreqThread freqmaster;
     
     
-    public static void main (String[] args){
+    public static void main (String[] args) {
         state = State.Menu;
         freqmaster=new FreqThread();
         freqmaster.start();
-        int a=1;
+        int a=1; // variable a will help to know the state Before the change happended
         window MenuWindow=null;
         GameWindow gamewindow = null;
         Pause pause=null;
@@ -38,10 +41,11 @@ public class Karaok {
             if( a!=1 && a!=2){ 
                 System.out.println("[DEBUG] song value: " + song);
                 gamewindow = new GameWindow(song);
-                gamewindow.songWillStart();
+                SongWillStart sws=new SongWillStart(gamewindow);
                 a=1;
             }
             else{ 
+                if(a==2){SongWillStart sws=new SongWillStart(gamewindow);}
                 a=1;
             }
             state= gamewindow.state;
@@ -72,7 +76,7 @@ public class Karaok {
             GameWindow other = new GameWindow(song);
             gamewindow.dispose();
             gamewindow=other;
-            gamewindow.songWillStart();
+            SongWillStart sws=new SongWillStart(gamewindow);
             state=State.Game;
             break;
             

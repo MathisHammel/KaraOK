@@ -24,7 +24,6 @@ import javax.swing.Timer;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import javax.swing.SwingConstants;
 
@@ -41,7 +40,7 @@ public class GameWindow extends JFrame{
         int score;
         boolean finjeu;
         Note test;
-        JLabel popup, title, lyrics;
+        JLabel /*popup,*/ title, lyrics;
         boolean pop;
         Pointeur pointeur;
 		String currentLyrics="Lyrics";
@@ -92,7 +91,7 @@ public class GameWindow extends JFrame{
             // music
             song=asong;
             try {
-                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.files[0][song]).getAbsoluteFile());
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.titles[1][song]).getAbsoluteFile());
                     clip = AudioSystem.getClip();
                     clip.open(audioInputStream);
                     //clip.start();
@@ -108,9 +107,9 @@ public class GameWindow extends JFrame{
 
             // timer
             timer = new Timer(10,new TimerAction());
-            timer.start();
+            //timer.start();
             
-            title = new JLabel(Content.titles[song],SwingConstants.CENTER);
+            title = new JLabel(Content.titles[0][song],SwingConstants.CENTER);
             title.setOpaque(false);
             title.setForeground(Color.white);
             title.setFont(new Font("LAIKA", Font.PLAIN, (int)Ecran.getHeight()/20));
@@ -196,7 +195,7 @@ public class GameWindow extends JFrame{
         }
 
      
-     public void songWillStart(){
+    /* public void songWillStart(){
          int timeleft=5;
          popup = new JLabel("KARA-OK",SwingConstants.CENTER);
          popup.setBounds((int)Ecran.getWidth()*3/8,(int)(Ecran.getHeight()*0.35),(int)Ecran.getWidth()/4, (int)(Ecran.getHeight()*0.30));
@@ -215,7 +214,7 @@ public class GameWindow extends JFrame{
          popup=null;
          clip.start();
          time=0;
-     }
+     }*/
      
     private class GameKeyAdapter extends KeyAdapter{
 
@@ -225,16 +224,7 @@ public class GameWindow extends JFrame{
             switch (code){
             case KeyEvent.VK_ESCAPE: 
                 state=Karaok.State.Pause;
-                    JOptionPane jop = new JOptionPane();            
-                          int option = jop.showConfirmDialog(null, 
-                            "Are you sure you wan't to leave ?", 
-                            "Leaving game", 
-                            JOptionPane.YES_NO_OPTION, 
-                            JOptionPane.WARNING_MESSAGE);
-
-                          if(option == JOptionPane.OK_OPTION){
-                            System.exit(0);
-                          }
+                PopUp jop = new PopUp(GameWindow.this);            
                 break;
             
             case KeyEvent.VK_P:
