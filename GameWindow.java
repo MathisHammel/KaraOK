@@ -55,8 +55,10 @@ public class GameWindow extends JFrame{
         
 		double pauseStart;
 		double pauseDuration=0.0;
+		int startSet=0;
 		
 		double songEnd;
+		
 		
         // pointeurs + notes.
         LinkedList <Note> note;
@@ -128,12 +130,12 @@ public class GameWindow extends JFrame{
             title.setBounds(0,0,(int)Ecran.getWidth(),(int)Ecran.getHeight()/15);
             getContentPane().add(title);
             
-            lyrics = new JLabel("Lyrics0",SwingConstants.CENTER);
+            lyrics = new JLabel("Lyrics",SwingConstants.CENTER);
             lyrics.setOpaque(false);
             lyrics.setForeground(Color.white);
             lyrics.setFont(Content.font.deriveFont((float)Ecran.getHeight()/15));
             lyrics.setBounds((int)Ecran.getWidth()/6,(int)(Ecran.getHeight()*0.7),(int)(Ecran.getWidth()*5/6),(int)(Ecran.getHeight()*0.3));
-            lyrics.setText(String.valueOf(time));
+            lyrics.setText("");
             getContentPane().add(lyrics);
             // initialisation des notes:
             note= new LinkedList();
@@ -145,12 +147,10 @@ public class GameWindow extends JFrame{
 
         public void paint(Graphics g){
 
-            elapsedTime=(System.currentTimeMillis()-startTime)/1000;
             paintBackGround(buffer,Ecran);
             test.draw(time,buffer);
             
             paintAdd(buffer, Ecran);
-			lyrics.setText(String.valueOf(time));
             getContentPane().paintComponents(buffer);
             pointeur.draw(time,buffer); // draw last
             buffer.setColor(Color.white);
@@ -196,14 +196,35 @@ public class GameWindow extends JFrame{
 
 
         public void game_display(){
-            
+			if(startSet==0)
+			{
+				startSet++;
+			}
+			if(startSet==1)
+			{
+				startSet++;
+				startTime=System.currentTimeMillis();
+			}
+			
+            if(pauseStart!=0.0 && System.currentTimeMillis()-pauseStart>3000){
+				pauseDuration=(System.currentTimeMillis()-pauseStart);
+				System.out.println("Pause ended. Duration : "+pauseDuration+" ms");
+				startTime+=pauseDuration;
+				pauseStart=0.0;
+			}
+			
             test.move(time);
             pointeur.move(time,Karaok.freqmaster.mainFreq); //FIXME
             pointeur.changeColor(Math.abs(587.33-Karaok.freqmaster.mainFreq));
-			elapsedTime=System.currentTimeMillis();
+			elapsedTime=(System.currentTimeMillis()-startTime)/1000;
 			songMaster.elapsedTime=elapsedTime;
+			lyrics.setText(songMaster.currLyrics);
             repaint();
 			
+			if(elapsedTime>songEnd)
+			{
+				state=Karaok.State.Win;	
+			}
 
         }
 
@@ -236,11 +257,13 @@ public class GameWindow extends JFrame{
             int code = e.getKeyCode();
             switch (code){
             case KeyEvent.VK_ESCAPE: 
+				pauseStart=System.currentTimeMillis();
                 state=Karaok.State.Pause;
                 PopUp jop = new PopUp(GameWindow.this);            
                 break;
             
             case KeyEvent.VK_P:
+				pauseStart=System.currentTimeMillis();
                 System.out.println("[DEBUG] P Key pressed");
                 state=Karaok.State.Pause;
                 }

@@ -17,7 +17,7 @@ public class Content {
     public static String[][] titles = {{"FUN: We are young", "QUEEN: We are the champion", "USA FOR AFRICA: We are the world","KANA-BOON: silhouette"},
                                        {"songs\\Fun.wav","songs\\queen.wav","songs\\WATW.wav","songs\\beyonce.wav"}};
     public static Color[] background= {new Color(52,152,219), new Color(41,128,185),new Color(46,204,113), new Color(39,174,96),new Color(26,188,156),new Color(22,160,133), new Color(231,76,60), new Color(192,57,43)};
-	public static double[] songEnd = {1000.0,180.0,68.0,1000.0};
+	public static double[] songEnd = {1000.0,178.0,68.0,1000.0};
 	
 	// frame element
     public static String icon = "img\\microphone_converted.png";
