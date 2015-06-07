@@ -20,10 +20,12 @@ public class Pause {
     public JLabel logo;
     public Button end;
 
+
     
     public Pause(GameWindow gamewindow) {
         //super();
         game=gamewindow;
+		
         
         // stop timer and song 
         game.clip.stop();
@@ -142,6 +144,7 @@ public class Pause {
             
             
             System.out.println("[DEBUG] game resumed" );
+			
             
         }
     }

@@ -35,7 +35,7 @@ import javax.swing.SwingConstants;
 public class window extends JFrame {
     
     
-    int song; // to know witch song is currently displayed
+    int song; // to know which song is currently displayed
     Clip clip;
     Button  close, minimize; // button needed for the window interaction
     Button next, prev,play ,pict, nextpict, prevpict; // button used to select the song and start the game 
@@ -57,13 +57,13 @@ public class window extends JFrame {
         this.setLocationRelativeTo(getRootPane()); // place the frame on the center of the screen
         this.setIconImage(new ImageIcon(Content.icon).getImage()); // icon off the game 
         
-        // set the mic curseur 
+        // set the mouse pointer as a mic image
         Toolkit tk = Toolkit.getDefaultToolkit();
         Image img = tk.getImage(Content.cursor);
         Cursor cursor = tk.createCustomCursor(img, new Point(0, 0), "micro");
         this.setCursor(cursor);
         
-        //create the bachground with lightPad
+        //create the background with lightPad
         this.setBackground(new Color(127,140,141,254)); // main color + alpha max
         lightPad=new LightPad[108];
         int b=0;
@@ -105,7 +105,7 @@ public class window extends JFrame {
         minimize.addMouseListener(minimize);
         this.getContentPane().add(minimize);
         
-        // the prev button to selec previous song 
+        // the prev button to select previous song 
         prev=new Button(Content.prev);
         prev.setBounds(102,202,96,96);
         prev.setBorderPainted(false);
@@ -167,12 +167,12 @@ public class window extends JFrame {
         this.getContentPane().add(logo);
         
        
-        //initialise the timer   
+        //initialize the timer   
         timer = new Timer(20,new TimerAction());
         timer.start();
         
         this.setFocusable(true);
-        this.requestFocus();//give focus to the window for keyborde actions
+        this.requestFocus();//give focus to the window for keyboard actions
         this.addKeyListener(new GameKeyAdapter());
         
         //start song 
@@ -226,7 +226,7 @@ public class window extends JFrame {
             public void actionPerformed (ActionEvent arg0){
                 if(song-1<0)song=Content.files[0].length-1;
                 else song--;
-                clip.close(); //stop actualsong
+                clip.close(); //stop current song
                 //start new song 
                 try {
                         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.files[0][song]).getAbsoluteFile());
