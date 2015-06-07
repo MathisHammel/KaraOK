@@ -27,8 +27,6 @@ import javax.swing.JLabel;
 
 import javax.swing.SwingConstants;
 
-import FileRead.SongData;
-
 
 public class GameWindow extends JFrame{
 
@@ -56,7 +54,7 @@ public class GameWindow extends JFrame{
         // pointeurs + notes.
         LinkedList <Note> note;
 
-		SongData songMaster = new SongData();
+		//SongData songMaster = new SongData();
 
 
 
@@ -64,7 +62,7 @@ public class GameWindow extends JFrame{
 
             /** affichage plein écran !!! */
             // frame
-            songMaster.start();
+            //songMaster.start();
             setTitle("Kara-OK");
             setUndecorated(true);
             this.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());

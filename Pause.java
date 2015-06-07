@@ -57,7 +57,7 @@ public class Pause {
         restart.setBackground(Content.colors[12]);
         restart.setForeground(Content.mainColor);
         restart.setFont(new Font("LAIKA", Font.BOLD, (int)game.Ecran.getHeight()/20));
-        restart.setText("restart" );
+        restart.setText("Restart" );
         restart.addActionListener(new restartListener());
         restart.addMouseListener(restart);
         game.getContentPane().add(restart);
@@ -68,7 +68,7 @@ public class Pause {
         end.setBackground(Content.colors[9]);
         end.setForeground(Content.mainColor);
         end.setFont(new Font("LAIKA", Font.BOLD, (int)game.Ecran.getHeight()/20));
-        end.setText("end" );
+        end.setText("End song" );
         end.addActionListener(new endListener());
         end.addMouseListener(end);
         game.getContentPane().add(end);
@@ -79,8 +79,8 @@ public class Pause {
         backToMenu.setBorderPainted(false);
         backToMenu.setBackground(Content.colors[11]);
         backToMenu.setForeground(Content.mainColor);
-        backToMenu.setFont(new Font("LAIKA", Font.BOLD, (int)game.Ecran.getHeight()/20));
-        backToMenu.setText("back" );
+        backToMenu.setFont(new Font("LAIKA", Font.BOLD, (int)game.Ecran.getHeight()/21));
+        backToMenu.setText("Main menu" );
         backToMenu.addActionListener(new backListener());
         backToMenu.addMouseListener(backToMenu);
         game.getContentPane().add(backToMenu);
@@ -92,7 +92,7 @@ public class Pause {
         exitGame.setBackground(Content.colors[10]);
         exitGame.setForeground(Content.mainColor);
         exitGame.setFont(new Font("LAIKA", Font.BOLD, (int)game.Ecran.getHeight()/20));
-        exitGame.setText("exit" );
+        exitGame.setText("Quit game" );
         exitGame.addActionListener(new exitListener());
         exitGame.addMouseListener(exitGame);
         game.getContentPane().add(exitGame);
