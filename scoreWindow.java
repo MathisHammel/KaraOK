@@ -142,7 +142,7 @@ public class scoreWindow extends JFrame {
         title.setBackground(Content.colors[2]);
         title.setOpaque(true);
         title.setForeground(Color.white);
-        title.setFont(new Font("LAIKA", Font.PLAIN, 18));
+        title.setFont(new Font("LAIKA", Font.PLAIN, 16));
         title.setBounds(352,52,196,46);
         getContentPane().add(title);
         
@@ -262,20 +262,8 @@ public class scoreWindow extends JFrame {
         
         public void actionPerformed (ActionEvent arg0){
             // create an OptionPane to be sure that player wants ton leave the game
-            JOptionPane jop = new JOptionPane();            
-                  int option = jop.showConfirmDialog(null, 
-                    "wallah're you sure you want to leave ?", 
-                    "Leaving game", 
-                    JOptionPane.YES_NO_OPTION, 
-                    JOptionPane.WARNING_MESSAGE);
-
-                  if(option == JOptionPane.OK_OPTION){ // clicked on yes
-                    System.exit(0); 
-                  }
-                  else{ //clicked on no
-                      repaint();
-                      requestFocus();
-                  }
+            PopUp jop = new PopUp(scoreWindow.this);            
+                  
         }
     }
     class backListener implements ActionListener{ 
