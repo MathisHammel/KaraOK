@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-
 import java.io.File;
 
 
@@ -153,7 +152,7 @@ public class window extends JFrame {
         title.setBackground(Content.colors[2]);
         title.setOpaque(true);
         title.setForeground(Color.white);
-        title.setFont(new Font("LAIKA", Font.BOLD, 16));
+        title.setFont(Content.font.deriveFont(16f));
         title.setBounds(252,152,196,46);
         this.getContentPane().add(title);
         
@@ -162,7 +161,7 @@ public class window extends JFrame {
         logo.setBackground(Content.colors[13]);
         logo.setOpaque(true);
         logo.setForeground(Color.white);
-        logo.setFont(new Font("LAIKA", Font.BOLD, 40));
+        logo.setFont(Content.font.deriveFont(40f));
         logo.setBounds(252,52,196,46);
         this.getContentPane().add(logo);
         
