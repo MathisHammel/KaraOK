@@ -22,7 +22,7 @@ public class Pointeur extends Object {
     }
 
 
-    void move(long t) {
+    void move(double t) {
         // nothing, we need frequency to go further
     }
 

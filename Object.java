@@ -19,7 +19,7 @@ public abstract class Object {
     
     abstract void draw(long t, Graphics g);
     
-    abstract void move(long t);
+    abstract void move(double t);
     
     abstract void move(long t, double frquency);
     
