@@ -13,7 +13,7 @@ public class Note extends Object {
     
     public Note(String anote, Rectangle aframe, double duration,double time ) {
         
-        super((int)aframe.getWidth(),0,(int)aframe.getHeight()/30,(int)(duration*aframe.getWidth()/5) , -1, 0, (float)aframe.getWidth()/1000 , aframe, "note");
+        super((int)aframe.getWidth(),0,(int)aframe.getHeight()/30,(int)(duration*aframe.getWidth()/6) , -1, 0, (float)aframe.getWidth()/1000 , aframe, "note");
         ymin=(int)(aframe.getHeight()*0.1);
         creationTime=time;
         Ecran=aframe;
@@ -22,9 +22,9 @@ public class Note extends Object {
         while(!Content.notes[a].equals(note)){
             a++;
         }
-        y=ymin*(1+a/2) -h/2;
+        y=(int)(ymin*(1+(11-a)*0.5) -h/2);
+		System.out.println(y);
         destroy=false;
-        
     }
 
     @Override
