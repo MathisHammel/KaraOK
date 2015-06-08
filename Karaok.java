@@ -24,7 +24,6 @@ public class Karaok {
         //generate the font used in every window of the game
         try {
             Content.createFont();
-            System.out.println(Content.font);
         } catch (Exception e) {
             e.printStackTrace();
         }
