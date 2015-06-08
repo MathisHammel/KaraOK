@@ -1,6 +1,5 @@
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -30,8 +29,6 @@ import javax.swing.SwingConstants;
 
 public class GameWindow extends JFrame{
 
-
-    // static String[] song = ...
   double startTime;
   double elapsedTime;
   SongData songMaster;
@@ -40,10 +37,10 @@ public class GameWindow extends JFrame{
         int score;
         boolean finjeu;
         Note test;
-        JLabel /*popup,*/ title, lyrics;
+        JLabel title, lyrics;
         boolean pop;
         Pointeur pointeur;
-  String currentLyrics="Lyrics";
+        String currentLyrics="Lyrics";
 
         BufferedImage ArrierePlan;
         Graphics buffer;
@@ -53,11 +50,11 @@ public class GameWindow extends JFrame{
         int song;
         static Karaok.State state;
         
-  double pauseStart;
-  double pauseDuration=0.0;
-  int startSet=0;
+        double pauseStart;
+        double pauseDuration=0.0;
+        int startSet=0;
   
-  double songEnd;
+        double songEnd;
   
   
         // pointeurs + notes.
@@ -71,7 +68,6 @@ public class GameWindow extends JFrame{
 
             /** affichage plein écran !!! */
             // frame
-            //songMaster.start();
             setTitle("Kara-OK");
             setUndecorated(true);
             this.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
@@ -98,11 +94,11 @@ public class GameWindow extends JFrame{
             // music
             song=asong;
    
-   songMaster=new SongData(Content.files[3][song]);
-   songMaster.start();
-   startTime=System.currentTimeMillis();
+            songMaster=new SongData(Content.files[3][song]);
+            songMaster.start();
+            startTime=System.currentTimeMillis();
    
-   songEnd=Content.songEnd[song];
+            songEnd=Content.songEnd[song];
    
             try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.titles[1][song]).getAbsoluteFile());
@@ -117,11 +113,10 @@ public class GameWindow extends JFrame{
             // key adapter
             this.addKeyListener(new GameKeyAdapter());
 
-            test = new Note("B",Ecran,200);
+            test = new Note("B",Ecran,200,0);
 
             // timer
             timer = new Timer(10,new TimerAction());
-            //timer.start();
             
             title = new JLabel(Content.titles[0][song],SwingConstants.CENTER);
             title.setOpaque(false);
@@ -196,59 +191,50 @@ public class GameWindow extends JFrame{
 
 
         public void game_display(){
-   if(startSet==0)
-   {
-    startSet++;
-   }
-   if(startSet==1)
-   {
-    startSet++;
-    startTime=System.currentTimeMillis();
-   }
-   
-            if(pauseStart!=0.0 && System.currentTimeMillis()-pauseStart>3000){
-    pauseDuration=(System.currentTimeMillis()-pauseStart);
-    System.out.println("Pause ended. Duration : "+pauseDuration+" ms");
-    startTime+=pauseDuration;
-    pauseStart=0.0;
-   }
-   
-            test.move(time);
-            pointeur.move(time,Karaok.freqmaster.mainFreq); //FIXME
+            // needed for timer initialisatiobpe
+            if(startSet==0)
+            {
+                startSet++;
+            }
+            if(startSet==1)
+            {
+                startSet++;
+                startTime=System.currentTimeMillis();
+            }
+            
+            // Pause managment for time
+            if(pauseStart!=0.0 && System.currentTimeMillis()-pauseStart>3000)
+            {
+                pauseDuration=(System.currentTimeMillis()-pauseStart);
+                System.out.println("Pause ended. Duration : "+pauseDuration+" ms");
+                startTime+=pauseDuration;
+                pauseStart=0.0;
+            }
+            
+            for(int i=0;i<note.size();i++){
+                note.get(i).move(time);
+                if(note.get(i).destroy){
+                    note.remove(i);
+                }
+            }
+            //note.add(new Note(010101000101010"note"100111010101010,this.Ecran,100010101010101"bite"01010110101001100101));
+            
+            test.move(elapsedTime);
+            pointeur.move(time,Karaok.freqmaster.mainFreq);
             pointeur.changeColor(Math.abs(587.33-Karaok.freqmaster.mainFreq));
-   elapsedTime=(System.currentTimeMillis()-startTime)/1000;
-   songMaster.elapsedTime=elapsedTime;
-   lyrics.setText(songMaster.currLyrics);
+            elapsedTime=(System.currentTimeMillis()-startTime)/1000;
+            songMaster.elapsedTime=elapsedTime;
+            lyrics.setText(songMaster.currLyrics);
             repaint();
    
-   if(elapsedTime>songEnd)
-   {
-    state=Karaok.State.Win; 
-   }
+            if(elapsedTime>songEnd)
+            {
+                state=Karaok.State.Win; 
+                this.dispose();
+            }
 
         }
 
-     
-    /* public void songWillStart(){
-         int timeleft=5;
-         popup = new JLabel("KARA-OK",SwingConstants.CENTER);
-         popup.setBounds((int)Ecran.getWidth()*3/8,(int)(Ecran.getHeight()*0.35),(int)Ecran.getWidth()/4, (int)(Ecran.getHeight()*0.30));
-         popup.setBackground(Content.colors[2]);
-         popup.setOpaque(true);
-         popup.setForeground(Color.white);
-         popup.setFont(new Font("LAIKA", Font.BOLD, (int)Ecran.getHeight()/17));
-         popup.setText("<html><center>GET READY !<br> The song will start in: <br> " + timeleft );
-         this.getContentPane().add(popup);
-         
-         while(timeleft>0){
-             timeleft= 5- (int)time/100;
-             popup.setText("<html><center>GET READY !<br> The song will start in: <br> " + timeleft );
-         }
-         getContentPane().remove(popup);
-         popup=null;
-         clip.start();
-         time=0;
-     }*/
      
     private class GameKeyAdapter extends KeyAdapter{
 
