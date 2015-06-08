@@ -2,19 +2,25 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class PopUp extends JOptionPane {
+
+    /**
+     * the PopUp constructor extends JOptionPane
+     * the warning frame asking if you want to leave the game
+     * @param frame JFrame the frame you want to add this PopUp
+     */
     public PopUp(JFrame frame) {
         super();
                     
-              int option = this.showConfirmDialog(null, 
-                "wallah're you sure you want to leave ?", 
-                "Leaving game", 
-                JOptionPane.YES_NO_OPTION, 
-                JOptionPane.WARNING_MESSAGE);
+        int option = this.showConfirmDialog(null, 
+                    "wallah're you sure you want to leave ?", // message
+                    "Leaving game",                           // Frame name
+                    JOptionPane.YES_NO_OPTION,                //type of answer
+                    JOptionPane.WARNING_MESSAGE);             // type of JOptionPane  
 
-              if(option == JOptionPane.OK_OPTION){
+              if(option == JOptionPane.OK_OPTION){ // clicked yes
                 System.exit(0);
-              }else{
-                  frame.requestFocus();
+              }else{ // clicked no
+                  frame.requestFocus(); //ask the focus back
               }
         
     }
