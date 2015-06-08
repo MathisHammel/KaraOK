@@ -113,7 +113,8 @@ public class GameWindow extends JFrame{
             // key adapter
             this.addKeyListener(new GameKeyAdapter());
 
-            test = new Note("B",Ecran,200,0);
+            test = new Note("D",Ecran,3,0);
+		
 
             // timer
             timer = new Timer(10,new TimerAction());
@@ -133,7 +134,8 @@ public class GameWindow extends JFrame{
             lyrics.setText("");
             getContentPane().add(lyrics);
             // initialisation des notes:
-            note= new LinkedList();
+            note= new LinkedList<Note>();
+			//note.add(test);
 
             setVisible(true);
 
@@ -143,7 +145,7 @@ public class GameWindow extends JFrame{
         public void paint(Graphics g){
 
             paintBackGround(buffer,Ecran);
-            test.draw(time,buffer);
+            //test.draw(time,buffer);
 			for(int i=0;i<note.size();i++){
                 note.get(i).draw(time,buffer);
             }
@@ -222,7 +224,8 @@ public class GameWindow extends JFrame{
             }
             
             for(int i=0;i<note.size();i++){
-                note.get(i).move(time);
+                note.get(i).move(elapsedTime);
+
                 if(note.get(i).destroy){
                     note.remove(i);
                 }
@@ -230,18 +233,18 @@ public class GameWindow extends JFrame{
 			
             if (songMaster.seen==0)
 			{
-				System.out.println("ReKT");
-				//note.add(new Note(songMaster.notesData[songMaster.indexRect],this.Ecran,songMaster.notesDuration[songMaster.indexRect],elapsedTime));
-				note.add(new Note("D",this.Ecran,0.5,elapsedTime));
+				//System.out.println("Created note with params :");
+				note.add(new Note(songMaster.notesData[songMaster.indexRect],this.Ecran,songMaster.notesDuration[songMaster.indexRect],elapsedTime));
+				//note.add(new Note("D",this.Ecran,0.5,elapsedTime));
 				songMaster.seen=1;
 			}
             
-            test.move(elapsedTime);
+            //test.move(elapsedTime);
             pointeur.move(time,Karaok.freqmaster.mainFreq);
             pointeur.changeColor(Math.abs(587.33-Karaok.freqmaster.mainFreq));
             elapsedTime=(System.currentTimeMillis()-startTime)/1000;
             songMaster.elapsedTime=elapsedTime;
-            lyrics.setText(songMaster.currNote);
+            lyrics.setText(String.valueOf(songMaster.elapsedTime));
             repaint();
    
             if(elapsedTime>songEnd)

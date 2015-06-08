@@ -13,7 +13,7 @@ public class Note extends Object {
     
     public Note(String anote, Rectangle aframe, double duration,double time ) {
         
-        super((int)aframe.getWidth(),0,(int)aframe.getHeight()/30,(int)(duration*aframe.getWidth()/1000) , -1, 0, (float)aframe.getWidth()/1000 , aframe, "note");
+        super((int)aframe.getWidth(),0,(int)aframe.getHeight()/30,(int)(duration*aframe.getWidth()/5) , -1, 0, (float)aframe.getWidth()/1000 , aframe, "note");
         ymin=(int)(aframe.getHeight()*0.1);
         creationTime=time;
         Ecran=aframe;
