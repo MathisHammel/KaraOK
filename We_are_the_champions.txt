@@ -73,10 +73,6 @@ No time for losers
 'Cause we are the champions.
 END LYRICS
 
-
-
-
-
 BEGIN NOTES
 1.9
 G
@@ -164,7 +160,7 @@ Ab
 30.1
 30.1
 Bb
-31.6
+31.2
 31.2
 Bb
 31.3
@@ -309,7 +305,9 @@ C
 81.6
 G
 82.4
+82.4
 Bb
+82.8
 82.8
 C
 84.4
@@ -327,6 +325,7 @@ G
 89.5
 89.5
 G
+90.0
 90.0
 C
 92.0
@@ -594,10 +593,4 @@ Ab
 172.9
 F
 179.0
-END NOTES 
-
-
-
-
-
-
+END NOTES
