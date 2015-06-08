@@ -38,23 +38,23 @@ public class ScoreGraph extends JPanel {
         score=(int)(scorewindow.score*ymax/scoremax) ;
         scoreRect=ymax;
         
-        dancer2=new JLabel(new ImageIcon("C:\\Users\\Administrateur\\Documents\\mouchaeljack.gif"));
+        dancer2=new JLabel(new ImageIcon("img\\mouchaeljack.gif"));
         dancer2.setBounds(73, ymin+scoreRect-32, 100,100 );
         scorewindow.getContentPane().add(dancer2);
         
         scoreStars = new JLabel();
-        scoreStars.setBackground(Content.colors[13]);
+        scoreStars.setBackground(Content.colors[12]);
         scoreStars.setOpaque(true);
         scoreStars.setBounds(252,102,396,96);
         scorewindow.getContentPane().add(scoreStars);
         
         for(int i=0; i<5;i++){
-            stars[i]=new JLabel(new ImageIcon("img\\PlayOff.png"));
+            stars[i]=new JLabel(new ImageIcon("img\\NextPrev\\StarOff_small.png"));
             stars[i].setOpaque(true);
             stars[i].setBounds(100,(int)(ymin+i*ymax/5)-25,50,50);
             this.add(stars[i]);
             
-            stars[i+5]=new JLabel(new ImageIcon("img\\PlayOff.png"));
+            stars[i+5]=new JLabel(new ImageIcon("img\\NextPrev\\StarOff.png"));
             stars[i+5].setOpaque(true);
             stars[i+5].setBounds(319-i*73,24,50,50);
             scoreStars.add(stars[i+5]);
@@ -108,9 +108,9 @@ public class ScoreGraph extends JPanel {
                 scoreRect=ymax-(int)(score*(time-50)/(150+time*0.3));
                 dancer2.setBounds(73, ymin+scoreRect-32, 100,100 );
                 if(i!=-1 && scoreRect<=stars[i].getY()-20){
-                    System.out.println("[DEBUD] i= " + i + "stars = " + stars[i].getY()+"scoreRect=" + scoreRect);
-                    stars[i].setIcon(new ImageIcon(Content.play +"On.png"));
-                    stars[i+5].setIcon(new ImageIcon(Content.play+"On.png"));
+                    System.out.println("[DEBUG] i= " + i + "stars = " + stars[i].getY()+"scoreRect=" + scoreRect);
+                    stars[i].setIcon(new ImageIcon("img\\NextPrev\\StarOn_small.png"));
+                    stars[i+5].setIcon(new ImageIcon("img\\NextPrev\\StarOn.png"));
                     i--;
                 }
             }
