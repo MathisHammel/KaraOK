@@ -8,6 +8,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * class ScoreGraph extends JPanel
+ * this class is used to manage all animations releated to score
+ */
 public class ScoreGraph extends JPanel {
     
     int i=4; // variable used in updated methode
@@ -30,7 +34,11 @@ public class ScoreGraph extends JPanel {
     
     // colors for MJ dancefloor
     Color[] c = new Color[4];
-        
+
+    /**
+     * Score Graph constructor
+     * @param scorewindow the score frame where all animations will be displayed
+     */
     public ScoreGraph(scoreWindow scorewindow) {
         super();
         
@@ -66,11 +74,13 @@ public class ScoreGraph extends JPanel {
         
         // set the stars 
         for(int i=0; i<5;i++){
+            // next to the graph
             stars[i]=new JLabel(new ImageIcon("img\\NextPrev\\StarOff_small.png"));
             stars[i].setOpaque(true);
             stars[i].setBounds(100,(int)(ymin+i*ymax/5)-25,50,50);
             this.add(stars[i]);
             
+            // under the song title
             stars[i+5]=new JLabel(new ImageIcon("img\\NextPrev\\StarOff.png"));
             stars[i+5].setOpaque(true);
             stars[i+5].setBounds(319-i*73,24,50,50);
@@ -78,7 +88,14 @@ public class ScoreGraph extends JPanel {
         }
         
     }
+
+    /**
+     * overide paint method
+     * will paint all the components into scoreWindow
+     * @param g Graphics
+     */
     public void paint(Graphics g){
+        
         //paint the background
         g.setColor(this.getBackground());
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -107,7 +124,7 @@ public class ScoreGraph extends JPanel {
 
     /**
      * update method
-     * will be updated each timer action on scoreWindow
+     * will be updated at each timer action on scoreWindow
      * manage the score animation 
      * @param time the time since the scorewindow opended
      */
