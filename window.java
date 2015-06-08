@@ -15,7 +15,6 @@ import java.awt.event.KeyEvent;
 
 import java.io.File;
 
-
 import javax.sound.sampled.AudioInputStream;
 
 import javax.sound.sampled.AudioSystem;
@@ -30,7 +29,10 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 
-
+/**
+ * class window extends JFram
+ * this is the class of the MainMenu 
+ */
 public class window extends JFrame {
     
     // the current state of the game
@@ -72,7 +74,7 @@ public class window extends JFrame {
         this.setIconImage(new ImageIcon(Content.icon).getImage()); // icon of the game 
         this.setLayout(null); //to place each component manually
         
-        // set the mouse pointer as a mic image
+        // set the mouse pointer as a mic 
         Toolkit tk = Toolkit.getDefaultToolkit();
         Image img = tk.getImage(Content.cursor);
         Cursor cursor = tk.createCustomCursor(img, new Point(0, 0), "micro");
@@ -101,7 +103,8 @@ public class window extends JFrame {
         
         lightPad[98].setBounds(650,23,50,25); // special lightPad under minimize and close button
         
-        /** set interactives button */
+        /* set interactives button */
+        
         // the close button to close the game
         close=new Button(Content.close);
         close.setBounds(675,0,25,23);
@@ -180,7 +183,7 @@ public class window extends JFrame {
         this.getContentPane().add(logo);
         
        
-        //initialize the timer   
+        // the timer   
         timer = new Timer(20,new TimerAction());
         timer.start();
         
@@ -206,11 +209,13 @@ public class window extends JFrame {
        
     }
     
-    
-     class nextListener implements ActionListener{
+    /**class nextListener implements ActionListener
+     * the ActionListener of next Button
+     */
+    class nextListener implements ActionListener{
         /**
-         * Action performed when next is clicked
-         * make all the changes to play next song 
+         * Override actionPerformed method
+         * update the song, and picts 
          * @param arg0 ActionEvent
          */
         public void actionPerformed (ActionEvent arg0){
@@ -249,13 +254,15 @@ public class window extends JFrame {
             requestFocus(); 
         }
     }
-        
-        class prevListener implements ActionListener{
-        /**
-         * Action performed when preve is clicked
-         * make all the changes to play prev song
-         * @param arg0 ActionEvent
-         */
+    /**class prevListener implements ActionListener
+     * the ActionListener of prev Button
+     */ 
+    class prevListener implements ActionListener{
+         /**
+          * Override actionPerformed method
+          * update the song, set state to Game ans close the window 
+          * @param arg0 ActionEvent
+          */
             public void actionPerformed (ActionEvent arg0){
             
                 //change song value
@@ -292,35 +299,43 @@ public class window extends JFrame {
                 requestFocus();
             }
     }
-        
+    /**class closeListener implements ActionListener
+     * the ActionListener of close Button
+     */    
     class closeListener implements ActionListener{
-        /**
-         * Action performed when close is clicked
-         * quit the game
-         * @param arg0 ActionEvent
-         */
+         /**
+          * Override actionPerformed method
+          * System.exit(0) 
+          * @param arg0 ActionEvent
+          */
         public void actionPerformed (ActionEvent arg0){
             System.exit(0);
         }
     }
+    /**class minimizeListener implements ActionListener
+     * the ActionListener of minimize Button
+     */
     class minimizeListener implements ActionListener{
 
-        /**
-         * Action performed when minimize is clicked
-         * minimize the window
-         * @param arg0 ActionEvent
-         */
+         /**
+          * Override actionPerformed method
+          * minimize the window 
+          * @param arg0 ActionEvent
+          */
         public void actionPerformed (ActionEvent arg0){
             setState(JFrame.ICONIFIED);
         }
     }
+    /**class pictListener implements ActionListener
+     * the ActionListener of pict Button
+     */
     class pictListener implements ActionListener{
 
-        /**
-         * Action performed when pict is clicked,
-         * dispose this fram, change state, and close song,
-         * @param arg0 ActionEvent
-         */
+         /**
+          * Override actionPerformed method
+          * set state to Game and close this window
+          * @param arg0 ActionEvent
+          */
         public void actionPerformed (ActionEvent arg0){
             //change the state to Game
             state=Karaok.State.Game;
@@ -333,6 +348,9 @@ public class window extends JFrame {
             
         }
     }
+    /**class GameKeyAdapter extends KeyAdapter
+     * this class will help to manage interaction with keyboard
+     */
     private class GameKeyAdapter extends KeyAdapter{
 
 
