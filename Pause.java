@@ -119,7 +119,7 @@ public class Pause {
     class exitListener implements ActionListener{
 
         /**
-         * Overide actionPerformed method
+         * @Override actionPerformed method
          * create a PopUp element 
          * @param arg0 ActionEvent
          */
@@ -134,7 +134,7 @@ public class Pause {
      */
     class restartListener implements ActionListener{
         /**
-         * Overide actionPerformed method
+         * @Override actionPerformed method
          * set the state to Restart 
          * @param arg0 ActionEvent
          */
@@ -150,7 +150,7 @@ public class Pause {
      */
     class resumeListener implements ActionListener{
         /**
-         * Overide actionPerformed method
+         * @Override actionPerformed method
          * go back to the game 
          * @param arg0 ActionEvent
          */
@@ -176,7 +176,7 @@ public class Pause {
      */
     class backListener implements ActionListener{
         /**
-         * Overide actionPerformed method
+         * @Override actionPerformed method
          * close the gamewindow and switch state to Menu 
          * @param arg0 ActionEvent
          */
@@ -195,7 +195,7 @@ public class Pause {
      */
     class endListener implements ActionListener{
         /**
-         * Overide actionPerformed method
+         * @Override actionPerformed method
          * close the gamewindow and switch state to Menu 
          * @param arg0 ActionEvent
          */
