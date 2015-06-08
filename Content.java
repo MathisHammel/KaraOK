@@ -22,7 +22,7 @@ public class Content {
     
     
     //the time when the song is done
-    public static double[] songEnd = {1000.0,178.0,68.0,1000.0};
+    public static double[] songEnd = {250.0,178.0,68.0,1000.0};
 	
     // frame elements data
     public static String icon = "img\\microphone_converted.png";
