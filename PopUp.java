@@ -1,6 +1,10 @@
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ * class PopUp extends JOptionPane
+ * this class create a JOptionPane used before leaving the game
+ */
 public class PopUp extends JOptionPane {
 
     /**
