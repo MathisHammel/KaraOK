@@ -206,7 +206,7 @@ public class GameWindow extends JFrame{
 				startTime=System.currentTimeMillis();
 			}
 			
-            if(pauseStart!=0.0 && System.currentTimeMillis()-pauseStart>3000){
+            if(pauseStart!=0.0 && System.currentTimeMillis()-pauseStart>1000){
 				pauseDuration=(System.currentTimeMillis()-pauseStart);
 				System.out.println("Pause ended. Duration : "+pauseDuration+" ms");
 				startTime+=pauseDuration;
@@ -218,7 +218,7 @@ public class GameWindow extends JFrame{
             pointeur.changeColor(Math.abs(587.33-Karaok.freqmaster.mainFreq));
 			elapsedTime=(System.currentTimeMillis()-startTime)/1000;
 			songMaster.elapsedTime=elapsedTime;
-			lyrics.setText(songMaster.currLyrics);
+			lyrics.setText(songMaster.currNote);
             repaint();
 			
 			if(elapsedTime>songEnd)
@@ -227,28 +227,6 @@ public class GameWindow extends JFrame{
 			}
 
         }
-
-     
-    /* public void songWillStart(){
-         int timeleft=5;
-         popup = new JLabel("KARA-OK",SwingConstants.CENTER);
-         popup.setBounds((int)Ecran.getWidth()*3/8,(int)(Ecran.getHeight()*0.35),(int)Ecran.getWidth()/4, (int)(Ecran.getHeight()*0.30));
-         popup.setBackground(Content.colors[2]);
-         popup.setOpaque(true);
-         popup.setForeground(Color.white);
-         popup.setFont(new Font("LAIKA", Font.BOLD, (int)Ecran.getHeight()/17));
-         popup.setText("<html><center>GET READY !<br> The song will start in: <br> " + timeleft );
-         this.getContentPane().add(popup);
-         
-         while(timeleft>0){
-             timeleft= 5- (int)time/100;
-             popup.setText("<html><center>GET READY !<br> The song will start in: <br> " + timeleft );
-         }
-         getContentPane().remove(popup);
-         popup=null;
-         clip.start();
-         time=0;
-     }*/
      
     private class GameKeyAdapter extends KeyAdapter{
 

@@ -74,6 +74,28 @@ No time for losers
 END LYRICS
 
 BEGIN NOTES
-10.0
-A
+1.9
+2.1
+G
+2.1
+2.5
+Bb
+2.5
+4.7
+C
+5.8
+6.1
+G
+6.1
+6.4
+Bb
+6.4
+7.9
+C
+9.7
+9.9
+G
+9.9
+10.3
+Bb
 END NOTES

@@ -13,13 +13,17 @@ public class SongData extends Thread {
         String currLyrics="";
                         
         static String filepath="";
-        final int MAXLENGTH=200;
+        final int MAXLENGTH=1000;
                 
 
         String[] lyricsData=new String[MAXLENGTH];
         double[] lyricsTime=new double[MAXLENGTH];
         String[] notesData=new String[MAXLENGTH];
         double[] notesTime=new double[MAXLENGTH];
+		double[] notesEnd=new double[MAXLENGTH];
+		double[] notesDuration=new double[MAXLENGTH];
+		
+		
                 
         int lyricsRead=0;
         int notesRead=0;
@@ -32,13 +36,6 @@ public class SongData extends Thread {
         public SongData(String path){
                 filepath=path;
 
-        
-        
-                /*
-                 * 
-                 * TODO : add author field ?
-                 * 
-                 */
 
 
                 if(DEBUG_MODE){System.out.println("[DEBUG]Timer started at time : "+startTime);}
@@ -106,14 +103,17 @@ public class SongData extends Thread {
 
                                 if(lyricsRead!=1 && notesRead==1){
                                         notesTime[index]=Float.parseFloat(sCurrentLine);
-                                        
-                                        if(index>0 && DEBUG_MODE && notesTime[index]<=notesTime[index-1])
+										sCurrentLine = br.readLine();
+										System.out.println(sCurrentLine);
+                                        notesEnd[index]=Float.parseFloat(sCurrentLine);
+										notesDuration[index]=notesEnd[index]-notesTime[index];
+                                        sCurrentLine = br.readLine();
+                                        notesData[index]=sCurrentLine;
+										System.out.println(notesTime[index]+" "+notesEnd[index]+" "+notesData[index]);
+										if(index>0 && DEBUG_MODE && (notesTime[index]<=notesTime[index-1] || notesEnd[index]<=notesEnd[index-1]))
                                         {
                                                 System.out.println("[DEBUG]Notes timestamps in the wrong order");
                                         }
-                                        
-                                        sCurrentLine = br.readLine();
-                                        notesData[index]=sCurrentLine;
                                 }
                                 
                                 
@@ -173,8 +173,15 @@ public class SongData extends Thread {
                                 while(notesTime[indexNotes+1]<=elapsedTime && notesTime[indexNotes+1]>=0.1)
                                 {
                                         indexNotes++;
-                                        currNote=notesData[indexNotes];
-                                        if(DEBUG_MODE){System.out.println("[DEBUG]Note : "+currNote);}
+										if(notesEnd[indexNotes]>elapsedTime)
+										{
+											currNote=notesData[indexNotes];
+                                        }
+										else
+										{
+											currNote="";
+										}
+										if(DEBUG_MODE){System.out.println("[DEBUG]Note : "+currNote);}
                                 }
                         
                         

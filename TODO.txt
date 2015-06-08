@@ -4,6 +4,7 @@ Revoir la découpe des morceaux + ajouter un court blanc au tout début ->
 Refaire le calcul de la couleur pointeur ? (Semble faux) (en fait c'est bon je crois)
 Leeees noooooooooootes !
 Score total
+Set DEBUG_MODE en false avant de rendre le projet
 
 
 
