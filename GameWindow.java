@@ -233,7 +233,7 @@ public class GameWindow extends JFrame{
 			
             if (songMaster.seen==0)
 			{
-				//System.out.println("Created note with params :");
+				System.out.println("Created note with params : "+songMaster.notesData[songMaster.indexRect]+" "+songMaster.notesDuration[songMaster.indexRect]+" "+elapsedTime);
 				note.add(new Note(songMaster.notesData[songMaster.indexRect],this.Ecran,songMaster.notesDuration[songMaster.indexRect],elapsedTime));
 				//note.add(new Note("D",this.Ecran,0.5,elapsedTime));
 				songMaster.seen=1;
