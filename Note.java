@@ -4,19 +4,18 @@ import java.awt.Rectangle;
 
 public class Note extends Object {
     
-    int ymin,length;
+    int ymin;
     Rectangle Ecran;
     double creationTime;
     String note;
     double frequency; // maybe not usefull
     boolean destroy;
     
-    public Note(String anote, Rectangle aframe, int length,double time ) {
+    public Note(String anote, Rectangle aframe, double duration,double time ) {
         
-        super((int)aframe.getWidth(),0,(int)aframe.getHeight()/30,length , -1, 0, (float)aframe.getWidth()/1000 , aframe, "note");
+        super((int)aframe.getWidth(),0,(int)aframe.getHeight()/30,(int)(duration*aframe.getWidth()/1000) , -1, 0, (float)aframe.getWidth()/1000 , aframe, "note");
         ymin=(int)(aframe.getHeight()*0.1);
         creationTime=time;
-        this.length=length;
         Ecran=aframe;
         note=anote;
         int a=0;
@@ -39,7 +38,7 @@ public class Note extends Object {
 
     void move(double t) {
         double delta=t-creationTime;
-        if(x+length>Ecran.getWidth()/6){
+        if(x+l>Ecran.getWidth()/6){
             x= (int)(Ecran.getWidth()/6 + Ecran.getWidth()*5/6 *(1- delta/5.0));
         }else{
             destroy=true;
