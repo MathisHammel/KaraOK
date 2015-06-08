@@ -34,8 +34,12 @@ public class GameWindow extends JFrame{
   SongData songMaster;
         Timer timer;
         long time;
-        int score;
-        boolean finjeu;
+		
+        int score=1;
+		int scoreMax=1;
+        int scoreTemp;
+		
+		boolean finjeu;
         Note test;
         JLabel title, lyrics;
         boolean pop;
@@ -82,8 +86,8 @@ public class GameWindow extends JFrame{
             ArrierePlan =new BufferedImage(getSize().width,getSize().height,BufferedImage.TYPE_INT_RGB);
             buffer = ArrierePlan.getGraphics();
             // variables
-            time = 0;
-            score = 0;
+            time = 1;
+            score = 1;
             finjeu=false;
 
             
@@ -155,7 +159,7 @@ public class GameWindow extends JFrame{
             pointeur.draw(time,buffer); // draw last
             buffer.setColor(Color.white);
             buffer.setFont(Content.font.deriveFont((float)Ecran.getHeight()/20));
-            buffer.drawString("score: "+ (score/scoreMax)*100 +"%", (int)(Ecran.getWidth()*0.80), (int)Ecran.getHeight()/20);
+            buffer.drawString("score: "+((score/scoreMax)*100)+"%", (int)(Ecran.getWidth()*0.80), (int)Ecran.getHeight()/20);//FIXME
             g.drawImage(ArrierePlan,0,0,this);
         }
         public void paintBackGround(Graphics g, Rectangle aframe){
@@ -238,10 +242,15 @@ public class GameWindow extends JFrame{
 				//note.add(new Note("D",this.Ecran,0.5,elapsedTime));
 				songMaster.seen=1;
 			}
-            
-            //test.move(elapsedTime);
-            pointeur.move(time,Karaok.freqmaster.mainFreq);
-            pointeur.changeColor(Math.abs(587.33-Karaok.freqmaster.mainFreq));
+			
+            scoreTemp=Score.calculScore(score,scoreMax,songMaster.currNote,Karaok.freqmaster.mainFreq);
+            if(scoreTemp!=-1)
+			{
+					score+=scoreTemp;
+					scoreMax+=10;
+			}
+			pointeur.move(time,Karaok.freqmaster.mainFreq);
+            pointeur.changeColor((10-scoreTemp)*10);
             elapsedTime=(System.currentTimeMillis()-startTime)/1000;
             songMaster.elapsedTime=elapsedTime;
             lyrics.setText(String.valueOf(songMaster.elapsedTime));

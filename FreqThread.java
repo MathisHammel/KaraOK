@@ -168,7 +168,7 @@ public class FreqThread extends Thread{ //frequency manager
                 double out=-1;
                 for(i=0;i<freq.length;i++)
                 {
-                        if(in==notes[i]){
+                        if(notes[i].equals(in)){
                                 out=freq[i];
                         }
                 }
