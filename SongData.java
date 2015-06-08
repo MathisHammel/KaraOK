@@ -109,10 +109,11 @@ public class SongData extends Thread {
                                 if(lyricsRead!=1 && notesRead==1){
                                         notesTime[index]=Float.parseFloat(sCurrentLine);
 										sCurrentLine = br.readLine();
-										notesEnd[index]=Float.parseFloat(sCurrentLine);
+										notesData[index]=sCurrentLine;
 										notesDuration[index]=notesEnd[index]-notesTime[index];
                                         sCurrentLine = br.readLine();
-                                        notesData[index]=sCurrentLine;
+                                        notesEnd[index]=Float.parseFloat(sCurrentLine);
+										
 										if(index>0 && DEBUG_MODE && (notesTime[index]<=notesTime[index-1] || notesEnd[index]<=notesEnd[index-1]))
                                         {
                                                 System.out.println("[DEBUG]Notes timestamps in the wrong order");

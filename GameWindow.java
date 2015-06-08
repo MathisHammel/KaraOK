@@ -159,7 +159,7 @@ public class GameWindow extends JFrame{
             pointeur.draw(time,buffer); // draw last
             buffer.setColor(Color.white);
             buffer.setFont(Content.font.deriveFont((float)Ecran.getHeight()/20));
-            buffer.drawString("score: "+((score/scoreMax)*100)+"%", (int)(Ecran.getWidth()*0.80), (int)Ecran.getHeight()/20);//FIXME
+            buffer.drawString("score: "+((score/scoreMax)*100)+"%", (int)(Ecran.getWidth()*0.80), (int)Ecran.getHeight()/20);
             g.drawImage(ArrierePlan,0,0,this);
         }
         public void paintBackGround(Graphics g, Rectangle aframe){
@@ -253,7 +253,7 @@ public class GameWindow extends JFrame{
             pointeur.changeColor((10-scoreTemp)*10);
             elapsedTime=(System.currentTimeMillis()-startTime)/1000;
             songMaster.elapsedTime=elapsedTime;
-            lyrics.setText(String.valueOf(songMaster.elapsedTime));
+            lyrics.setText(songMaster.currLyrics);
             repaint();
    
             if(elapsedTime>songEnd)
