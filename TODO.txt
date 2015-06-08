@@ -1,19 +1,10 @@
 TODO:
 
-[ ]Revoir la découpe des morceaux + ajouter un court blanc au tout début -> 
-[X]Revoir pointeur (inverser le déplacement)
-[ ]Intégrer les threads (songdata)
-[X]Supprimer SongData et l'intégrer à Content ?? en fait non, le thread ça gère
-[ ]page de score (en cours)
-[X]faires les images pour les boutons : -> Plus besoin sauf restart qui vient d'être (re)fait
-	EXIT (on/Off)
-	MENU (on/off)
-	RESUME (on/off)
-	RESTART (on/off)
-	END (on/off)
-	replay (image)(on/off)
-[ ]Corriger ces putain de fautes dans le menu pause et aussi "Are you sure you wan't to leave?"
-[ ]Refaire le calcul de la couleur pointeur ? (Semble faux
-[ ]Y'a 2 fois "Leave Game" dans le menu pause
+Revoir la découpe des morceaux + ajouter un court blanc au tout début -> 
+Refaire le calcul de la couleur pointeur ? (Semble faux) (en fait c'est bon je crois)
+Leeees noooooooooootes !
+Score total
+
+
 
 
