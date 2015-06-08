@@ -109,10 +109,10 @@ public class SongData extends Thread {
                                 if(lyricsRead!=1 && notesRead==1){
                                         notesTime[index]=Float.parseFloat(sCurrentLine);
 										sCurrentLine = br.readLine();
-                                        notesData[index]=sCurrentLine;
-										sCurrentLine = br.readLine();
 										notesEnd[index]=Float.parseFloat(sCurrentLine);
 										notesDuration[index]=notesEnd[index]-notesTime[index];
+                                        sCurrentLine = br.readLine();
+                                        notesData[index]=sCurrentLine;
 										if(index>0 && DEBUG_MODE && (notesTime[index]<=notesTime[index-1] || notesEnd[index]<=notesEnd[index-1]))
                                         {
                                                 System.out.println("[DEBUG]Notes timestamps in the wrong order");
@@ -162,65 +162,51 @@ public class SongData extends Thread {
 				
                 
                 while(!end)
-                {                 
-					indexLyrics=currLyrics(elapsedTime);
-					indexNotes=currNote(elapsedTime);
-					indexRect=currNote(elapsedTime-5);
-					
-					currLyrics=lyricsData[indexLyrics];
-					
-					if(indexNotes==-1)
-					{
-						currNote="";
-					}
-					else
-					{
-						currNote=notesData[indexNotes];
-					}
-					
-					
+                {                                        
+                                while(lyricsTime[indexLyrics+1]<=elapsedTime && lyricsTime[indexLyrics+1]>=0.1)
+                                {
+                                        indexLyrics++;
+                                        currLyrics=lyricsData[indexLyrics];
+										System.out.println(currLyrics);
+                                        if(DEBUG_MODE){System.out.println("[DEBUG]Lyrics : "+currLyrics);}
+                                }
+                        
+
+                                while(notesTime[indexNotes+1]<=elapsedTime && notesTime[indexNotes+1]>=0.1)
+                                {
+                                        indexNotes++;
+										if(DEBUG_MODE){System.out.println("[DEBUG]Note : "+currNote);}
+                                }
+								
+								if(notesEnd[indexNotes]>elapsedTime)
+								{
+									currNote=notesData[indexNotes];
+                                }
+								else
+								{
+									currNote="";
+								}
+								
+								
+								while(notesTime[indexRect+1]<=elapsedTime+5 && notesTime[indexRect+1]>=0.1)
+                                {
+                                        indexRect++;
+										seen=0;
+										/*currRectPitch=notesData[indexRect];
+										currRectDuration=notesDuration[indexRect];
+										if(DEBUG_MODE){System.out.println("[DEBUG]Rectangle : "+currNote);}*/
+										
+										System.out.println(elapsedTime+" "+indexRect+" "+notesDuration[indexRect]);
+                                }																		
+
+                        
+                        if(elapsedTime>endTime)
+                        {
+                                if(DEBUG_MODE){System.out.println("[DEBUG]Reached end of song.");}
+                                end=true;
+                        }
 
                 }
                 
         }
-		
-		public int currLyrics(double elapsedTime)
-		{
-			int currIndex=0;
-			boolean found=false;
-			while(!found)
-			{
-				if(elapsedTime<this.lyricsTime[currIndex])
-				{
-					currIndex++;
-				}
-				else
-				{
-					found=true;
-				}
-			}
-			return(currIndex);
-		}
-		
-		public int currNote(double elapsedTime)
-		{
-			int currIndex=0;
-			boolean found=false;
-			while(!found)
-			{
-				if(elapsedTime<this.notesTime[currIndex])
-				{
-					currIndex++;
-				}
-				else
-				{
-					found=true;
-				}
-			}
-			if(elapsedTime>this.notesEnd[currIndex])
-			{
-				return(-1);
-			}
-			return(currIndex);
-		}
 }
