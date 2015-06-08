@@ -23,6 +23,7 @@ public class SongData extends Thread {
 		double[] notesEnd=new double[MAXLENGTH];
 		double[] notesDuration=new double[MAXLENGTH];
 		
+		int indexRect;
 		
                 
         int lyricsRead=0;
@@ -108,12 +109,10 @@ public class SongData extends Thread {
                                 if(lyricsRead!=1 && notesRead==1){
                                         notesTime[index]=Float.parseFloat(sCurrentLine);
 										sCurrentLine = br.readLine();
-										System.out.println(sCurrentLine);
-                                        notesEnd[index]=Float.parseFloat(sCurrentLine);
+										notesEnd[index]=Float.parseFloat(sCurrentLine);
 										notesDuration[index]=notesEnd[index]-notesTime[index];
                                         sCurrentLine = br.readLine();
                                         notesData[index]=sCurrentLine;
-										System.out.println(notesTime[index]+" "+notesEnd[index]+" "+notesData[index]);
 										if(index>0 && DEBUG_MODE && (notesTime[index]<=notesTime[index-1] || notesEnd[index]<=notesEnd[index-1]))
                                         {
                                                 System.out.println("[DEBUG]Notes timestamps in the wrong order");
@@ -159,14 +158,11 @@ public class SongData extends Thread {
                 
                 int indexLyrics=0;
                 int indexNotes=0;
-				int indexRect=0;
+				indexRect=0;
 				
                 
                 while(!end)
-                {                
-
-                        //if(DEBUG_MODE&&elapsedTime%1==0){System.out.println(elapsedTime);}
-                        
+                {                                        
                                 while(lyricsTime[indexLyrics+1]<=elapsedTime && lyricsTime[indexLyrics+1]>=0.1)
                                 {
                                         indexLyrics++;
@@ -196,9 +192,11 @@ public class SongData extends Thread {
                                 {
                                         indexRect++;
 										seen=0;
-										currRectPitch=notesData[indexRect];
+										/*currRectPitch=notesData[indexRect];
 										currRectDuration=notesDuration[indexRect];
-										if(DEBUG_MODE){System.out.println("[DEBUG]Rectangle : "+currNote);}
+										if(DEBUG_MODE){System.out.println("[DEBUG]Rectangle : "+currNote);}*/
+										
+										System.out.println(elapsedTime+" "+indexRect+" "+notesDuration[indexRect]);
                                 }																		
 
                         

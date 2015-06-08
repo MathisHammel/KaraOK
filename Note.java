@@ -8,7 +8,7 @@ public class Note extends Object {
     Rectangle Ecran;
     double creationTime;
     String note;
-    double frequency; // maybe not usefull
+    double frequency; // maybe useless
     boolean destroy;
     
     public Note(String anote, Rectangle aframe, double duration,double time ) {
@@ -46,7 +46,7 @@ public class Note extends Object {
     }
 
     @Override
-    void move(long t, double frquency) {
+    void move(long t, double frequency) {
         // nothing, no need
 
     }

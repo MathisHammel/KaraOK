@@ -144,6 +144,9 @@ public class GameWindow extends JFrame{
 
             paintBackGround(buffer,Ecran);
             test.draw(time,buffer);
+			for(int i=0;i<note.size();i++){
+                note.get(i).draw(time,buffer);
+            }
             
             paintAdd(buffer, Ecran);
             getContentPane().paintComponents(buffer);
@@ -195,6 +198,8 @@ public class GameWindow extends JFrame{
             if(startSet==0)
             {
                 startSet++;
+				songMaster.currNote="";
+				songMaster.currLyrics="";
             }
             if(startSet==1)
             {
@@ -202,11 +207,12 @@ public class GameWindow extends JFrame{
                 startTime=System.currentTimeMillis();
 				if (song==1) //We are the champions is strangely offset, so we have to do this
 				{
-					startTime+=5.0;
+					startTime+=5000;
+					songMaster.currLyrics="I've paid my dues";
 				}
             }
             
-            // Pause managment for time
+            // Pause management for time
             if(pauseStart!=0.0 && System.currentTimeMillis()-pauseStart>3000)
             {
                 pauseDuration=(System.currentTimeMillis()-pauseStart);
@@ -224,7 +230,9 @@ public class GameWindow extends JFrame{
 			
             if (songMaster.seen==0)
 			{
-				note.add(new Note(songMaster.currRectPitch,this.Ecran,(int)((songMaster.currRectDuration)*200),elapsedTime));
+				System.out.println("ReKT");
+				//note.add(new Note(songMaster.notesData[songMaster.indexRect],this.Ecran,songMaster.notesDuration[songMaster.indexRect],elapsedTime));
+				note.add(new Note("D",this.Ecran,0.5,elapsedTime));
 				songMaster.seen=1;
 			}
             
@@ -233,7 +241,7 @@ public class GameWindow extends JFrame{
             pointeur.changeColor(Math.abs(587.33-Karaok.freqmaster.mainFreq));
             elapsedTime=(System.currentTimeMillis()-startTime)/1000;
             songMaster.elapsedTime=elapsedTime;
-            lyrics.setText(songMaster.currLyrics);
+            lyrics.setText(songMaster.currNote);
             repaint();
    
             if(elapsedTime>songEnd)
