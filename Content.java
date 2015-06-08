@@ -7,8 +7,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+/**class Content
+ * this class contains all the data needed in other classes
+ */
 public class Content {
-    // this class contein all the content we need in the game
     
     // a table referencing all the song data for the  game Launcher
     public     static String[][] files = {{"songs\\Fun_cut.wav","songs\\queen_cut.wav","songs\\WATW.wav","songs\\beyonce.wav" }

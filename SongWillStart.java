@@ -7,14 +7,20 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+/**
+ * class SongWillStart extends JLabel
+ * this class create a delay of 3 seconds before the game restart
+ */
 public class SongWillStart extends JLabel{
-    Timer timer;
-    long time=0;
+    
+    Timer timer; // swing Timer
+    int time=0;
+    
     GameWindow game;
 
     /**
      * the SongWillStart constructor to create a PopUp message before the song start
-     * @param agame GameWindow
+     * @param agame the GameWindow where SongWillStart is needed
      */
     public SongWillStart(GameWindow agame) {
         super("",SwingConstants.CENTER);
@@ -35,8 +41,8 @@ public class SongWillStart extends JLabel{
         this.setFont(Content.font.deriveFont((float)game.Ecran.getHeight()/17));
         this.setText("<html><center>GET READY !<br> The song will start in: <br> .");
         
-        // create a new Label to update the time
-        // this was necessary to DEBUG this class
+        /* create a new Label to update the time
+         this was necessary to DEBUG this class*/
         JLabel timeRemaining = new JLabel("3");
         timeRemaining.setBounds((int)(game.Ecran.getWidth()*0.081),(int)(game.Ecran.getHeight()*0.225),(int)(game.Ecran.getWidth()*0.075), (int)(game.Ecran.getHeight()*0.075));
         timeRemaining.setBackground(Content.colors[2]);
@@ -59,12 +65,16 @@ public class SongWillStart extends JLabel{
         game.clip.start();
         game.timer.start();
     }
-    
-    
+
+
+    /**
+     * class TimerAction implements ActionListener
+     * this class is used to set actions displayed at each timerAction
+     */
     private class TimerAction implements ActionListener {
 
         /**
-         * Actione performed by the timer
+         * Action performed by the timer
          * @param e ActionEvent
          */
         public void actionPerformed(ActionEvent e) {

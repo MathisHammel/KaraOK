@@ -3,10 +3,20 @@ import java.awt.Graphics;
 
 import javax.swing.JLabel;
 
+/**
+ * class LightPad extends JLabel
+ * this class create a JLabel with specifique paint method 
+ * used in window.java and scoreWindow.java to generate the background
+ */
 public class LightPad extends JLabel{
     
     Color current ; // the current color of the LightPad
-    
+
+    /**LightPad constructor 
+     * create a LightPad with grey background at (x,y) position 
+     * @param x int x position
+     * @param y int y position  
+     */
     public LightPad(int x, int y){
         super();
         this.setBounds(x,y,50,50); 
