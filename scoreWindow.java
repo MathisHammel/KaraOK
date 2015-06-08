@@ -207,7 +207,7 @@ public class scoreWindow extends JFrame {
      */
     class closeListener implements ActionListener{
         /**
-         * Overide actionPerformed method
+         * Override actionPerformed method
          * System.exit.(0)
          * @param arg0 ActionEvent
          */
@@ -220,7 +220,7 @@ public class scoreWindow extends JFrame {
      */
     class minimizeListener implements ActionListener{
         /**
-         * Overide actionPerformed method
+         * Override actionPerformed method
          * minimize the window 
          * @param arg0 ActionEvent
          */
@@ -278,7 +278,7 @@ public class scoreWindow extends JFrame {
      */
     class exitListener implements ActionListener{
         /**
-         * Overide actionPerformed method
+         * Override actionPerformed method
          * create a PopUp element
          * @param arg0 ActionEvent
          */
@@ -293,7 +293,7 @@ public class scoreWindow extends JFrame {
      */
     class backListener implements ActionListener{ 
         /**
-         * Overide actionPerformed method
+         * Override actionPerformed method
          * change the state to Menu and stop the song 
          * @param arg0 ActionEvent
          */
@@ -307,7 +307,7 @@ public class scoreWindow extends JFrame {
      */
     class replayListener implements ActionListener{
         /**
-         * Overide actionPerformed method
+         * Override actionPerformed method
          * change state and close this window
          * @param arg0 ActionEvent
          */
@@ -324,7 +324,7 @@ public class scoreWindow extends JFrame {
      */
     class prevListener implements ActionListener{
         /**
-         * Overide actionPerformed method
+         * Override actionPerformed method
          * update the song, set state to Game ans close the window 
          * @param arg0 ActionEvent
          */
@@ -344,7 +344,7 @@ public class scoreWindow extends JFrame {
      */
     class nextListener implements ActionListener{
         /**
-         * Overide actionPerformed method
+         * Override actionPerformed method
          * update the song, set state to Game ans close the window 
          * @param arg0 ActionEvent
          */
