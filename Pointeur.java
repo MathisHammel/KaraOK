@@ -3,6 +3,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 
+/**class Pointeur extends Object
+ * this class create the pointeur that show the note currently singed
+ */
 public class Pointeur extends Object {
 
     Color color; // the color off pointeur
@@ -16,6 +19,11 @@ public class Pointeur extends Object {
     }
 
 
+    /**
+     * Override move method frome Object
+     * @param t time
+     * @param frequency the frequency currently singed
+     */
     void move(long t, double frequency) {
         
         y=(int)( ymax - ((frequency-440)/440)*(ymax-ymin));
@@ -27,6 +35,10 @@ public class Pointeur extends Object {
     }
 
 
+    /**Override the draw method from Object
+     * @param t time 
+     * @param g Graphics
+     */
     void draw(long t, Graphics g) {
         g.setColor(color);
         color = color.darker();
@@ -37,6 +49,10 @@ public class Pointeur extends Object {
         g.fillOval((int)x-l/2 +4, (int)y-h/2 +4, l-8, h-8);
 
     }
+
+    /**this method change the color of the pointeur depending of the delta between the note singed and the note expected 
+     * @param deltanote delta between the two notes
+     */
     public void changeColor ( double deltanote){
         if(deltanote==-1){color= Content.mainColor;}
         else if(deltanote<20){ color= Content.colors[5];}
