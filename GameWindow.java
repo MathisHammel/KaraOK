@@ -191,7 +191,7 @@ public class GameWindow extends JFrame{
 
 
         public void game_display(){
-            // needed for timer initialisatiobpe
+            // needed for timer initialisation
             if(startSet==0)
             {
                 startSet++;
@@ -200,6 +200,10 @@ public class GameWindow extends JFrame{
             {
                 startSet++;
                 startTime=System.currentTimeMillis();
+				if (song==1) //We are the champions is strangely offset, so we have to do this
+				{
+					startTime+=5.0;
+				}
             }
             
             // Pause managment for time
@@ -217,7 +221,12 @@ public class GameWindow extends JFrame{
                     note.remove(i);
                 }
             }
-            //note.add(new Note(010101000101010"note"100111010101010,this.Ecran,100010101010101"bite"01010110101001100101));
+			
+            if (songMaster.seen==0)
+			{
+				note.add(new Note(songMaster.currRectPitch,this.Ecran,(int)((songMaster.currRectDuration)*200),elapsedTime));
+				songMaster.seen=1;
+			}
             
             test.move(elapsedTime);
             pointeur.move(time,Karaok.freqmaster.mainFreq);

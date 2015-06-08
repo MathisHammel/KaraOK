@@ -32,6 +32,10 @@ public class SongData extends Thread {
         double endTime=1000;
         boolean end=false;
         double elapsedTime=0;
+		
+		int seen=1;
+		double currRectDuration=0.0;
+		String currRectPitch="";
         
         public SongData(String path){
                 filepath=path;
@@ -153,8 +157,10 @@ public class SongData extends Thread {
         {
                 
                 
-                int indexLyrics=-1;
-                int indexNotes=-1;
+                int indexLyrics=0;
+                int indexNotes=0;
+				int indexRect=0;
+				
                 
                 while(!end)
                 {                
@@ -173,17 +179,28 @@ public class SongData extends Thread {
                                 while(notesTime[indexNotes+1]<=elapsedTime && notesTime[indexNotes+1]>=0.1)
                                 {
                                         indexNotes++;
-										if(notesEnd[indexNotes]>elapsedTime)
-										{
-											currNote=notesData[indexNotes];
-                                        }
-										else
-										{
-											currNote="";
-										}
 										if(DEBUG_MODE){System.out.println("[DEBUG]Note : "+currNote);}
                                 }
-                        
+								
+								if(notesEnd[indexNotes]>elapsedTime)
+								{
+									currNote=notesData[indexNotes];
+                                }
+								else
+								{
+									currNote="";
+								}
+								
+								
+								while(notesTime[indexRect+1]<=elapsedTime+5 && notesTime[indexRect+1]>=0.1)
+                                {
+                                        indexRect++;
+										seen=0;
+										currRectPitch=notesData[indexRect];
+										currRectDuration=notesDuration[indexRect];
+										if(DEBUG_MODE){System.out.println("[DEBUG]Rectangle : "+currNote);}
+                                }																		
+
                         
                         if(elapsedTime>endTime)
                         {
