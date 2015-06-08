@@ -32,9 +32,9 @@ public class GameWindow extends JFrame{
 
 
     // static String[] song = ...
-		double startTime;
-		double elapsedTime;
-		SongData songMaster;
+  double startTime;
+  double elapsedTime;
+  SongData songMaster;
         Timer timer;
         long time;
         int score;
@@ -43,7 +43,7 @@ public class GameWindow extends JFrame{
         JLabel /*popup,*/ title, lyrics;
         boolean pop;
         Pointeur pointeur;
-		String currentLyrics="Lyrics";
+  String currentLyrics="Lyrics";
 
         BufferedImage ArrierePlan;
         Graphics buffer;
@@ -53,17 +53,17 @@ public class GameWindow extends JFrame{
         int song;
         static Karaok.State state;
         
-		double pauseStart;
-		double pauseDuration=0.0;
-		int startSet=0;
-		
-		double songEnd;
-		
-		
+  double pauseStart;
+  double pauseDuration=0.0;
+  int startSet=0;
+  
+  double songEnd;
+  
+  
         // pointeurs + notes.
         LinkedList <Note> note;
 
-		//SongData songMaster = new SongData();
+  //SongData songMaster = new SongData();
 
 
 
@@ -97,13 +97,13 @@ public class GameWindow extends JFrame{
             pointeur = new Pointeur(Ecran);
             // music
             song=asong;
-			
-			songMaster=new SongData(Content.files[3][song]);
-			songMaster.start();
-			startTime=System.currentTimeMillis();
-			
-			songEnd=Content.songEnd[song];
-			
+   
+   songMaster=new SongData(Content.files[3][song]);
+   songMaster.start();
+   startTime=System.currentTimeMillis();
+   
+   songEnd=Content.songEnd[song];
+   
             try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.titles[1][song]).getAbsoluteFile());
                     clip = AudioSystem.getClip();
@@ -196,35 +196,35 @@ public class GameWindow extends JFrame{
 
 
         public void game_display(){
-			if(startSet==0)
-			{
-				startSet++;
-			}
-			if(startSet==1)
-			{
-				startSet++;
-				startTime=System.currentTimeMillis();
-			}
-			
+   if(startSet==0)
+   {
+    startSet++;
+   }
+   if(startSet==1)
+   {
+    startSet++;
+    startTime=System.currentTimeMillis();
+   }
+   
             if(pauseStart!=0.0 && System.currentTimeMillis()-pauseStart>3000){
-				pauseDuration=(System.currentTimeMillis()-pauseStart);
-				System.out.println("Pause ended. Duration : "+pauseDuration+" ms");
-				startTime+=pauseDuration;
-				pauseStart=0.0;
-			}
-			
+    pauseDuration=(System.currentTimeMillis()-pauseStart);
+    System.out.println("Pause ended. Duration : "+pauseDuration+" ms");
+    startTime+=pauseDuration;
+    pauseStart=0.0;
+   }
+   
             test.move(time);
             pointeur.move(time,Karaok.freqmaster.mainFreq); //FIXME
             pointeur.changeColor(Math.abs(587.33-Karaok.freqmaster.mainFreq));
-			elapsedTime=(System.currentTimeMillis()-startTime)/1000;
-			songMaster.elapsedTime=elapsedTime;
-			lyrics.setText(songMaster.currLyrics);
+   elapsedTime=(System.currentTimeMillis()-startTime)/1000;
+   songMaster.elapsedTime=elapsedTime;
+   lyrics.setText(songMaster.currLyrics);
             repaint();
-			
-			if(elapsedTime>songEnd)
-			{
-				state=Karaok.State.Win;	
-			}
+   
+   if(elapsedTime>songEnd)
+   {
+    state=Karaok.State.Win; 
+   }
 
         }
 
@@ -257,13 +257,13 @@ public class GameWindow extends JFrame{
             int code = e.getKeyCode();
             switch (code){
             case KeyEvent.VK_ESCAPE: 
-				pauseStart=System.currentTimeMillis();
+    pauseStart=System.currentTimeMillis();
                 state=Karaok.State.Pause;
                 PopUp jop = new PopUp(GameWindow.this);            
                 break;
             
             case KeyEvent.VK_P:
-				pauseStart=System.currentTimeMillis();
+    pauseStart=System.currentTimeMillis();
                 System.out.println("[DEBUG] P Key pressed");
                 state=Karaok.State.Pause;
                 }

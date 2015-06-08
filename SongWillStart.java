@@ -33,7 +33,7 @@ public class SongWillStart extends JLabel{
         this.setOpaque(true);
         this.setForeground(Color.white);
         this.setFont(Content.font.deriveFont((float)game.Ecran.getHeight()/17));
-        this.setText("<html><center>GET READY !<br> The song will start in: <br> ");
+        this.setText("<html><center>GET READY !<br> The song will start in: <br> .");
         
         // create a new Label to update the time
         // this was necessary to DEBUG this class
