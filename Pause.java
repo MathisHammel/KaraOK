@@ -1,37 +1,41 @@
 
 import java.awt.Color;
 
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 
+/**
+ * class Pause
+ * this is the Pause Menu
+ */
 public class Pause {
+    
     public GameWindow game;
+    
+    // Pause Components
+    public JLabel logo;
     public Button resume;
+    public Button restart;
+    public Button end;
     public Button backToMenu;
     public Button exitGame;
-    public Button restart;
-    public JLabel logo;
-    public Button end;
+    
 
 
     
     public Pause(GameWindow gamewindow) {
-        //super();
+        
         game=gamewindow;
 		
-        
         // stop timer and song 
         game.clip.stop();
         game.timer.stop();
         
-        // create logo Label <======= FIXME
+        // create logo Label 
         logo = new JLabel("PAUSE",SwingConstants.CENTER);
         logo.setBackground(Content.colors[6]);
         logo.setOpaque(true);
@@ -64,6 +68,7 @@ public class Pause {
         restart.addMouseListener(restart);
         game.getContentPane().add(restart);
         
+        // create end button to end the song and switch to scoreWindow
         end=new Button();
         end.setBounds((int)game.Ecran.getWidth()*5/12,(int)game.Ecran.getHeight()*4/10,(int)game.Ecran.getWidth()/6,(int)game.Ecran.getHeight()/15);
         end.setBorderPainted(false);
@@ -106,28 +111,53 @@ public class Pause {
         
         
     }
-    
+
+    /**
+     * class existListener implements ActionListener
+     * the ActionListener of exit Button
+     */
     class exitListener implements ActionListener{
-        
+
+        /**
+         * Overide actionPerformed method
+         * create a PopUp element 
+         * @param arg0 ActionEvent
+         */
         public void actionPerformed (ActionEvent arg0){
-            // create an OptionPane to be sure that player wants ton leave the game
             PopUp jop = new PopUp(game);            
                   
         }
     }
+
+    /**class restarListener implements ActionListener
+     * the ActionListener of restart Button
+     */
     class restartListener implements ActionListener{
-        
-        public void actionPerformed (ActionEvent arg0){
-            game.state=Karaok.State.Restart; // change the gamewindow state to Restart
-            System.out.println("[DEBUG] game restarted");
-        }
-    }
-    
-    class resumeListener implements ActionListener{
-        
+        /**
+         * Overide actionPerformed method
+         * set the state to Restart 
+         * @param arg0 ActionEvent
+         */
         public void actionPerformed (ActionEvent arg0){
             
-            game.state=Karaok.State.Game; // change the gamewindow state to Game
+            // change the gamewindow state to Restart
+            game.state=Karaok.State.Restart; 
+            
+        }
+    }
+    /**class resumeListener implements ActionListener
+     * the ActionListener of resume Button
+     */
+    class resumeListener implements ActionListener{
+        /**
+         * Overide actionPerformed method
+         * go back to the game 
+         * @param arg0 ActionEvent
+         */
+        public void actionPerformed (ActionEvent arg0){
+            
+            // change the gamewindow state to Game
+            game.state=Karaok.State.Game; 
             
             //remove all the pause's components
             game.getContentPane().remove(resume);
@@ -137,38 +167,45 @@ public class Pause {
             game.getContentPane().remove(logo);
             game.getContentPane().remove(end);
             
-            // restart song and timer
-            //game.clip.start(); 
-            //game.timer.restart();
             game.requestFocus(); // request focus back 
             
-            
-            System.out.println("[DEBUG] game resumed" );
-			
-            
         }
     }
+    /**class backListener implements ActionListener
+     * the ActionListener of backToMenu Button
+     */
     class backListener implements ActionListener{
-        
+        /**
+         * Overide actionPerformed method
+         * close the gamewindow and switch state to Menu 
+         * @param arg0 ActionEvent
+         */
         public void actionPerformed (ActionEvent arg0){
-            game.state=Karaok.State.Menu; // change gamewindow state to Menu
+            
+            // change gamewindow state to Menu
+            game.state=Karaok.State.Menu; 
             
             // dispose this gamewindow
-            System.out.println("[DEBUG] state changed to "+game.state);
             game.dispose();
-            System.out.println("[DEBUG] gamewindow disposed");
             
         }
     }
+    /**class endListener implements ActionListener
+     * the ActionListener of end Button
+     */
     class endListener implements ActionListener{
-        
+        /**
+         * Overide actionPerformed method
+         * close the gamewindow and switch state to Menu 
+         * @param arg0 ActionEvent
+         */
         public void actionPerformed (ActionEvent arg0){
-            game.state=Karaok.State.Win; // change gamewindow state to Menu
+            
+            // change gamewindow state to Menu
+            game.state=Karaok.State.Win; 
             
             // dispose this gamewindow
-            System.out.println("[DEBUG] state changed to "+game.state);
             game.dispose();
-            System.out.println("[DEBUG] gamewindow disposed");
             
         }
     }
