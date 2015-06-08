@@ -59,7 +59,7 @@ public class Button extends JButton implements MouseListener  {
   }
 
     /**
-     * Overide setIcon methode
+     * Overide setIcon method
      * @param image ImageIcon that will be the Icon of the button 
      */
     protected void setIcon(ImageIcon image){
@@ -69,7 +69,7 @@ public class Button extends JButton implements MouseListener  {
 
 
     /**
-     * Overide mouseClicked methode
+     * Overide mouseClicked method
      * no actions
      * @param event MouseEvent
      */
@@ -78,7 +78,7 @@ public class Button extends JButton implements MouseListener  {
   }
 
     /**
-     * Overide mouseEntered methode
+     * Overide mouseEntered method
      * change the Icon of the Button to On 
      * @param event MouseEvent
      */
@@ -98,7 +98,7 @@ public class Button extends JButton implements MouseListener  {
   }
 
     /**
-     * Overide mousePressed methode
+     * Overide mousePressed method
      * no actions
      * @param event MouseEvent
      */
@@ -106,7 +106,7 @@ public class Button extends JButton implements MouseListener  {
 
   }
     /**
-     * Overide mouseReleased methode
+     * Overide mouseReleased method
      * no actions
      * @param event MouseEvent
      */
