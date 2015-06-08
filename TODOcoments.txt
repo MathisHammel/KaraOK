@@ -2,9 +2,17 @@
 [ ]Button.java
 [ ]Content.java
 [ ]FreqThread.java
+[ ]GameWindow.java
+[ ]Karaok.java
 [ ]LightPad.java
 [ ]Note.java
 [ ]Object.java
 [ ]pause.java
 [ ]Pointeur.java
+[ ]PopUp.java
+[ ]ScoreGraph.java
+[ ]scoreWindow.java
+[ ]SongData.java
+[ ]SongWillStart.java
+[ ]window.java
 [ ]window.java
