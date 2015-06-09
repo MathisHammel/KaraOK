@@ -1,7 +1,11 @@
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,40 +31,55 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 
+/**class GameWindow extends JFrame
+ * this is the class of the game 
+ */
 public class GameWindow extends JFrame{
-
-  double startTime;
-  double elapsedTime;
-  SongData songMaster;
+    
+        //time
+        double startTime; // date when the game start
+        double elapsedTime;
+        double pauseStart; // date when a pause start
+        double pauseDuration=0.0;
+        int startSet=0;
+        double songEnd;
+        
+        //song data
+        SongData songMaster;
+        String currentLyrics="Lyrics";
+        String currNote="";
+        
+        //timer
         Timer timer;
         long time;
-        int score;
-        boolean finjeu;
-        Note test;
+	
+        //scores	
+        int score=1;
+        int scoreMax=1;
+        int scorePercent=100;
+        double scoreTemp;
+		
+        // components 
         JLabel title, lyrics;
-        boolean pop;
+        LinkedList <Note> note;
         Pointeur pointeur;
-        String currentLyrics="Lyrics";
-
+        
+        // frame
         BufferedImage ArrierePlan;
         Graphics buffer;
         Rectangle Ecran;
-
+        
+        // song
         Clip clip;
         int song;
+        
+        //State
         static Karaok.State state;
         
-        double pauseStart;
-        double pauseDuration=0.0;
-        int startSet=0;
+        
   
-        double songEnd;
-  
-  
-        // pointeurs + notes.
-        LinkedList <Note> note;
-
-  //SongData songMaster = new SongData();
+        
+        
 
 
 
@@ -74,32 +93,40 @@ public class GameWindow extends JFrame{
             this.setLayout(null);
             getContentPane().setBackground(new Color(Color.TRANSLUCENT));
             
+            //icon of the window
             this.setIconImage(new ImageIcon(Content.icon).getImage());
             
+            // set the mic curseur 
+            Toolkit tk = Toolkit.getDefaultToolkit();
+            Image img = tk.getImage(Content.cursor);
+            Cursor cursor = tk.createCustomCursor(img, new Point(0, 0), "micro");
+            this.setCursor(cursor);
             
             // buffer
             Ecran=new Rectangle(getInsets().left,getInsets().top,getSize().width-getInsets().right-getInsets().left,getSize().height-getInsets().bottom-getInsets().top);
             ArrierePlan =new BufferedImage(getSize().width,getSize().height,BufferedImage.TYPE_INT_RGB);
             buffer = ArrierePlan.getGraphics();
-            // variables
-            time = 0;
-            score = 0;
-            finjeu=false;
-
             
-           //STATE !!!!!!!!!
+            // variables
+            time = 1;
+            score = 1;
+            
+           //STATE 
             state = Karaok.State.Game;
 
             pointeur = new Pointeur(Ecran);
+            
             // music
             song=asong;
-   
-            songMaster=new SongData(Content.files[3][song]);
+            
+            //song data
+            songMaster=new SongData(Content.titles[2][song]);
             songMaster.start();
             startTime=System.currentTimeMillis();
    
             songEnd=Content.songEnd[song];
    
+            //song 
             try {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(Content.titles[1][song]).getAbsoluteFile());
                     clip = AudioSystem.getClip();
@@ -111,14 +138,12 @@ public class GameWindow extends JFrame{
                 }
 
             // key adapter
-            this.addKeyListener(new GameKeyAdapter());
-
-            test = new Note("D",Ecran,3,0);
-		
+            this.addKeyListener(new GameKeyAdapter());		
 
             // timer
             timer = new Timer(10,new TimerAction());
             
+            //song title
             title = new JLabel(Content.titles[0][song],SwingConstants.CENTER);
             title.setOpaque(false);
             title.setForeground(Color.white);
@@ -126,6 +151,7 @@ public class GameWindow extends JFrame{
             title.setBounds(0,0,(int)Ecran.getWidth(),(int)Ecran.getHeight()/15);
             getContentPane().add(title);
             
+            //lyrics Label
             lyrics = new JLabel("Lyrics",SwingConstants.CENTER);
             lyrics.setOpaque(false);
             lyrics.setForeground(Color.white);
@@ -133,32 +159,41 @@ public class GameWindow extends JFrame{
             lyrics.setBounds((int)Ecran.getWidth()/6,(int)(Ecran.getHeight()*0.7),(int)(Ecran.getWidth()*5/6),(int)(Ecran.getHeight()*0.3));
             lyrics.setText("");
             getContentPane().add(lyrics);
-            // initialisation des notes:
+            
+            // initialisation of note:
             note= new LinkedList<Note>();
-			//note.add(test);
 
             setVisible(true);
 
 
         }
 
-        public void paint(Graphics g){
+    /**Override paint method
+     * paint all the components and all objects on the frame
+     * @param g Gtaphics
+     */
+    public void paint(Graphics g){
 
             paintBackGround(buffer,Ecran);
-            //test.draw(time,buffer);
-			for(int i=0;i<note.size();i++){
+            for(int i=0;i<note.size();i++){
                 note.get(i).draw(time,buffer);
             }
             
             paintAdd(buffer, Ecran);
             getContentPane().paintComponents(buffer);
-            pointeur.draw(time,buffer); // draw last
+            pointeur.draw(time,buffer); 
             buffer.setColor(Color.white);
             buffer.setFont(Content.font.deriveFont((float)Ecran.getHeight()/20));
-            buffer.drawString("score: "+ (score/scoreMax)*100 +"%", (int)(Ecran.getWidth()*0.80), (int)Ecran.getHeight()/20);
+            buffer.drawString("score: "+ scorePercent+"%", (int)(Ecran.getWidth()*0.80), (int)Ecran.getHeight()/20);
             g.drawImage(ArrierePlan,0,0,this);
         }
-        public void paintBackGround(Graphics g, Rectangle aframe){
+
+    /**this method is used to paint the back ground
+     * the background color depend of the song played
+     * @param g Graphics
+     * @param aframe the frame Rectangle
+     */
+    public void paintBackGround(Graphics g, Rectangle aframe){
             g.setColor(Content.background[song*2]);
             g.fillRect(0, 0, (int)aframe.getWidth(),(int) aframe.getHeight());
             g.setColor(Content.background[song*2+1]);
@@ -168,23 +203,50 @@ public class GameWindow extends JFrame{
             }
         }
 
-        public void paintAdd(Graphics g, Rectangle aframe){
+    /**this method is used to paint the second part of the background
+     * always paint after note, to hide them when they passed the pointeur
+     * @param g Graphics 
+     * @param aframe the frame Rectangle
+     */
+    public void paintAdd(Graphics g, Rectangle aframe){
             g.setColor(Content.background[song*2]);
             g.fillRect(0,0,(int)aframe.getWidth()/6,(int)aframe.getHeight());
             g.setColor(Content.background[song*2+1]);
             fillRectX(g,(int)aframe.getWidth()/6,0,(int)aframe.getWidth()/100,(int)aframe.getHeight());
         }
 
-        //dessine les rectangles en les centrant sur les coordonnées y !
-        public void fillRectY(Graphics g, int x, int y, int l, int h){
+        
+
+    /**this method fill a rectangle centered on Y pos
+     * @param g Graphics
+     * @param x x position
+     * @param y y position
+     * @param l length
+     * @param h height
+     */
+    public void fillRectY(Graphics g, int x, int y, int l, int h){
             g.fillRect(x,y-h/2,l,h);
-        }
-        public void fillRectX(Graphics g, int x, int y, int l, int h){
+    }
+        /**this method fill a rectangle centered on X pos
+         * @param g Graphics
+         * @param x x position
+         * @param y y position
+         * @param l length
+         * @param h height
+         */
+    public void fillRectX(Graphics g, int x, int y, int l, int h){
             g.fillRect(x-l/2,y,l,h);
-        }
-
+    }
+        
+        /**
+         * class TimerAction implements ActionListener
+         * this class is used to set actions displayed at each timerAction
+         */
         private class TimerAction implements ActionListener {
-
+            /**
+             * Action performed by the timer
+             * @param e ActionEvent
+             */
             public void actionPerformed(ActionEvent e) {
                 game_display();
                 time++;
@@ -194,8 +256,9 @@ public class GameWindow extends JFrame{
         }
 
 
-
-        public void game_display(){
+    /**actions performed on each timer action
+     */
+    public void game_display(){
             // needed for timer initialisation
             if(startSet==0)
             {
@@ -218,33 +281,50 @@ public class GameWindow extends JFrame{
             if(pauseStart!=0.0 && System.currentTimeMillis()-pauseStart>3000)
             {
                 pauseDuration=(System.currentTimeMillis()-pauseStart);
-                System.out.println("Pause ended. Duration : "+pauseDuration+" ms");
                 startTime+=pauseDuration;
                 pauseStart=0.0;
             }
             
+            // update the Notes into LinkedList
+            boolean find=false;
             for(int i=0;i<note.size();i++){
+                //move
                 note.get(i).move(elapsedTime);
-
-                if(note.get(i).destroy){
+                //destroye
+                if(note.get(i).destroy && note.size()!=1){
                     note.remove(i);
                 }
+                //get the currNote if foundd
+                if(note.get(i).onCurseur){
+                    currNote=note.get(i).note;
+                    find = true;
+                }
             }
-			
+            if(!find){
+                currNote="";
+            }
+            
+            //create a new Note in the LinkedList
             if (songMaster.seen==0)
 			{
-				System.out.println("Created note with params : "+songMaster.notesData[songMaster.indexRect]+" "+songMaster.notesDuration[songMaster.indexRect]+" "+elapsedTime);
 				note.add(new Note(songMaster.notesData[songMaster.indexRect],this.Ecran,songMaster.notesDuration[songMaster.indexRect],elapsedTime));
-				//note.add(new Note("D",this.Ecran,0.5,elapsedTime));
 				songMaster.seen=1;
 			}
+			
+            // score            
+            scoreTemp=Score.calculScore(currNote,Karaok.freqmaster.mainFreq);
+            if(scoreTemp!=-1)
+			{
+					score+=scoreTemp;
+					scoreMax+=10;
+                                        scorePercent=100*score/scoreMax;
+			}
             
-            //test.move(elapsedTime);
             pointeur.move(time,Karaok.freqmaster.mainFreq);
-            pointeur.changeColor(Math.abs(587.33-Karaok.freqmaster.mainFreq));
+            pointeur.changeColor(scoreTemp);
             elapsedTime=(System.currentTimeMillis()-startTime)/1000;
             songMaster.elapsedTime=elapsedTime;
-            lyrics.setText(String.valueOf(songMaster.elapsedTime));
+            lyrics.setText(songMaster.currLyrics);
             repaint();
    
             if(elapsedTime>songEnd)
@@ -270,7 +350,6 @@ public class GameWindow extends JFrame{
             
             case KeyEvent.VK_P:
     pauseStart=System.currentTimeMillis();
-                System.out.println("[DEBUG] P Key pressed");
                 state=Karaok.State.Pause;
                 }
             }

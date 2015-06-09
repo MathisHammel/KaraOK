@@ -12,6 +12,9 @@ public class Karaok {
     // the song 
     public static int song; 
     
+    //score
+    public static double score;
+    
     // the Thread that manage the mic 
     public static FreqThread freqmaster;
 
@@ -63,11 +66,12 @@ public class Karaok {
                         a=1;
                     }
                     state= gamewindow.state;
+                score=gamewindow.scorePercent;
                 break;
                    
                 case Win : //scoreWindow 
                     if(a!=3){
-                        scorewindow=new scoreWindow(song); //create a scoreWindow
+                        scorewindow=new scoreWindow(song,score); //create a scoreWindow
                         a=3;
                     }
                     song=scorewindow.song;

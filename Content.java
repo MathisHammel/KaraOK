@@ -13,14 +13,14 @@ import java.io.InputStream;
 public class Content {
     
     // a table referencing all the song data for the  game Launcher
-    public     static String[][] files = {{"songs\\Fun_cut.wav","songs\\queen_cut.wav","songs\\WATW.wav","songs\\KB.wav" }
+    public     static String[][] files = {{"songs\\Fun_cut.wav","songs\\queen_cut.wav","songs\\WATW_cut.wav","songs\\KB.wav" }
                                ,{"img\\fun-we-are-young.png","img\\WATC.png", "img\\WATW.png","img\\KanaBoon.png"}
-                               ,{"<html><center>&#9835&#9835 FUN &#9835&#9835<br> we are young","<html><center>&#9835&#9835 QUEEN &#9835&#9835<br> we are the champions", "<html><center>&#9835 USA FOR AFRICA &#9835<br> we are the world","<html><center>&#9835&#9835&#9835 kana-boon &#9835&#9835&#9835<br> silhouette"}
-                                ,{"We_are_young.txt","We_are_the_champions.txt","We_are_the_world.txt","KanaBoon.txt"}};
+                               ,{"<html><center>&#9835&#9835 FUN &#9835&#9835<br> we are young","<html><center>&#9835&#9835 QUEEN &#9835&#9835<br> we are the champions", "<html><center>&#9835 USA FOR AFRICA &#9835<br> we are the world","<html><center>&#9835&#9835&#9835 kana-boon &#9835&#9835&#9835<br> silhouette"}};
     
     // a table referencing all the song data needed in game window 
     public static String[][] titles = {{"FUN: We are young", "QUEEN: We are the champions", "USA FOR AFRICA: We are the world","KANA-BOON: silhouette"},
-                                       {"songs\\Fun.wav","songs\\queen.wav","songs\\WATW.wav","songs\\KB.wav"}};
+                                       {"songs\\Fun.wav","songs\\queen.wav","songs\\WATW.wav","songs\\KB.wav"}
+                                       ,{"We_are_young.txt","We_are_the_champions.txt","We_are_the_world.txt","KanaBoon.txt"}};
     
     
     //the time when the song is done
@@ -61,5 +61,5 @@ public class Content {
     }
     
     // table referencing notes data
-    static String[] notes ={"A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"};
+    static String[] notes ={"B","C","Db","D","Eb","E","F","Gb","G","Ab","Bb","A"};
 }

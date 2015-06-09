@@ -22,7 +22,7 @@ public class FreqThread extends Thread{
         double mainFreq;
         String note;
         
-		//these params define the audio line settings
+        //these params define the audio line settings
         float sampleRate = 44100;
         int sampleSizeInBits = 8;
         int channels = 1;
@@ -36,7 +36,6 @@ public class FreqThread extends Thread{
                         bigEndian);
 
         int numBytesRead;
-          
 		  
         double mes=0;
         double prev=0;
@@ -48,14 +47,10 @@ public class FreqThread extends Thread{
          byte[] data = new byte[1024];
          
          DataLine.Info    info = new DataLine.Info(TargetDataLine.class, format);
-            TargetDataLine    target = null;
+         TargetDataLine    target = null;
          
         
         public FreqThread(){
-        
-        
-    
-            
 
             
             try
@@ -73,60 +68,56 @@ public class FreqThread extends Thread{
 
 
 
-
-  
-  System.out.println("Src buffer size : "+target.getBufferSize());
-
-  // Begin audio capture.
-  target.start();
+            // Begin audio capture.
+            target.start();
 
   
         }
         
- public void run(){
+        public void run(){
 
- while (!stopped) {
-    avg=0.0;
-
-        // Read the next chunk of data from the TargetDataLine.
-    numBytesRead =  target.read(data, 0, data.length);
-
-		// Compute the chunk amplitude
-    for(j=0;j<data.length;j++)
-    {
-        avg+=data[j];
-    }
-	avg/=data.length;
+            while (!stopped) {
+            avg=0.0;
     
-		//normalize samples to an overall absolute average of 1
-	for(j=0;j<data.length;j++)
-    {
-        data[j]/=avg;
-    }
+            // Read the next chunk of data from the TargetDataLine.
+            numBytesRead =  target.read(data, 0, data.length);
 
-		//compute the autocorrelation and store result in variables
-    mes=Autocorrelate.freq(data);
-    if(mes==-44100.0){
-            mes=prev;
-    }
-    else
-    {
-            prev=mes;
-    }
+            // Compute the chunk amplitude
+            for(j=0;j<data.length;j++)
+            {
+                avg+=data[j];
+            }
+                avg/=data.length;
+    
+            //normalize samples to an overall absolute average of 1
+            for(j=0;j<data.length;j++)
+            {
+                data[j]/=avg;
+            }
 
-    this.freq=mes;
-    this.mainFreq=getMainFreq(mes);
-    this.note=getNote(this.mainFreq);
-
-  }
- }
-    /**
+            //compute the autocorrelation and store result in variables
+            mes=Autocorrelate.freq(data);
+            if(mes==-44100.0){
+                    mes=prev;
+            }
+            else
+            {
+                    prev=mes;
+            }
+        
+            this.freq=mes;
+            this.mainFreq=getMainFreq(mes);
+            this.note=getNote(this.mainFreq);
+        
+            }
+        }
+        /**
 	*public getMainFreq
 	*this method computes a main frequency between 440.0 and 880.0 for any given frequency
 	*
 	*/
 	
-    public static double getMainFreq(double in)
+        public static double getMainFreq(double in)
         {
                 if(in < 440.0 && in > 0)
                 {
@@ -147,7 +138,7 @@ public class FreqThread extends Thread{
         
 		
 
-			//This method returns a string note if you give any mainfreq
+        //This method returns a string note if you give any mainfreq
         public static String getNote(double in){
                 int i;
                 int ecart=50;
@@ -156,7 +147,7 @@ public class FreqThread extends Thread{
                 String[] notes = {"A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab","A"};
                 double[] freq = {440.0 , 466.16 , 493.88 , 523.25 , 554.37 , 587.33 , 622.25 , 659.25 , 698.46 , 739.99 , 783.99 , 830.61 , 880.0};
                 //here, we iterate to see which frequency is closest
-				for(i=0;i<notes.length;i++)
+                for(i=0;i<notes.length;i++)
                 {
                         if(Math.abs(getMainFreq(in)-freq[i])<ecart)
                         {
@@ -168,7 +159,7 @@ public class FreqThread extends Thread{
                 return out;
         }
         
-			//This method is the opposite of getNote, it returns the frequency associated to the input note
+        //This method is the opposite of getNote, it returns the frequency associated to the input note
         public static double getFreq(String in){
                 String[] notes = {"A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"};
                 double[] freq = {440.0 , 466.16 , 493.88 , 523.25 , 554.37 , 587.33 , 622.25 , 659.25 , 698.46 , 739.99 , 783.99 , 830.61};

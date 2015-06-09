@@ -21,11 +21,11 @@ public class ScoreGraph extends JPanel {
     //scores
     int scoreRect; // the actual Height of the score rectangle
     int score; // the height final height of score rectangle
-    int sc; // the real score
+    double sc; // the real score
     
     // edges of rectangles 
     static int ymin=49, ymax=298;
-    static int scoremax=5000;
+    
     
     // components 
     JLabel dancer;
@@ -57,7 +57,7 @@ public class ScoreGraph extends JPanel {
         }
         
         // set scores
-        score=(int)(scorewindow.score*ymax/scoremax) ;
+        score=(int)(sc*ymax/100) ;
         scoreRect=ymax;
         
         // create MichaelJackson 
@@ -106,6 +106,11 @@ public class ScoreGraph extends JPanel {
         g.setColor(this.getBackground()); 
         g.fillRect(49,ymin+1,48,scoreRect); // this rectangle will get smaller 
         
+        //the score 
+        g.setColor(Color.white);
+        g.setFont(Content.font.deriveFont(16f));
+        g.drawString("score: "+(int)sc+"%", 12,375);
+        
         // paint dancefloor
         Graphics2D g2d = (Graphics2D)g;
         GradientPaint gp;
@@ -136,7 +141,6 @@ public class ScoreGraph extends JPanel {
                 scoreRect=ymax-(int)(score*(time-50)/(150+time*0.3));
                 dancer.setBounds(73, ymin+scoreRect-32, 100,100 );
                 if(i!=-1 && scoreRect<=stars[i].getY()-20){
-                    System.out.println("[DEBUG] i= " + i + "stars = " + stars[i].getY()+"scoreRect=" + scoreRect);
                     stars[i].setIcon(new ImageIcon("img\\NextPrev\\StarOn_small.png"));
                     stars[i+5].setIcon(new ImageIcon("img\\NextPrev\\StarOn.png"));
                     i--;

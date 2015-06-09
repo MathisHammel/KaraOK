@@ -2,7 +2,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 /**class Note extends Object
- * this is the object that will show the note to sing 
+ * this is the object that will show the note to sing.
  */
 public class Note extends Object {
     
@@ -20,6 +20,9 @@ public class Note extends Object {
     
     // when out of the frame
     boolean destroy;
+    
+    // note on curseur
+    boolean onCurseur =false;
 
     /**the Note Constructor 
      * @param anote the note this will represent
@@ -43,7 +46,7 @@ public class Note extends Object {
         while(!Content.notes[a].equals(note)){
             a++;
         }
-        y=(int)(ymin*(1+(11-a)*0.5) -h/2);
+        y=(int)(ymin*(1+(11-a)*0.5) -h/2  );
         
         destroy=false;
     }
@@ -66,9 +69,12 @@ public class Note extends Object {
     void move(double t) {
         double delta=t-creationTime;
         if(x+l>Ecran.getWidth()/6){
-            x= (int)(Ecran.getWidth()/6 + Ecran.getWidth()*5/6 *(1- delta/5.0));
+            x= (int)(Ecran.getWidth()/6 + Ecran.getWidth()*5/6 *(1- delta/5));
         }else{
             destroy=true;
+        }
+        if(x<=Ecran.getWidth()/6 && x+l>=Ecran.getWidth()/6){
+            onCurseur=true;
         }
     }
 

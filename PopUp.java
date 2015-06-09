@@ -16,7 +16,7 @@ public class PopUp extends JOptionPane {
         super();
                     
         int option = this.showConfirmDialog(null, 
-                    "wallah're you sure you want to leave ?", // message
+                    "Are you sure you want to leave ?", // message
                     "Leaving game",                           // Frame name
                     JOptionPane.YES_NO_OPTION,                //type of answer
                     JOptionPane.WARNING_MESSAGE);             // type of JOptionPane  

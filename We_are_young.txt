@@ -1,4 +1,6 @@
 BEGIN LYRICS
+8.2
+Give me a second I
 8.6
 Give me a second I 
 10.3
@@ -47,6 +49,9 @@ END LYRICS
 
 
 BEGIN NOTES
+8.5
+C
+8.6
 8.6
 C
 9.3
@@ -295,7 +300,7 @@ A
 53.2
 53.2
 E
-55.1
+54.1
 54.1
 F
 54.9

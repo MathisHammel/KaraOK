@@ -30,7 +30,7 @@ import javax.swing.SwingConstants;
 
 public class scoreWindow extends JFrame {
     //score
-    int score;
+    double score;
     ScoreGraph scoreGraph;
     
     //song
@@ -52,7 +52,7 @@ public class scoreWindow extends JFrame {
     // State
     Karaok.State state;
     
-    public scoreWindow( int song) {
+    public scoreWindow( int song, double score) {
         
         this.song=song;
         
@@ -169,7 +169,7 @@ public class scoreWindow extends JFrame {
         exitGame.addMouseListener(exitGame);
         getContentPane().add(exitGame);
         
-        score= 0; //FIXME
+        this.score= score; 
         
         // the ScoreGraph component
         scoreGraph=new ScoreGraph(this);
@@ -267,7 +267,6 @@ public class scoreWindow extends JFrame {
         lightPad[pos].update();
         pos = (int)(Math.random()*(lightPad.length-1));
         lightPad[pos].downdate();
-        System.out.println("[DEBUG] "+time);
         scoreGraph.update(time);
         repaint();
         

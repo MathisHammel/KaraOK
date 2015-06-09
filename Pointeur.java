@@ -13,8 +13,8 @@ public class Pointeur extends Object {
 
     public Pointeur(Rectangle aframe) {
         super((int)aframe.getWidth()/6, (int)aframe.getHeight()/2, (int)aframe.getHeight()/10, (int)aframe.getHeight()/20,  0,  0,  0 , aframe, "pointeur");
-        ymin=(int)aframe.getHeight()/10;
-        ymax=ymin*7;
+        ymin=(int)(aframe.getHeight()*0.1);
+        ymax=(int)(aframe.getHeight()*0.7);
         color= Content.mainColor;
     }
 
@@ -50,15 +50,15 @@ public class Pointeur extends Object {
 
     }
 
-    /**this method change the color of the pointeur depending of the delta between the note singed and the note expected 
-     * @param deltanote delta between the two notes
+    /**this method change the color of the pointeur depending of score calculated for this note 
+     * @param score the score calculated for this note
      */
-    public void changeColor ( double deltanote){
-        if(deltanote==-1){color= Content.mainColor;}
-        else if(deltanote<20){ color= Content.colors[5];}
-        else if(deltanote<40){color= Content.colors[2];}
-        else if(deltanote<60){color= Content.colors[6];}
-            else if (deltanote>=60){color = Content.colors[10];}
+    public void changeColor ( double score){
+        if(score==-1){color= Content.mainColor;}
+        else if(score>6){ color= Content.colors[5];}
+        else if(score>3){color= Content.colors[2];}
+        else if(score>0){color= Content.colors[6];}
+            else if (score==0){color = Content.colors[10];}
     }
 }
 

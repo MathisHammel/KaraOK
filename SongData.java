@@ -2,29 +2,28 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**class SongData extends Thread
+ * this class will read a .txt to find some data
+ */
 public class SongData extends Thread {
-                        
-        
-        
-                        final boolean DEBUG_MODE=true;
-        
-                        
+                    
+        final boolean DEBUG_MODE=false;
+                 
         String currNote="";
         String currLyrics="";
                         
         static String filepath="";
         final int MAXLENGTH=1000;
-                
-
+        
+        // tables of data     
         String[] lyricsData=new String[MAXLENGTH];
         double[] lyricsTime=new double[MAXLENGTH];
         String[] notesData=new String[MAXLENGTH];
         double[] notesTime=new double[MAXLENGTH];
-		double[] notesEnd=new double[MAXLENGTH];
-		double[] notesDuration=new double[MAXLENGTH];
+        double[] notesEnd=new double[MAXLENGTH];
+        double[] notesDuration=new double[MAXLENGTH];
 		
-		int indexRect;
-		
+        int indexRect;
                 
         int lyricsRead=0;
         int notesRead=0;
@@ -34,20 +33,23 @@ public class SongData extends Thread {
         boolean end=false;
         double elapsedTime=0;
 		
-		int seen=1;
-		double currRectDuration=0.0;
-		String currRectPitch="";
+        int seen=1;
+        double currRectDuration=0.0;
+        String currRectPitch="";
+
+    /**SongData constructor
+     * read all the file and fill the tables using special synthaxe used in the file
+     * @param path the path of the file .txt
+     */
+    public SongData(String path){
         
-        public SongData(String path){
                 filepath=path;
 
-
-
                 if(DEBUG_MODE){System.out.println("[DEBUG]Timer started at time : "+startTime);}
+                
                 BufferedReader br = null;
 
 
-                
                 try {
  
                         String sCurrentLine;
@@ -55,10 +57,6 @@ public class SongData extends Thread {
                         int index=0;
  
                         while ((sCurrentLine = br.readLine()) != null) {
-                                
-                                
-                                //System.out.println(sCurrentLine);
-
 
                                 
                                 if(sCurrentLine.equals("BEGIN LYRICS")){
@@ -108,13 +106,12 @@ public class SongData extends Thread {
 
                                 if(lyricsRead!=1 && notesRead==1){
                                         notesTime[index]=Float.parseFloat(sCurrentLine);
-										sCurrentLine = br.readLine();
-										notesData[index]=sCurrentLine;
-										notesDuration[index]=notesEnd[index]-notesTime[index];
+                                        sCurrentLine = br.readLine();
+                                        notesData[index]=sCurrentLine;
                                         sCurrentLine = br.readLine();
                                         notesEnd[index]=Float.parseFloat(sCurrentLine);
-										
-										if(index>0 && DEBUG_MODE && (notesTime[index]<=notesTime[index-1] || notesEnd[index]<=notesEnd[index-1]))
+                                        notesDuration[index]=notesEnd[index]-notesTime[index];
+                                        if(index>0 && DEBUG_MODE && (notesTime[index]<=notesTime[index-1] || notesEnd[index]<=notesEnd[index-1]))
                                         {
                                                 System.out.println("[DEBUG]Notes timestamps in the wrong order");
                                         }
@@ -143,23 +140,21 @@ public class SongData extends Thread {
                                 ex.printStackTrace();
                         }
                 }
-                if(notesRead==2 && lyricsRead==2 && DEBUG_MODE==true)
-                {
-                        System.out.println("[DEBUG]File read went smooth as fuck.");
-                }
+                
         }
-        
-        
-        
-        
-        
-        public void run()
+
+
+    /**Override the run method from Thread
+     * this method set currLyrics and currNote following elapsedTime
+     * @return void
+     */
+    public void run()
         {
                 
                 
                 int indexLyrics=0;
                 int indexNotes=0;
-				indexRect=0;
+                indexRect=0;
 				
                 
                 while(!end)
@@ -168,36 +163,31 @@ public class SongData extends Thread {
                                 {
                                         indexLyrics++;
                                         currLyrics=lyricsData[indexLyrics];
-										System.out.println(currLyrics);
+										
                                         if(DEBUG_MODE){System.out.println("[DEBUG]Lyrics : "+currLyrics);}
                                 }
                         
 
                                 while(notesTime[indexNotes+1]<=elapsedTime && notesTime[indexNotes+1]>=0.1)
                                 {
-                                        indexNotes++;
-										if(DEBUG_MODE){System.out.println("[DEBUG]Note : "+currNote);}
+                                    indexNotes++;
+                                    if(DEBUG_MODE){System.out.println("[DEBUG]Note : "+currNote);}
                                 }
 								
-								if(notesEnd[indexNotes]>elapsedTime)
-								{
-									currNote=notesData[indexNotes];
+                                if(notesEnd[indexNotes]>elapsedTime)
+                                {
+                                    currNote=notesData[indexNotes];
+                                }else
+                                {
+                                    currNote="";
                                 }
-								else
-								{
-									currNote="";
-								}
 								
 								
-								while(notesTime[indexRect+1]<=elapsedTime+5 && notesTime[indexRect+1]>=0.1)
+                                while(notesTime[indexRect+1]<=elapsedTime+5 && notesTime[indexRect+1]>=0.1)
                                 {
                                         indexRect++;
-										seen=0;
-										/*currRectPitch=notesData[indexRect];
-										currRectDuration=notesDuration[indexRect];
-										if(DEBUG_MODE){System.out.println("[DEBUG]Rectangle : "+currNote);}*/
+                                        seen=0;					
 										
-										System.out.println(elapsedTime+" "+indexRect+" "+notesDuration[indexRect]);
                                 }																		
 
                         
